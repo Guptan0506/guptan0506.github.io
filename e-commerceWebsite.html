@@ -59,14 +59,14 @@
         .animate-scale-in {
             animation: scale-in 0.3s ease-out forwards;
         }
-        .home-button {
-            padding: 12px 20px;
+        .text-center {
             border-radius: 8px;
-            border: none;
+            padding: 10px;
+            margin: 10px;
             font-weight: 700;
             cursor: pointer;
-            background-color: #4f46e5;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: blue;
+            color: white;
         }
     </style>
 </head>
@@ -77,16 +77,17 @@
         <!-- Header will be rendered here by JavaScript -->
         <header id="app-header" class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg sticky top-0 z-50">
         </header>
-
+        
         <!-- Main content area where pages are rendered -->
         <main id="app-main" class="min-h-screen pb-10">
         </main>
 
         <!-- Custom Alert Modal will be rendered here -->
         <div id="custom-alert-container"></div>
+
         
         <!--To go back home-->
-        <div class="home-button">
+        <div class="text-center">
             <button><a href="index.html">Want to go back to my personal portfolio?</a></button>
         </div>
     </div>
