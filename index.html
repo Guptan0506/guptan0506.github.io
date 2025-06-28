@@ -41,10 +41,6 @@
                 <a href="#contact" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Contact</a>
             </div>
             <div class="flex items-center">
-                 <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none">
-                    <i data-feather="moon" class="w-5 h-5 block dark:hidden"></i>
-                    <i data-feather="sun" class="w-5 h-5 hidden dark:block"></i>
-                </button>
                 <button id="mobile-menu-btn" class="md:hidden ml-4 p-2 rounded-md text-slate-500 dark:text-slate-400 focus:outline-none">
                     <i data-feather="menu" class="w-6 h-6"></i>
                 </button>
@@ -210,27 +206,6 @@
     <script>
         // --- Feather Icons ---
         feather.replace();
-
-        // --- Theme Toggle ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlEl = document.documentElement;
-
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          htmlEl.classList.add('dark');
-        } else {
-          htmlEl.classList.remove('dark');
-        }
-
-        themeToggle.addEventListener('click', () => {
-            if (htmlEl.classList.contains('dark')) {
-                htmlEl.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                htmlEl.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        });
 
         // --- Mobile Menu ---
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
