@@ -19,15 +19,16 @@
             box-sizing: border-box;
         }
         .container {
-            display: flex;
-            flex-direction: column;
+            /* display: flex;
+            flex-direction: row; */
             gap: 20px;
             max-width: 1200px;
             width: 100%;
             background-color: #ffffff; /* White background for the container */
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow */
-            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            padding: 10px;
+            margin: 10px;
         }
         @media (min-width: 1024px) {
             .container {
@@ -49,11 +50,13 @@
         .canvas-container {
             flex: 2;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #1a202c; /* Dark background for canvas area */
+            background-color: white; /* Dark background for canvas area */
             border-radius: 10px;
             padding: 10px; /* Padding around the canvas */
+            margin: 10px;
         }
         canvas {
             background-color: #ffffff; /* White canvas background */
@@ -153,7 +156,7 @@
         .text-center {
             border-radius: 8px;
             padding: 10px;
-            margin: 10px;
+            margin: 30px;
             font-weight: 700;
             cursor: pointer;
             background-color: #FB8FB8;
@@ -161,10 +164,17 @@
         }
     </style>
 </head>
+
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 items-left bg-black">
+        <a href="index.html" class="text-2xl font-bold text-white">NG.</a>
+    </nav>
+</header>
+
 <body>
     <div class="container">
         <div class="control-panel">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Art Controls</h2>
+            <h2 class="text-2xl font-bold text-gray-800 text-center">Art Controls</h2>
 
             <!-- Number of Shapes -->
             <div class="control-group">
@@ -233,16 +243,17 @@
         <div class="text-center">
             <button><a href="index.html">Want to go back to my personal portfolio?</a></button>
         </div>
-        <footer class="bg-slate-100 dark:bg-slate-900/50">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-950">
-             <div class="flex justify-center space-x-4 mb-4">
-                <a href="https://github.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="github" class="w-6 h-6"></i></a>
-                <a href="https://linkedin.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-                <a href="https://twitter.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="twitter" class="w-6 h-6"></i></a>
+
+        <footer>
+            <div class="mx-auto px-6 py-8 text-center">
+                <div class="flex justify-center space-x-4 mb-4">
+                    <a href="https://github.com" target="_blank" class="hover:text-indigo-600"><i data-feather="github" class="w-6 h-6"></i></a>
+                    <a href="https://linkedin.com" target="_blank" class="hover:text-indigo-600"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="hover:text-indigo-600"><i data-feather="twitter" class="w-6 h-6"></i></a>
+                </div>
+                <p>&copy; <span id="year"></span> Navya Gupta. All Rights Reserved.</p>
             </div>
-            <p>&copy; <span id="year"></span> Navya Gupta. All Rights Reserved.</p>
-        </div>
-    </footer>
+        </footer>
     </div>
 
     <script>
