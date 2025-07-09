@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/query-performance-dashboard/static/css/main.e6c13ad2.css",
+    "main.js": "/query-performance-dashboard/static/js/main.450a8cb3.js",
+    "static/js/453.ed854bf5.chunk.js": "/query-performance-dashboard/static/js/453.ed854bf5.chunk.js",
+    "index.html": "/query-performance-dashboard/index.html",
+    "main.e6c13ad2.css.map": "/query-performance-dashboard/static/css/main.e6c13ad2.css.map",
+    "main.450a8cb3.js.map": "/query-performance-dashboard/static/js/main.450a8cb3.js.map",
+    "453.ed854bf5.chunk.js.map": "/query-performance-dashboard/static/js/453.ed854bf5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.450a8cb3.js"
+  ]
+}
