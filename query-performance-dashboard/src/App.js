@@ -6,8 +6,8 @@ import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
-    <h1>THIS IS A TEST.</h1>
     <div>
+      <h1>THIS IS A TEST.</h1>
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
