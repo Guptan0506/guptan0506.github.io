@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pin-interests</title>
+    <title>pin-interests - indie web inspiration board</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
         
@@ -203,29 +203,35 @@
         .pins-grid {
             max-width: 1200px;
             margin: 0 auto;
-            columns: 4;
-            column-gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            align-items: start;
         }
 
-        @media (max-width: 1024px) {
-            .pins-grid { columns: 3; }
-        }
-
-        @media (max-width: 768px) {
-            .pins-grid { columns: 2; }
+        @media (max-width: 640px) {
+            .pins-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 16px;
+            }
         }
 
         @media (max-width: 480px) {
-            .pins-grid { columns: 1; }
+            .pins-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            body {
+                padding: 16px;
+            }
         }
 
         .pin {
             background: var(--card-bg);
             border-radius: 12px;
-            margin-bottom: 20px;
             box-shadow: var(--shadow);
             transition: all 0.2s ease;
-            break-inside: avoid;
             overflow: hidden;
             position: relative;
             cursor: pointer;
@@ -382,8 +388,8 @@
 </head>
 <body>
     <div class="login-container" id="login-container">
-        <h1>Pin-interests</h1>
-        <p>my personal inspiration board</p>
+        <h1>pin-interests</h1>
+        <p>your personal inspiration board</p>
         <form id="login-form">
             <div class="form-group">
                 <label for="username">what should we call you?</label>
@@ -402,15 +408,15 @@
         </div>
         <div class="header-actions">
             <span id="welcome-msg" class="welcome-msg"></span>
-            <button class="add-pin-btn" onclick="openModal()">+ Add Pin</button>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+            <button class="add-pin-btn" onclick="openModal()">+ add pin</button>
+            <button class="logout-btn" onclick="logout()">logout</button>
         </div>
     </div>
 
     <div class="pins-grid" id="pins-grid">
         <div class="empty-state">
-            <h3>Your board is empty.</h3>
-            <p>Start collecting things that inspire you — images, links, thoughts, anything that catches your eye.</p>
+            <h3>your board is empty</h3>
+            <p>start collecting things that inspire you — images, links, thoughts, anything that catches your eye</p>
         </div>
     </div>
 
@@ -418,7 +424,7 @@
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <h2>Add new pin</h2>
+            <h2>add new pin</h2>
             <form id="pin-form">
                 <div class="form-group">
                     <label for="pin-type">type</label>
@@ -430,7 +436,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pin-title">Title</label>
+                    <label for="pin-title">title</label>
                     <input type="text" id="pin-title" placeholder="give it a name..." required>
                 </div>
 
@@ -440,13 +446,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pin-description">Description</label>
+                    <label for="pin-description">description</label>
                     <textarea id="pin-description" placeholder="what's this about? why did you save it?"></textarea>
                 </div>
 
                 <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Actually, no.</button>
-                    <button type="submit" class="btn btn-primary">Yes, let's post this</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">cancel</button>
+                    <button type="submit" class="btn btn-primary">save pin</button>
                 </div>
             </form>
         </div>
