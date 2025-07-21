@@ -28,6 +28,23 @@
             background: rgba(15, 23, 42, 0.5); /* slate-900 with opacity */
             border: 1px solid rgba(51, 65, 85, 0.5); /* slate-700 with opacity */
         }
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            background: #000;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        .marquee-content {
+            display: inline-block;
+        animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(25%); }
+            100% { transform: translateX(-100%); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -86,6 +103,12 @@
             </div>
         </section>
 
+        <div class="marquee">
+            <div class="marquee-content">
+                PSA * Please don't keep reading | Student | Web Developer | Aspiring Software Application Developer | Cincinnati, OH | University of Cincinnati | I might be going crazy | Running on vibes and ideas | Developing things no one asked for | Experimenting with bad ideas till they become something good | Deployed this portfolio during a headache | Git hates me, I hate git. | Too many tabs open | Ideas are better than my memory and execution, please beware before judgement! * PSA
+            </div>
+        </div>
+
         <!-- About Section -->
         <section id="about" class="py-20 bg-white dark:bg-slate-800">
             <div class="container mx-auto px-6">
@@ -99,10 +122,10 @@
                     </div>
                     <div class="md:w-2/3">
                         <p class="text-slate-600 dark:text-slate-300 text-lg mb-4 leading-relaxed">
-                            Hello! I'm Navya, a passionate web developer with a knack for creating dynamic and user-friendly web applications. With over 5 years of experience in the field, I've honed my skills in front-end and back-end development, turning complex problems into elegant, simple solutions.
+                            Hello! I'm Navya, a passionate web developer with a knack for creating dynamic and user-friendly websites. With over 5 years of experience in the field, I've honed my skills in front-end, turning complex problems into elegant, simple solutions.
                         </p>
                         <p class="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
-                            My journey in web development started with a simple "Hello, World!" and has grown into a full-fledged passion for building things for the web. I'm always eager to learn new technologies and improve my craft.
+                            My journey in web development started with a simple "Hello, World!" and has grown into a full-fledged passion for building things on the web. I'm always eager to learn new technologies and improve my craft.
                         </p>
                         <h3 class="text-xl font-semibold mb-4 text-slate-700 dark:text-slate-200">My Skills</h3>
                         <div class="flex flex-wrap gap-3">
@@ -110,8 +133,7 @@
                             <span class="skill-badge">CSS3 & Tailwind</span>
                             <span class="skill-badge">JavaScript (ES6+)</span>
                             <span class="skill-badge">React</span>
-                            <span class="skill-badge">Node.js</span>
-                            <span class="skill-badge">SQL & NoSQL</span>
+                            <span class="skill-badge">SQL & MySQL</span>
                             <span class="skill-badge">Git & GitHub</span>
                         </div>
                     </div>
@@ -330,7 +352,7 @@
         function applyClasses() {
             const skillBadges = document.querySelectorAll('.skill-badge');
             skillBadges.forEach(badge => {
-                badge.classList.add('bg-indigo-100', 'text-indigo-800', 'dark:bg-indigo-900', 'dark:text-indigo-200', 'px-3', 'py-1', 'rounded-full', 'text-sm', 'font-medium');
+                badge.classList.add('bg-indigo-100', 'text-fuchsia-700', 'px-3', 'py-1', 'rounded-full', 'text-sm', 'font-medium');
             });
 
             const projectCards = document.querySelectorAll('.project-card');
