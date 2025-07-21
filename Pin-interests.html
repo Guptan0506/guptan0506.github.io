@@ -395,22 +395,22 @@
 
     <div class="main-content" id="main-content">
     <div class="header">
-        <div class="logo">my.pins</div>
+        <div class="logo">pin-interests</div>
         <div class="stats">
             <span id="pin-count">0 pins</span>
             <span id="last-added">never</span>
         </div>
         <div class="header-actions">
             <span id="welcome-msg" class="welcome-msg"></span>
-            <button class="add-pin-btn" onclick="openModal()">+ add pin</button>
-            <button class="logout-btn" onclick="logout()">logout</button>
+            <button class="add-pin-btn" onclick="openModal()">+ Add Pin</button>
+            <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
     </div>
 
     <div class="pins-grid" id="pins-grid">
         <div class="empty-state">
-            <h3>your board is empty</h3>
-            <p>start collecting things that inspire you — images, links, thoughts, anything that catches your eye</p>
+            <h3>Your board is empty.</h3>
+            <p>Start collecting things that inspire you — images, links, thoughts, anything that catches your eye.</p>
         </div>
     </div>
 
@@ -418,7 +418,7 @@
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <h2>add new pin</h2>
+            <h2>Add new pin</h2>
             <form id="pin-form">
                 <div class="form-group">
                     <label for="pin-type">type</label>
@@ -430,7 +430,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pin-title">title</label>
+                    <label for="pin-title">Title</label>
                     <input type="text" id="pin-title" placeholder="give it a name..." required>
                 </div>
 
@@ -440,13 +440,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pin-description">description</label>
+                    <label for="pin-description">Description</label>
                     <textarea id="pin-description" placeholder="what's this about? why did you save it?"></textarea>
                 </div>
 
                 <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">cancel</button>
-                    <button type="submit" class="btn btn-primary">save pin</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Actually, no.</button>
+                    <button type="submit" class="btn btn-primary">Yes, let's post this</button>
                 </div>
             </form>
         </div>
