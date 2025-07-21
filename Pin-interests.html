@@ -204,7 +204,7 @@
             background: var(--accent-hover);
         }
 
-        .pins-grid {
+        /* .pins-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -229,7 +229,26 @@
             body {
                 padding: 16px;
             }
-        }
+        } */
+
+    .pins-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        columns: 4;
+        column-gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+        .pins-grid { columns: 3; }
+    }
+
+    @media (max-width: 768px) {
+        .pins-grid { columns: 2; }
+    }
+
+    @media (max-width: 480px) {
+        .pins-grid { columns: 1; }
+    }
 
         .pin {
             background: var(--card-bg);
@@ -239,6 +258,8 @@
             overflow: hidden;
             position: relative;
             cursor: pointer;
+            margin-bottom: 20px;
+            break-inside: avoid;
         }
 
         .pin:hover {
