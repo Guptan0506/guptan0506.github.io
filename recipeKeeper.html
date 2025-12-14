@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="IMG_0017.jpeg" type="image/x-icon">
+    <title>Recipe Uploader</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E27CD9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            position: relative; /* Needed for fixed positioning of FAB */
+        }
+        /* Style for the recipe cards */
+        .recipe-card {
+            background-color: #f9cdb1;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            width: 100%;
+            max-width: 768px; /* max-w-2xl */
+        }
+        .recipe-card img {
+            border-radius: 0.5rem; /* rounded-lg */
+            margin-bottom: 1rem; /* mb-4 */
+            object-fit: cover; /* Ensure image covers the area */
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+        }
+        .recipe-card h3 {
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.75rem; /* mb-3 */
+            color: #1f2937; /* text-gray-900 */
+        }
+        .recipe-card h4 {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            margin-top: 1rem; /* mt-4 */
+            margin-bottom: 0.5rem; /* mb-2 */
+            color: #374151; /* text-gray-800 */
+        }
+        .recipe-card ul, .recipe-card p {
+            font-size: 1rem; /* text-base */
+            color: #4b5563; /* text-gray-700 */
+            line-height: 1.6;
+        }
+        .recipe-card ul li {
+            margin-bottom: 0.25rem; /* mb-1 */
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            max-width: 90%;
+            max-height: 90%; /* Limit height for scrollability */
+            overflow-y: auto; /* Enable scrolling for long forms */
+            position: relative;
+            transform: translateY(-20px); /* Initial slight offset */
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0); /* Slide into view */
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280; /* Gray-500 */
+            transition: color 0.2s ease;
+        }
+        .close-button:hover {
+            color: #1f2937; /* Gray-900 */
+        }
+
+        /* Floating Action Button (FAB) */
+        .fab-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: #4f46e5; /* Indigo-600 */
+            color: white;
+            border-radius: 9999px; /* Full rounded */
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            z-index: 999; /* Below modal, above content */
+        }
+        .fab-button:hover {
+            background-color: #4338ca; /* Indigo-700 */
+            transform: translateY(-3px);
+        }
+        .button-13 {
+  background-color: #fff;
+  border: 1px solid #d5d9d9;
+  border-radius: 8px;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  box-sizing: border-box;
+  color: #0f1111;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}
+
+.button-13:hover {
+  background-color: #f7fafa;
+}
+
+.button-13:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+    </style>
+</head>
+<body class="flex flex-col items-center p-4">
+
+    <!-- Main Container for Recipes Display -->
+    <div class="container bg-white mx-auto max-w-4xl rounded-xl shadow-lg p-6 md:p-8 my-8">
+
+        <!-- Header -->
+        <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8">Your Recipes</h1>
+
+        <!-- Display Recipes Section -->
+        <div id="recipesDisplay" class="grid grid-cols-1 gap-6">
+            <!-- Recipes will be dynamically added here -->
+            <p class="text-center text-gray-500" id="noRecipesMessage">No recipes added yet. Click the '+' button to add one!</p>
+        </div>
+        
+    </div>
+    <button class="button-13" role="button"><a href="index.html">Go back to portfolio</a></button>
+
+    <!-- Floating Action Button -->
+    <button id="addRecipeFab" class="fab-button">
+        +
+    </button>
+
+    <!-- Recipe Submission Modal -->
+    <div id="recipeModal" class="modal-overlay">
+        <div class="modal-content">
+            <button id="closeModalButton" class="close-button">&times;</button>
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-6">Add New Recipe</h2>
+            <form id="recipeForm" class="grid grid-cols-1 gap-6">
+                <div>
+                    <label for="recipeName" class="block text-sm font-medium text-gray-700 mb-1">Recipe Name</label>
+                    <input type="text" id="recipeName" name="recipeName" required
+                           class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <div>
+                    <label for="ingredients" class="block text-sm font-medium text-gray-700 mb-1">Ingredients (one per line)</label>
+                    <textarea id="ingredients" name="ingredients" rows="5" required
+                              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+
+                <div>
+                    <label for="instructions" class="block text-sm font-medium text-gray-700 mb-1">Instructions</label>
+                    <textarea id="instructions" name="instructions" rows="7" required
+                              class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+
+                <div>
+                    <label for="imageUpload" class="block text-sm font-medium text-gray-700 mb-1">Image Upload (Optional)</label>
+                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*"
+                           class="mt-1 block w-full text-sm text-gray-500
+                                 file:mr-4 file:py-2 file:px-4
+                                 file:rounded-md file:border-0
+                                 file:text-sm file:font-semibold
+                                 file:bg-indigo-50 file:text-indigo-700
+                                 hover:file:bg-indigo-100">
+                </div>
+
+                <button type="submit"
+                        class="w-full py-3 px-6 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    Add Recipe
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get references to DOM elements
+        const recipeForm = document.getElementById('recipeForm'); // The form inside the modal
+        const recipesDisplay = document.getElementById('recipesDisplay');
+        const noRecipesMessage = document.getElementById('noRecipesMessage');
+        const addRecipeFab = document.getElementById('addRecipeFab'); // The floating action button
+        const recipeModal = document.getElementById('recipeModal'); // The modal overlay
+        const closeModalButton = document.getElementById('closeModalButton'); // The close button inside the modal
+        const imageUploadInput = document.getElementById('imageUpload'); // The new file input
+
+        // Array to store recipes (in-memory for now)
+        let recipes = [];
+
+        /**
+         * Shows the recipe submission modal.
+         */
+        function showModal() {
+            recipeModal.classList.add('show');
+        }
+
+        /**
+         * Hides the recipe submission modal.
+         */
+        function hideModal() {
+            recipeModal.classList.remove('show');
+            recipeForm.reset(); // Clear form fields when closing
+            imageUploadInput.value = ''; // Clear the file input explicitly
+        }
+
+        /**
+         * Renders a single recipe as a card and appends it to the display area.
+         * @param {object} recipe - The recipe object to render.
+         */
+        function renderRecipe(recipe) {
+            // Create a new div element for the recipe card
+            const recipeCard = document.createElement('div');
+            recipeCard.classList.add('recipe-card'); // Apply custom CSS class
+
+            // Determine image source: check if it's a base64 string or a URL
+            let imageSrc = '';
+            if (recipe.imageData) {
+                imageSrc = recipe.imageData; // Base64 string
+            } else if (recipe.imageUrl) {
+                imageSrc = recipe.imageUrl; // External URL
+            } else {
+                imageSrc = 'https://placehold.co/600x400/E0E0E0/666666?text=No+Image'; // Placeholder
+            }
+
+            // Add image if source is available
+            let imageHtml = `<img src="${imageSrc}" alt="${recipe.name}" class="w-full h-48 object-cover rounded-lg mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E0E0/666666?text=No+Image';">`;
+
+
+            // Populate the recipe card with content
+            recipeCard.innerHTML = `
+                ${imageHtml}
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">${recipe.name}</h3>
+                <h4 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Ingredients:</h4>
+                <ul class="list-disc list-inside text-gray-700 mb-4">
+                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                </ul>
+                <h4 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Instructions:</h4>
+                <p class="text-gray-700 whitespace-pre-wrap">${recipe.instructions}</p>
+            `;
+
+            // Prepend the new recipe card to the display area so the newest is at the top
+            recipesDisplay.prepend(recipeCard);
+        }
+
+        /**
+         * Handles the submission of the recipe form.
+         * @param {Event} event - The form submission event.
+         */
+        recipeForm.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get values from the form fields
+            const recipeName = document.getElementById('recipeName').value.trim();
+            const ingredients = document.getElementById('ingredients').value.split('\n').map(item => item.trim()).filter(item => item !== '');
+            const instructions = document.getElementById('instructions').value.trim();
+            const imageFile = imageUploadInput.files[0]; // Get the selected file
+
+            let imageData = null; // To store base64 image data
+
+            if (imageFile) {
+                // Read the image file as a Data URL (base64 string)
+                imageData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = () => resolve(null); // Resolve with null on error
+                    reader.readAsDataURL(imageFile);
+                });
+            }
+
+            // Create a new recipe object
+            const newRecipe = {
+                name: recipeName,
+                ingredients: ingredients,
+                instructions: instructions,
+                imageData: imageData // Store the base64 image data
+            };
+
+            // Add the new recipe to the recipes array
+            recipes.push(newRecipe);
+
+            // Render the new recipe on the page
+            renderRecipe(newRecipe);
+
+            // Hide the "No recipes added yet" message if it's visible
+            if (noRecipesMessage && recipes.length > 0) {
+                noRecipesMessage.classList.add('hidden');
+            }
+
+            // Clear the form fields and hide the modal
+            hideModal();
+        });
+
+        // Event listeners for the FAB and modal close button
+        addRecipeFab.addEventListener('click', showModal);
+        closeModalButton.addEventListener('click', hideModal);
+
+        // Close modal if clicking outside the content area
+        recipeModal.addEventListener('click', function(event) {
+            if (event.target === recipeModal) {
+                hideModal();
+            }
+        });
+
+        // Initial check: if there are no recipes, show the message
+        if (recipes.length === 0) {
+            noRecipesMessage.classList.remove('hidden');
+        } else {
+            noRecipesMessage.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

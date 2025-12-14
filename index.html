@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="I am a web developer. Take a look at my portfolio. Please say hi, let me know you visited and give me website feedback.">
+    <title>Navya Gupta - Personal Portfolio</title>
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Navya Gupta - Personal Portfolio">
+    <meta property="og:description" content="I am a web developer. Take a look at my portfolio.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.navya.space/">
+    <meta property="og:image" content="https://www.navya.space/IMG_0017.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="icon" href="IMG_0017.jpeg" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: yellowgreen; 
+        }
+        .dark body {
+            background-color: #0f172a; /* slate-900 */
+            color: #f8fafc; /* slate-50 */
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .dark .glass-effect {
+            background: rgba(15, 23, 42, 0.5); /* slate-900 with opacity */
+            border: 1px solid rgba(51, 65, 85, 0.5); /* slate-700 with opacity */
+        }
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            background: #000;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        .marquee-content {
+            display: inline-block;
+        animation: scroll-left 30s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(25%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <!-- Skip link for keyboard users -->
+        <a class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-indigo-600 text-white px-3 py-2 rounded" href="#main">Skip to content</a>
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-slate-800 dark:text-white">NG.</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Home</a>
+                <a href="#about" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">About</a>
+                <a href="#projects" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Projects</a>
+                <a href="#experience" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Work Experience</a>
+                <a href="#contact" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Contact</a>
+            </div>
+            <div class="flex items-center">
+                <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden ml-4 p-2 rounded-md text-slate-500 dark:text-slate-400 focus:outline-none">
+                    <span class="sr-only">Toggle menu</span>
+                    <i data-feather="menu" class="w-6 h-6" aria-hidden="true"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800">
+            <a href="#home" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Home</a>
+            <a href="#about" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">About</a>
+            <a href="#projects" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Projects</a>
+            <a href="#experience" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Work Experience</a>
+            <a href="#contact" class="block py-2 px-4 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="min-h-screen flex items-center bg-slate-50 dark:bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <div class="flex justify-center mb-8">
+                     <!-- <img src="https://placehold.co/160x160/6366f1/ffffff?text=NG"  -->
+                        <img src="favicon.webp"
+                          style="width: 300px; height: auto;"
+                          alt="Navya Gupta" 
+                          class="rounded-full border-4 border-white dark:border-slate-700 shadow-lg"
+                          onerror="this.onerror=null;this.src='https://placehold.co/160x160/e2e8f0/475569?text=Error';">
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-slate-800 dark:text-white leading-tight mb-4">
+                    Hi, I'm Navya Gupta.
+                </h1>
+                <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-8">
+                    I'm a <span id="typewriter" class="text-indigo-600 dark:text-indigo-400 font-medium"></span>
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://github.com/Guptan0506" target="_blank" class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="github" class="w-8 h-8"></i></a>
+                    <a href="https://www.linkedin.com/in/navyagupta0509" target="_blank" rel="noopener noreferrer" class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="linkedin" class="w-8 h-8"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="twitter" class="w-8 h-8"></i></a>
+                </div>
+                 <a href="#projects" class="mt-12 inline-block bg-indigo-600 text-white font-medium py-3 px-8 rounded-full hover:bg-indigo-700 transition transform hover:scale-105 shadow-lg">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <div class="marquee">
+            <div class="marquee-content">
+                PSA * Please don't keep reading | Student | Web Developer | Aspiring Software Application Developer | Cincinnati, OH | University of Cincinnati | I might be going crazy | Running on vibes and ideas | Developing things no one asked for | Experimenting with bad ideas till they become something good | Deployed this portfolio during a headache | Git hates me, I hate git. | Too many tabs open | Ideas are better than my memory and execution, please beware before judgement! * PSA
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white dark:bg-slate-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-white">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3">
+                        <img src="HIII!!.webp" 
+                             alt="About Navya Gupta" 
+                             class="rounded-lg shadow-xl"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x600/e2e8f0/475569?text=Error';">
+                    </div>
+                    <div class="md:w-2/3">
+                        <p class="text-slate-600 dark:text-slate-300 text-lg mb-4 leading-relaxed">
+                            Hello! I'm Navya, a passionate web developer with a knack for creating dynamic and user-friendly websites. With over 5 years of experience in the field, I've honed my skills in front-end, turning complex problems into elegant, simple solutions.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-300 text-lg mb-6 leading-relaxed">
+                            My journey in web development started with a simple "Hello, World!" and has grown into a full-fledged passion for building things on the web. I'm always eager to learn new technologies and improve my craft.
+                        </p>
+                        <h3 class="text-xl font-semibold mb-4 text-slate-700 dark:text-slate-200">My Skills</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-badge">HTML5</span>
+                            <span class="skill-badge">CSS3 & Tailwind</span>
+                            <span class="skill-badge">Bootstrap</span>
+                            <span class="skill-badge">JavaScript (ES6+)</span>
+                            <span class="skill-badge">React</span>
+                            <span class="skill-badge">SQL & MySQL</span>
+                            <span class="skill-badge">Git & GitHub</span>
+                            <span class="skill-badge">Java</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-slate-50 dark:bg-slate-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-white">My Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="project-card">
+                        <img src="shop-sphere-high-resolution-logo.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">E-commerce Platform</h3>
+                            <p class="text-slate-600 mb-4">A full-featured e-commerce website. Includes product catalog, shopping cart, and payment integration.</p>
+                            <a href="e-commerceWebsite.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 2 -->
+                    <div class="project-card">
+                        <img src="the-password-game-high-resolution-logo-grayscale.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">The Password Game</h3>
+                            <p class="text-slate-600 mb-4">A game to learn how to create passwords as secure as they can be. There maybe a surprise! (It's a work in progress)</p>
+                            <a href="#" aria-disabled="true" title="Coming soon" class="font-medium text-indigo-400 dark:text-indigo-600">Coming soon &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 3 -->
+                    <div class="project-card">
+                        <img src="generative-art-creator-high-resolution-logo.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Generative Art Creator</h3>
+                            <p class="text-slate-600 mb-4">A generator creating art using shapes.</p>
+                            <a href="generativeArtCreator.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 4-->
+                    <div class="project-card">
+                        <img src="favicon.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Personal Portfolio</h3>
+                            <p class="text-slate-600 mb-4">This very portfolio, designed to be clean, modern, and fully responsive. Built with HTML, Tailwind CSS, and vanilla JS.</p>
+                            <a href="generativeArtCreator.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 5-->
+                    <div class="project-card">
+                        <img src="ColorPaletteGenerator/color-palette-generator-high-resolution-logo-grayscale.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Color Palette Generator</h3>
+                            <p class="text-slate-600 mb-4">A website to create a color palette.</p>
+                            <a href="ColorPaletteGenerator/paletteGenerator.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 6-->
+                    <div class="project-card">
+                        <img src="query-performance-dashboard/query-performance-dashboard-high-resolution-logo.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Query Performance Dashboard</h3>
+                            <p class="text-slate-600 mb-4">A dashboard to look at the performance of your queries. This is not working atm. I will update this page when I figure that out. Thanks for your patience.</p>
+                            <a href="/query-performance-dashboard/" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 7-->
+                    <div class="project-card">
+                        <img src="pin-interests-high-resolution-logo.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Pin-interests</h3>
+                            <p class="text-slate-600 mb-4">A website to literally just pin your interests and ideas.</p>
+                            <a href="Pin-interests.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 8-->
+                    <div class="project-card">
+                        <img src="recipe-keeper-high-resolution-logo.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">Recipe Keeper</h3>
+                            <p class="text-slate-600 mb-4">A website to upload vegetarian recipes that you like.</p>
+                            <a href="recipeKeeper.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <!--Project Card 9-->
+                    <div class="project-card">
+                        <img src="ToDoList.webp" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">To Do List</h3>
+                            <p class="text-slate-600 mb-4">A website to create a to do list.</p>
+                            <a href="ToDoList.html" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="IMG_0018.jpeg" class="rounded-t-lg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/475569?text=Error';">
+                        <div class="p-6">
+                            <h3 class="text-xl text-white mb-2">To Do List</h3>
+                            <p class="text-slate-600 mb-4">A web app to create a to do list.</p>
+                            <a href="https://guptan0506.github.io/todo-app" class="font-medium text-indigo-600 dark:text-indigo-400 hover:underline">View Project &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-900">
+        </section>
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white dark:bg-slate-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 text-slate-800 dark:text-white">Get In Touch</h2>
+                <div class="max-w-2xl mx-auto">
+                    <p class="text-center text-lg text-slate-600 dark:text-slate-300 mb-8">
+                        I'm currently available for freelance work and open to new opportunities. Have a project in mind? Let's talk!
+                    </p>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeSdnoTI1F1sr4kZNF2htsl9DfD7blYNqQiqKCvU5txb_h_FA/viewform?embedded=true" width="100%" height="800px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                    <div id="form-success-message" class="hidden text-center p-4 mt-6 rounded-lg bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        Thank you for your message! I'll get back to you soon.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 dark:bg-slate-900/50">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-950">
+             <div class="flex justify-center space-x-4 mb-4">
+                <a href="https://github.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="github" class="w-6 h-6"></i></a>
+                <a href="https://linkedin.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                <a href="https://twitter.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="twitter" class="w-6 h-6"></i></a>
+            </div>
+            <p>&copy; <span id="year"></span> Navya Gupta. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Feather Icons ---
+        feather.replace();
+
+        // --- Mobile Menu ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', String(!expanded));
+        });
+        
+        // Close mobile menu when a link is clicked
+        mobileMenu.addEventListener('click', (e) => {
+            if(e.target.tagName === 'A'){
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // --- Header Style on Scroll ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-effect', 'shadow-lg');
+            } else {
+                header.classList.remove('glass-effect', 'shadow-lg');
+            }
+        });
+
+        // --- Typewriter Effect ---
+        const typewriterEl = document.getElementById('typewriter');
+        const words = ['Web Developer.', 'Creative Coder.', 'Problem Solver.', 'Tech Enthusiast.'];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentWord = words[wordIndex];
+            const currentChar = isDeleting ? currentWord.substring(0, charIndex - 1) : currentWord.substring(0, charIndex + 1);
+
+            typewriterEl.textContent = currentChar;
+
+            if (!isDeleting && charIndex < currentWord.length) {
+                charIndex++;
+                setTimeout(type, 150);
+            } else if (isDeleting && charIndex > 0) {
+                charIndex--;
+                setTimeout(type, 100);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    wordIndex = (wordIndex + 1) % words.length;
+                }
+                setTimeout(type, 1200);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+             if (typewriterEl) {
+                setTimeout(type, 1000);
+             }
+        });
+
+
+        // --- Smooth Scrolling ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- Dynamic Year for Footer ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Contact Form Handling ---
+        const contactForm = document.getElementById('contact-form');
+        const successMessage = document.getElementById('form-success-message');
+
+        // Only attach submit handler if a contact form exists on the page
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // This is a mock submission. In a real application, you would
+                // send the data to a server or email service here.
+                console.log('Form submitted!');
+                const formData = new FormData(this);
+                for (let [key, value] of formData.entries()) {
+                    console.log(key, value);
+                }
+
+                // Show success message and hide form
+                contactForm.classList.add('hidden');
+                if (successMessage) successMessage.classList.remove('hidden');
+
+                // Optional: Reset form after a few seconds
+                setTimeout(() => {
+                    contactForm.reset();
+                    contactForm.classList.remove('hidden');
+                    if (successMessage) successMessage.classList.add('hidden');
+                }, 5000);
+            });
+        }
+        
+        // --- Apply shared CSS classes via JS to avoid repetition ---
+        // This is an alternative to using @apply in a CSS file when you only have HTML.
+        function applyClasses() {
+            const skillBadges = document.querySelectorAll('.skill-badge');
+            skillBadges.forEach(badge => {
+                badge.classList.add('bg-indigo-100', 'text-fuchsia-700', 'px-3', 'py-1', 'rounded-full', 'text-sm', 'font-medium');
+            });
+
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.classList.add('bg-white', 'dark:bg-slate-800', 'rounded-lg', 'shadow-md', 'overflow-hidden', 'transform', 'transition', 'hover:-translate-y-2', 'hover:shadow-xl');
+            });
+            
+            const contactInputs = document.querySelectorAll('.contact-input');
+            contactInputs.forEach(input => {
+                input.classList.add('w-full', 'px-4', 'py-3', 'rounded-lg', 'bg-slate-100', 'dark:bg-slate-700', 'border', 'border-transparent', 'focus:outline-none', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-transparent', 'text-slate-800', 'dark:text-white');
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', applyClasses);
+
+    </script>
+</body>
+</html>
