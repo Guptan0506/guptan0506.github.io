@@ -29,7 +29,7 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
-            background-image: url("https://cdn.pixabay.com/photo/2017/10/25/08/25/cupcakes-2887270_1280.jpg");
+            background-image: #f4f4f4;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -412,26 +412,29 @@
         }
 
         .button-13 {
-  background-color: #fff;
-  border: 1px solid #d5d9d9;
-  border-radius: 8px;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  box-sizing: border-box;
-  color: #0f1111;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Amazon Ember",sans-serif;
-  font-size: 13px;
-  line-height: 29px;
-  padding: 0 10px 0 11px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: middle;
-  width: 100px;
+  	background-color: #fff;
+  	border: 1px solid black;
+  	border-radius: 8px;
+  	box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  	box-sizing: border-box;
+  	color: #0f1111;
+  	cursor: pointer;
+  	display: inline-block;
+  	font-family: "Amazon Ember",sans-serif;
+  	font-size: 16px;
+  	line-height: 29px;
+  	padding: 10px;
+  	position: fixed;
+	bottom: 0;
+    right: 0;
+  	text-align: center;
+  	text-decoration: none;
+  	user-select: none;
+  	-webkit-user-select: none;
+  	touch-action: manipulation;
+  	vertical-align: middle;
+  	width: auto;
+	margin: 10px;
 }
 
 .button-13:hover {
@@ -460,28 +463,28 @@
 
     <div class="main-content" id="main-content">
     <div class="header">
-        <div class="logo">pin-interests</div>
+        <div class="logo">Pin-Interests</div>
         <div class="stats">
             <span id="pin-count">0 pins</span>
-            <span id="last-added">never</span>
+            <span id="last-added">Never</span>
         </div>
         <div class="header-actions">
             <span id="welcome-msg" class="welcome-msg"></span>
-            <button class="add-pin-btn" onclick="openModal()">+ add pin</button>
-            <button class="logout-btn" onclick="logout()">i want to get out. please.</button>
+            <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
+            <button class="logout-btn" onclick="logout()">I'd like to get out, please.</button>
         </div>
     </div>
 
     <div class="pins-grid" id="pins-grid">
         <div class="empty-state">
-            <h3>your board is empty</h3>
-            <p>start collecting things that inspire you — images, links, thoughts, anything that catches your eye</p>
+            <h3>Your board is empty.</h3>
+            <p>Start collecting things that inspire you — images, links, thoughts, anything that catches your eye.</p>
         </div>
     </div>
 
     </div>
 
-    <button class="button-13" role="button"><a href="index.html">Go back to portfolio</a></button>
+    <button class="button-13" role="button"><a href="index.html">Go back to portfolio ----></a></button>
 
     <div class="modal" id="modal">
         <div class="modal-content">
