@@ -1,683 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pin-interests - indie web inspiration board</title>
-    <link rel="icon" href="IMG_0017.jpeg" type="image/x-icon">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-        
-        :root {
-            --bg: #fefefe;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text: #2a2a2a;
-            --text-light: #666666;
-            --border: #e5e5e5;
-            --accent: #6366f1;
-            --accent-hover: #4f46e5;
-            --shadow: 0 2px 8px rgba(0,0,0,0.05);
-            --shadow-hover: 0 4px 16px rgba(0,0,0,0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pin-interests - indie web inspiration board</title>
+<link rel="icon" href="IMG_0017.jpeg">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            background-image: #f4f4f4;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--text);
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        .header {
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .welcome-msg {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .logout-btn {
-            background: transparent;
-            color: var(--text-light);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .logout-btn:hover {
-            background: var(--border);
-            color: var(--text);
-        }
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .add-pin-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 32px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: var(--shadow-hover);
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal h2 {
-            margin-bottom: 24px;
-            color: var(--text);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 24px;
-        }
-
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        }
-
-        .btn-secondary {
-            background: var(--border);
-            color: var(--text);
-        }
-
-        .btn-secondary:hover {
-            background: #d1d1d1;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-        }
-
-        /* .pins-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            align-items: start;
-        }
-
-        @media (max-width: 640px) {
-            .pins-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 16px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .pins-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            body {
-                padding: 16px;
-            }
-        } */
-
-    .pins-grid {
-        max-width: 1200px;
-        margin: 0 auto;
-        columns: 4;
-        column-gap: 20px;
-    }
-
-    @media (max-width: 1024px) {
-        .pins-grid { columns: 3; }
-    }
-
-    @media (max-width: 768px) {
-        .pins-grid { columns: 2; }
-    }
-
-    @media (max-width: 480px) {
-        .pins-grid { columns: 1; }
-    }
-
-        .pin {
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s ease;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            margin-bottom: 20px;
-            break-inside: avoid;
-        }
-/* 
-        .pin:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        } */
-
-        .pin-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px 12px 0 0;
-        }
-
-        .pin-content {
-            padding: 16px;
-        }
-
-        .pin-title {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-            font-size: 16px;
-        }
-
-        .pin-description {
-            color: var(--text-light);
-            font-size: 14px;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .pin-url {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--accent);
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .pin-url:hover {
-            text-decoration: underline;
-        }
-
-        .pin-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 12px;
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .pin-type {
-            background: var(--border);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .delete-pin {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255,255,255,0.9);
-            border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.2s ease;
-            color: #ef4444;
-        }
-
-        .pin:hover .delete-pin {
-            opacity: 1;
-        }
-
-        .delete-pin:hover {
-            background: #fee2e2;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: var(--text-light);
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .empty-state h3 {
-            margin-bottom: 12px;
-            color: var(--text);
-        }
-
-        .stats {
-            display: flex;
-            gap: 24px;
-            margin-left: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        @media (max-width: 768px) {
-            .stats {
-                margin-left: 0;
-            }
-            
-            .header-actions {
-                justify-content: flex-start;
-            }
-        }
-
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-hover);
-            text-align: center;
-        }
-
-        .login-container h1 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 32px;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .login-container p {
-            color: var(--text-light);
-            margin-bottom: 32px;
-        }
-
-        .main-content {
-            display: none;
-        }
-
-        .main-content.active {
-            display: block;
-        }
-
-        .button-13 {
-  	background-color: #fff;
-  	border: 1px solid black;
-  	border-radius: 8px;
-  	box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  	box-sizing: border-box;
-  	color: #0f1111;
-  	cursor: pointer;
-  	display: inline-block;
-  	font-family: "Amazon Ember",sans-serif;
-  	font-size: 16px;
-  	line-height: 29px;
-  	padding: 10px;
-  	position: fixed;
-	bottom: 0;
-    right: 0;
-  	text-align: center;
-  	text-decoration: none;
-  	user-select: none;
-  	-webkit-user-select: none;
-  	touch-action: manipulation;
-  	vertical-align: middle;
-  	width: auto;
-	margin: 10px;
+:root {
+  --bg:#fefefe;
+  --card-bg:rgba(255,255,255,.95);
+  --text:#2a2a2a;
+  --text-light:#666;
+  --border:#e5e5e5;
+  --accent:#6366f1;
+  --accent-hover:#4f46e5;
+  --shadow:0 2px 8px rgba(0,0,0,.05);
+  --shadow-hover:0 6px 20px rgba(0,0,0,.12);
 }
 
-.button-13:hover {
-  background-color: #f7fafa;
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  padding:20px;
 }
 
-.button-13:focus {
-  border-color: #008296;
-  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
-  outline: 0;
+/* HEADER */
+.header{
+  max-width:1200px;
+  margin:0 auto 40px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
 }
-    </style>
+
+.logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:24px;
+  color:var(--accent);
+}
+
+.stats{
+  margin-left:auto;
+  display:flex;
+  gap:24px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  color:var(--text-light);
+}
+
+.header-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.welcome-msg{
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  color:var(--text-light);
+}
+
+/* BUTTONS */
+.add-pin-btn{
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:12px 22px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.2s;
+}
+.add-pin-btn:hover{
+  background:var(--accent-hover);
+  transform:translateY(-1px);
+}
+
+.logout-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  padding:12px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.2s;
+}
+.logout-btn:hover{
+  background:var(--border);
+}
+
+/* GRID */
+.pins-grid{
+  max-width:1200px;
+  margin:0 auto;
+  columns:4;
+  column-gap:20px;
+}
+@media(max-width:1024px){.pins-grid{columns:3}}
+@media(max-width:768px){.pins-grid{columns:2}}
+@media(max-width:480px){.pins-grid{columns:1}}
+
+.pin{
+  background:var(--card-bg);
+  border-radius:14px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  break-inside:avoid;
+  overflow:hidden;
+  transition:.2s;
+  position:relative;
+}
+.pin:hover{
+  box-shadow:var(--shadow-hover);
+  transform:translateY(-2px);
+}
+
+.pin img{
+  width:100%;
+  display:block;
+}
+
+.pin-content{padding:16px}
+
+.pin-title{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.pin-description{
+  font-size:14px;
+  color:var(--text-light);
+  margin-bottom:10px;
+}
+
+.pin-meta{
+  font-size:12px;
+  color:var(--text-light);
+  display:flex;
+  justify-content:space-between;
+}
+
+/* DELETE */
+.delete-pin{
+  position:absolute;
+  top:8px;
+  right:8px;
+  background:rgba(255,255,255,.9);
+  border:none;
+  border-radius:50%;
+  width:30px;
+  height:30px;
+  cursor:pointer;
+  color:#ef4444;
+  font-size:18px;
+  opacity:0;
+  transition:.2s;
+}
+.pin:hover .delete-pin{opacity:1}
+
+/* EMPTY */
+.empty-state{
+  text-align:center;
+  padding:80px 20px;
+  color:var(--text-light);
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+.modal.active{display:flex}
+
+.modal-content{
+  background:var(--card-bg);
+  border-radius:16px;
+  padding:32px;
+  max-width:500px;
+  width:100%;
+  box-shadow:var(--shadow-hover);
+}
+
+.form-group{margin-bottom:16px}
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:12px;
+  border:2px solid var(--border);
+  border-radius:8px;
+}
+.form-group textarea{min-height:100px}
+
+/* LOGIN */
+.login-container{
+  max-width:420px;
+  margin:120px auto;
+  background:var(--card-bg);
+  padding:40px;
+  border-radius:16px;
+  box-shadow:var(--shadow-hover);
+  text-align:center;
+}
+
+.main-content{display:none}
+.main-content.active{display:block}
+</style>
 </head>
+
 <body>
-    <div class="login-container" id="login-container">
-        <h1>pin-interests</h1>
-        <p>your personal inspiration board</p>
-        <form id="login-form">
-            <div class="form-group">
-                <label for="username">what should we call you?</label>
-                <input type="text" id="username" placeholder="your name..." required>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">enter my board</button>
-        </form>
-    </div>
 
-    <div class="main-content" id="main-content">
-    <div class="header">
-        <div class="logo">Pin-Interests</div>
-        <div class="stats">
-            <span id="pin-count">0 pins</span>
-            <span id="last-added">Never</span>
-        </div>
-        <div class="header-actions">
-            <span id="welcome-msg" class="welcome-msg"></span>
-            <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
-            <button class="logout-btn" onclick="logout()">I'd like to get out, please.</button>
-        </div>
-    </div>
+<div class="login-container" id="login-container">
+  <h1>pin-interests</h1>
+  <p>your personal inspiration board</p>
+  <form id="login-form">
+    <input id="username" placeholder="your name..." required>
+    <br><br>
+    <button class="add-pin-btn" style="width:100%">enter my board</button>
+  </form>
+</div>
 
-    <div class="pins-grid" id="pins-grid">
-        <div class="empty-state">
-            <h3>Your board is empty.</h3>
-            <p>Start collecting things that inspire you — images, links, thoughts, anything that catches your eye.</p>
-        </div>
-    </div>
+<div class="main-content" id="main-content">
 
-    </div>
+<div class="header">
+  <div class="logo">Pin-Interests</div>
+  <div class="stats">
+    <span id="pin-count">0 pins</span>
+    <span id="last-added">never</span>
+  </div>
+  <div class="header-actions">
+    <span id="welcome-msg"></span>
+    <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
+    <button class="logout-btn" onclick="logout()">logout</button>
+  </div>
+</div>
 
-    <button class="button-13" role="button"><a href="index.html">Go back to portfolio ----></a></button>
+<div class="pins-grid" id="pins-grid">
+  <div class="empty-state">
+    <h3>Your board is empty.</h3>
+    <p>Start collecting things that inspire you.</p>
+  </div>
+</div>
 
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h2>add new pin</h2>
-            <form id="pin-form">
-                <div class="form-group">
-                    <label for="pin-type">type</label>
-                    <select id="pin-type" onchange="toggleFields()">
-                        <option value="image">image</option>
-                        <option value="link">link</option>
-                        <option value="text">text note</option>
-                    </select>
-                </div>
+</div>
 
-                <div class="form-group">
-                    <label for="pin-title">title</label>
-                    <input type="text" id="pin-title" placeholder="give it a name..." required>
-                </div>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <form id="pin-form">
+      <div class="form-group">
+        <select id="pin-type" onchange="toggleFields()">
+          <option value="image">image</option>
+          <option value="link">link</option>
+          <option value="text">text note</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input id="pin-title" placeholder="title" required>
+      </div>
+      <div class="form-group" id="url-group">
+        <input id="pin-url" placeholder="url">
+      </div>
+      <div class="form-group">
+        <textarea id="pin-description" placeholder="description"></textarea>
+      </div>
+      <button type="button" class="logout-btn" onclick="closeModal()">cancel</button>
+      <button class="add-pin-btn">add pin</button>
+    </form>
+  </div>
+</div>
 
-                <div class="form-group" id="url-group">
-                    <label for="pin-url">url</label>
-                    <input type="url" id="pin-url" placeholder="https://...">
-                </div>
+<script>
+let pins=[];
+let currentUser=null;
+const qs=id=>document.getElementById(id);
 
-                <div class="form-group">
-                    <label for="pin-description">description</label>
-                    <textarea id="pin-description" placeholder="what's this about? why did you save it?"></textarea>
-                </div>
+function openModal(){qs('modal').classList.add('active')}
+function closeModal(){qs('modal').classList.remove('active')}
+function toggleFields(){
+  qs('url-group').style.display=
+    qs('pin-type').value==='text'?'none':'block';
+}
 
-                <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal()">nope.</button>
-                    <button type="submit" class="btn btn-primary">yes, this is it.</button>
-                </div>
-            </form>
-        </div>
-    </div>
+function login(name){
+  currentUser={name};
+  localStorage.setItem('pins-user',JSON.stringify(currentUser));
+  qs('login-container').style.display='none';
+  qs('main-content').classList.add('active');
+  qs('welcome-msg').textContent=`hey ${name}!`;
+  loadPins();
+}
 
-    <script>
-  let pins = [];
-  let currentUser = null;
+function logout(){
+  localStorage.removeItem('pins-user');
+  location.reload();
+}
 
-  const qs = id => document.getElementById(id);
+function key(){return `pins-${currentUser.name}`}
 
-  function getUserKey() {
-    return `indie-pins-${currentUser.name.toLowerCase().replace(/\s+/g, '-')}`;
+function loadPins(){
+  pins=JSON.parse(localStorage.getItem(key()))||[];
+  renderPins();
+}
+
+function savePins(){
+  localStorage.setItem(key(),JSON.stringify(pins));
+}
+
+function renderPins(){
+  const g=qs('pins-grid');
+  if(!pins.length){
+    g.innerHTML=`<div class="empty-state"><h3>Your board is empty.</h3></div>`;
+    return;
   }
+  g.innerHTML=pins.map(p=>`
+    <div class="pin" data-id="${p.id}">
+      <button class="delete-pin">×</button>
+      ${p.type==='image'?`<img src="${p.url}">`:''}
+      <div class="pin-content">
+        <div class="pin-title">${p.title}</div>
+        ${p.description?`<div class="pin-description">${p.description}</div>`:''}
+        ${p.url?`<a href="${p.url}" target="_blank">${p.url}</a>`:''}
+        <div class="pin-meta"><span>${p.type}</span></div>
+      </div>
+    </div>`).join('');
+}
 
-  function checkAuth() {
-    const stored = localStorage.getItem('indie-pins-user');
-    if (!stored) return showLogin();
+qs('login-form').onsubmit=e=>{
+  e.preventDefault();
+  login(qs('username').value.trim());
+};
 
-    currentUser = JSON.parse(stored);
-    showMainContent();
-    loadPins();
-  }
+qs('pin-form').onsubmit=e=>{
+  e.preventDefault();
+  pins.unshift({
+    id:Date.now(),
+    type:qs('pin-type').value,
+    title:qs('pin-title').value,
+    url:qs('pin-url').value,
+    description:qs('pin-description').value
+  });
+  savePins();
+  renderPins();
+  closeModal();
+  e.target.reset();
+};
 
-  function showLogin() {
-    qs('login-container').style.display = 'block';
-    qs('main-content').classList.remove('active');
-  }
-
-  function showMainContent() {
-    qs('login-container').style.display = 'none';
-    qs('main-content').classList.add('active');
-    qs('welcome-msg').textContent = `hey ${currentUser.name}!`;
-  }
-
-  function login(name) {
-    currentUser = { name: name.trim(), loginDate: new Date().toISOString() };
-    localStorage.setItem('indie-pins-user', JSON.stringify(currentUser));
-    showMainContent();
-    loadPins();
-  }
-
-  function logout() {
-    if (!confirm('logout and return to login?')) return;
-    localStorage.removeItem('indie-pins-user');
-    currentUser = null;
-    pins = [];
-    qs('pins-grid').innerHTML = '';
-    showLogin();
-  }
-
-  function loadPins() {
-    const stored = localStorage.getItem(getUserKey());
-    pins = stored ? JSON.parse(stored) : [];
-    renderPins();
-    updateStats();
-  }
-
-  function savePins() {
-    localStorage.setItem(getUserKey(), JSON.stringify(pins));
-  }
-
-  function createPin(type, title, url, description) {
-    pins.unshift({
-      id: Date.now(),
-      type,
-      title,
-      url: url || '',
-      description: description || '',
-      createdAt: new Date().toISOString()
-    });
+qs('pins-grid').onclick=e=>{
+  if(e.target.classList.contains('delete-pin')){
+    const id=+e.target.closest('.pin').dataset.id;
+    pins=pins.filter(p=>p.id!==id);
     savePins();
     renderPins();
-    updateStats();
   }
+};
 
-  function deletePin(id) {
-    if (!confirm('bye bye pin?')) return;
-    pins = pins.filter(p => p.id !== id);
-    savePins();
-    renderPins();
-    updateStats();
-  }
-
-  function renderPins() {
-    const grid = qs('pins-grid');
-
-    if (!pins.length) {
-      grid.innerHTML = `
-        <div class="empty-state">
-          <h3>your board is empty</h3>
-          <p>start collecting things that inspire you</p>
-        </div>`;
-      return;
-    }
-
-    grid.innerHTML = pins.map(pin => {
-      const date = new Date(pin.createdAt).toLocaleDateString();
-      const image =
-        pin.type === 'image' && pin.url
-          ? `<img src="${pin.url}" class="pin-image" alt="" />`
-          : '';
-
-      return `
-        <div class="pin" data-id="${pin.id}" data-url="${pin.url}" data-type="${pin.type}">
-          <button class="delete-pin" title="delete pin">×</button>
-          ${image}
-          <div class="pin-content">
-            <div class="pin-title">${pin.title}</div>
-            ${pin.description ? `<div class="pin-description">${pin.description}</div>` : ''}
-            ${pin.url ? `<a href="${pin.url}" target="_blank">${pin.url}</a>` : ''}
-            <div class="pin-meta">
-              <span>${pin.type}</span>
-              <span>${date}</span>
-            </div>
-          </div>
-        </div>`;
-    }).join('');
-  }
-
-  qs('pins-grid').addEventListener('click', e => {
-    const pinEl = e.target.closest('.pin');
-    if (!pinEl) return;
-
-    if (e.target.classList.contains('delete-pin')) {
-      deletePin(Number(pinEl.dataset.id));
-      return;
-    }
-
-    if (pinEl.dataset.url && pinEl.dataset.type !== 'text') {
-      window.location.href = pinEl.dataset.url;
-    }
-  });
-
-  function updateStats() {
-    qs('pin-count').textContent = `${pins.length} pin${pins.length !== 1 ? 's' : ''}`;
-    qs('last-added').textContent = pins.length
-      ? new Date(pins[0].createdAt).toLocaleDateString()
-      : 'never';
-  }
-
-  qs('login-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const name = qs('username').value.trim();
-    if (name) login(name);
-  });
-
-  qs('pin-form').addEventListener('submit', e => {
-    e.preventDefault();
-    createPin(
-      qs('pin-type').value,
-      qs('pin-title').value,
-      qs('pin-url').value,
-      qs('pin-description').value
-    );
-    closeModal();
-  });
-
-  document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
-
-  checkAuth();
+const stored=localStorage.getItem('pins-user');
+if(stored) login(JSON.parse(stored).name);
 </script>
 
 </body>
