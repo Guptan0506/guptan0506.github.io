@@ -4,509 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generative Art Creator</title>
-    <!-- Tailwind CSS CDN -->
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* Custom styles for the generative art creator */
         body {
             font-family: "Inter", sans-serif;
-            background-color: #f0f2f5; /* Light gray background */
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align to start to allow scrolling if content overflows */
+            align-items: flex-start;
             min-height: 100vh;
             padding: 20px;
-            box-sizing: border-box;
         }
+
         .container {
-            /* display: flex;
-            flex-direction: row; */
-            gap: 20px;
             max-width: 1200px;
             width: 100%;
-            background-color: #ffffff; /* White background for the container */
+            background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             padding: 10px;
-            margin: 10px;
         }
-        @media (min-width: 1024px) {
-            .container {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: stretch;
-            }
-        }
+
         .control-panel {
-            flex: 1;
             padding: 20px;
-            background-color: #f9fafb; /* Lighter background for panel */
+            background-color: #f9fafb;
             border-radius: 10px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
+
         .canvas-container {
-            flex: 2;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            background-color: white; /* Dark background for canvas area */
-            border-radius: 10px;
-            padding: 10px; /* Padding around the canvas */
-            margin: 10px;
+            padding: 10px;
         }
+
         canvas {
-            background-color: #ffffff; /* White canvas background */
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Shadow for canvas */
-            width: 100%; /* Make canvas responsive */
-            height: auto; /* Maintain aspect ratio */
-            max-height: 700px; /* Max height to prevent excessive stretching */
-            display: block; /* Remove extra space below canvas */
-        }
-        .control-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
-        }
-        input[type="range"] {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
             width: 100%;
-            -webkit-appearance: none;
-            height: 8px;
-            background: #ddd;
-            border-radius: 5px;
-            outline: none;
-            opacity: 0.9;
-            transition: opacity .2s;
+            max-height: 700px;
+            transition: opacity 0.2s ease-in-out;
         }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background: #4f46e5; /* Primary button color */
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: #4f46e5;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        input[type="color"] {
-            width: 100%;
-            height: 40px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            padding: 5px;
-        }
+
         button {
             padding: 12px 20px;
             border-radius: 8px;
-            border: none;
             font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
         }
+
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
+
         .btn-primary {
-            background-color: #4f46e5; /* Indigo */
+            background-color: #4f46e5;
             color: white;
         }
-        .btn-primary:hover {
-            background-color: #4338ca; /* Darker indigo */
-        }
+
         .btn-secondary {
-            background-color: #6b7280; /* Gray */
-            color: white;
-        }
-        .btn-secondary:hover {
-            background-color: #4b5563; /* Darker gray */
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            background-color: white;
-            font-size: 1rem;
-            color: #374151;
-            appearance: none; /* Remove default arrow */
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%236b7280'%3e%3cpath d='M7 7l3-3 3 3m0 6l-3 3-3-3'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1.5em 1.5em;
-        }
-        .text-center {
-            border-radius: 8px;
-            padding: 10px;
-            margin: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            background-color: #FB8FB8;
+            background-color: #6b7280;
             color: white;
         }
     </style>
 </head>
 
-<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-    <nav class="container mx-auto px-6 py-4 items-left bg-black">
-        <a href="index.html" class="text-2xl font-bold text-white">NG.</a>
-    </nav>
-</header>
-
 <body>
-    <div class="container">
-        <div class="control-panel">
-            <h2 class="text-2xl font-bold text-gray-800 text-center">Art Controls</h2>
+<div class="container grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-            <!-- Number of Shapes -->
-            <div class="control-group">
-                <label for="numShapes">Number of Shapes: <span id="numShapesValue">100</span></label>
-                <input type="range" id="numShapes" min="10" max="500" value="100">
-            </div>
+    <!-- Controls -->
+    <div class="control-panel">
+        <h2 class="text-2xl font-bold text-center">Art Controls</h2>
 
-            <!-- Shape Type -->
-            <div class="control-group">
-                <label for="shapeType">Shape Type:</label>
-                <select id="shapeType">
-                    <option value="circle">Circle</option>
-                    <option value="square">Square</option>
-                    <option value="line">Line</option>
-                    <option value="triangle">Triangle</option>
-                </select>
-            </div>
+        <label>
+            Number of Shapes
+            <input id="numShapes" type="range" min="10" max="500" value="100">
+        </label>
 
-            <!-- Shape Size -->
-            <div class="control-group">
-                <label for="shapeSize">Shape Size: <span id="shapeSizeValue">20</span>px</label>
-                <input type="range" id="shapeSize" min="5" max="100" value="20">
-            </div>
+        <label>
+            Shape Type
+            <select id="shapeType" class="w-full p-2 rounded">
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+                <option value="line">Line</option>
+                <option value="triangle">Triangle</option>
+            </select>
+        </label>
 
-            <!-- Opacity -->
-            <div class="control-group">
-                <label for="opacity">Opacity: <span id="opacityValue">0.5</span></label>
-                <input type="range" id="opacity" min="0.1" max="1.0" step="0.05" value="0.5">
-            </div>
+        <label>
+            Shape Size
+            <input id="shapeSize" type="range" min="5" max="100" value="20">
+        </label>
 
-            <!-- Color Palette -->
-            <div class="control-group">
-                <label for="baseColor">Base Color:</label>
-                <input type="color" id="baseColor" value="#4f46e5">
-            </div>
+        <label>
+            Opacity
+            <input id="opacity" type="range" min="0.1" max="1" step="0.05" value="0.5">
+        </label>
 
-            <!-- Background Color -->
-            <div class="control-group">
-                <label for="bgColor">Background Color:</label>
-                <input type="color" id="bgColor" value="#ffffff">
-            </div>
+        <label>
+            Base Color
+            <input id="baseColor" type="color" value="#4f46e5">
+        </label>
 
-            <!-- Line Width (for lines/borders) -->
-            <div class="control-group">
-                <label for="lineWidth">Line Width: <span id="lineWidthValue">1</span>px</label>
-                <input type="range" id="lineWidth" min="0" max="10" value="1">
-            </div>
+        <label>
+            Background Color
+            <input id="bgColor" type="color" value="#ffffff">
+        </label>
 
-            <!-- Animation Speed -->
-            <div class="control-group">
-                <label for="animationSpeed">Animation Speed: <span id="animationSpeedValue">50</span>ms</label>
-                <input type="range" id="animationSpeed" min="10" max="200" value="50">
-            </div>
-
-            <!-- Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 mt-4">
-                <button id="generateArt" class="btn-primary flex-1">Generate New Art</button>
-                <button id="clearCanvas" class="btn-secondary flex-1">Clear Canvas</button>
-            </div>
+        <div class="flex gap-3 mt-4">
+            <button id="generateArt" class="btn-primary flex-1">
+                Reimagine
+            </button>
+            <button id="clearCanvas" class="btn-secondary flex-1">
+                Clear
+            </button>
         </div>
-
-        <div class="canvas-container">
-            <canvas id="artCanvas"></canvas>
-        </div>
-
-        <div class="text-center">
-            <button><a href="index.html">Want to go back to my personal portfolio?</a></button>
-        </div>
-
-        <footer>
-            <div class="mx-auto px-6 py-8 text-center">
-                <div class="flex justify-center space-x-4 mb-4">
-                    <a href="https://github.com" target="_blank" class="hover:text-indigo-600"><i data-feather="github" class="w-6 h-6"></i></a>
-                    <a href="https://linkedin.com" target="_blank" class="hover:text-indigo-600"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-                    <a href="https://twitter.com" target="_blank" class="hover:text-indigo-600"><i data-feather="twitter" class="w-6 h-6"></i></a>
-                </div>
-                <p>&copy; <span id="year"></span> Navya Gupta. All Rights Reserved.</p>
-            </div>
-        </footer>
     </div>
 
-    <script>
-        // Get canvas and context
-        const canvas = document.getElementById('artCanvas');
-        const ctx = canvas.getContext('2d');
+    <!-- Canvas -->
+    <div class="canvas-container lg:col-span-2">
+        <canvas id="artCanvas"></canvas>
+        <p class="mt-3 text-sm text-gray-500 italic text-center">
+            Each generation is unique and cannot be recreated.
+        </p>
+    </div>
+</div>
 
-        // Get control elements
-        const numShapesSlider = document.getElementById('numShapes');
-        const numShapesValueSpan = document.getElementById('numShapesValue');
-        const shapeTypeSelect = document.getElementById('shapeType');
-        const shapeSizeSlider = document.getElementById('shapeSize');
-        const shapeSizeValueSpan = document.getElementById('shapeSizeValue');
-        const opacitySlider = document.getElementById('opacity');
-        const opacityValueSpan = document.getElementById('opacityValue');
-        const baseColorInput = document.getElementById('baseColor');
-        const bgColorInput = document.getElementById('bgColor');
-        const lineWidthSlider = document.getElementById('lineWidth');
-        const lineWidthValueSpan = document.getElementById('lineWidthValue');
-        const animationSpeedSlider = document.getElementById('animationSpeed');
-        const animationSpeedValueSpan = document.getElementById('animationSpeedValue');
-        const generateArtBtn = document.getElementById('generateArt');
-        const clearCanvasBtn = document.getElementById('clearCanvas');
+<script>
+    const canvas = document.getElementById("artCanvas");
+    const ctx = canvas.getContext("2d");
 
-        // Art parameters (initial values)
-        let artParams = {
-            numShapes: parseInt(numShapesSlider.value),
-            shapeType: shapeTypeSelect.value,
-            shapeSize: parseInt(shapeSizeSlider.value),
-            opacity: parseFloat(opacitySlider.value),
-            baseColor: baseColorInput.value,
-            bgColor: bgColorInput.value,
-            lineWidth: parseInt(lineWidthSlider.value),
-            animationSpeed: parseInt(animationSpeedSlider.value),
-            animationFrameId: null, // To store the requestAnimationFrame ID
-        };
+    const controls = {
+        numShapes: document.getElementById("numShapes"),
+        shapeType: document.getElementById("shapeType"),
+        shapeSize: document.getElementById("shapeSize"),
+        opacity: document.getElementById("opacity"),
+        baseColor: document.getElementById("baseColor"),
+        bgColor: document.getElementById("bgColor"),
+        generate: document.getElementById("generateArt"),
+        clear: document.getElementById("clearCanvas")
+    };
 
-        // Function to update canvas size based on its container
-        function resizeCanvas() {
-            // Get the computed style of the canvas container to determine its actual size
-            const container = canvas.parentElement;
-            const containerWidth = container.clientWidth;
-            const containerHeight = container.clientHeight;
+    const params = {};
 
-            // Set the canvas drawing buffer size (resolution)
-            // Use a higher resolution for better quality, but also consider performance
-            const dpi = window.devicePixelRatio || 1;
-            canvas.width = containerWidth * dpi;
-            canvas.height = containerHeight * dpi;
+    function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+    }
 
-            // Scale the context to match the canvas resolution
-            ctx.scale(dpi, dpi);
+    function randomizeColor(base) {
+        const r = parseInt(base.slice(1,3),16);
+        const g = parseInt(base.slice(3,5),16);
+        const b = parseInt(base.slice(5,7),16);
 
-            // Set the canvas element's display size (CSS pixels)
-            canvas.style.width = containerWidth + 'px';
-            canvas.style.height = containerHeight + 'px';
+        return `rgba(
+            ${Math.min(255, r + (Math.random()-0.5)*60)},
+            ${Math.min(255, g + (Math.random()-0.5)*60)},
+            ${Math.min(255, b + (Math.random()-0.5)*60)},
+            ${controls.opacity.value}
+        )`;
+    }
 
-            // Redraw content after resizing if necessary
+    function drawArt() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = controls.bgColor.value;
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        for (let i = 0; i < controls.numShapes.value; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const size = Math.random() * controls.shapeSize.value + 5;
+            const color = randomizeColor(controls.baseColor.value);
+
+            ctx.fillStyle = color;
+            ctx.beginPath();
+
+            switch (controls.shapeType.value) {
+                case "circle":
+                    ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                    break;
+                case "square":
+                    ctx.fillRect(x, y, size, size);
+                    break;
+                case "line":
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + size, y + size);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    break;
+                case "triangle":
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + size, y);
+                    ctx.lineTo(x + size / 2, y - size);
+                    ctx.closePath();
+                    ctx.fill();
+                    break;
+            }
+        }
+    }
+
+    function animate() {
+        canvas.style.opacity = 0.4;
+        setTimeout(() => {
             drawArt();
-        }
+            canvas.style.opacity = 1;
+        }, 120);
+    }
 
-        // Helper function to get a random color based on the base color
-        function getRandomColor(baseColor) {
-            // Convert hex to RGB
-            let r = parseInt(baseColor.substring(1, 3), 16);
-            let g = parseInt(baseColor.substring(3, 5), 16);
-            let b = parseInt(baseColor.substring(5, 7), 16);
+    controls.generate.onclick = animate;
+    controls.clear.onclick = () => ctx.clearRect(0,0,canvas.width,canvas.height);
 
-            // Slightly randomize each component
-            r = Math.min(255, Math.max(0, r + (Math.random() - 0.5) * 60));
-            g = Math.min(255, Math.max(0, g + (Math.random() - 0.5) * 60));
-            b = Math.min(255, Math.max(0, b + (Math.random() - 0.5) * 60));
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    animate();
+</script>
 
-            return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${artParams.opacity})`;
-        }
-
-        // Drawing functions for different shapes
-        function drawCircle(x, y, radius, color) {
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = color;
-            ctx.fill();
-            if (artParams.lineWidth > 0) {
-                ctx.strokeStyle = `rgba(0, 0, 0, ${artParams.opacity * 1.5})`; // Slightly darker border
-                ctx.lineWidth = artParams.lineWidth;
-                ctx.stroke();
-            }
-        }
-
-        function drawSquare(x, y, size, color) {
-            ctx.fillStyle = color;
-            ctx.fillRect(x - size / 2, y - size / 2, size, size);
-            if (artParams.lineWidth > 0) {
-                ctx.strokeStyle = `rgba(0, 0, 0, ${artParams.opacity * 1.5})`;
-                ctx.lineWidth = artParams.lineWidth;
-                ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-            }
-        }
-
-        function drawLine(x1, y1, x2, y2, color, width) {
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = color;
-            ctx.lineWidth = width;
-            ctx.stroke();
-        }
-
-        function drawTriangle(x, y, size, color) {
-            ctx.beginPath();
-            // Equilateral triangle calculation
-            const h = size * (Math.sqrt(3) / 2); // height of triangle
-            ctx.moveTo(x, y - h / 2); // Top point
-            ctx.lineTo(x - size / 2, y + h / 2); // Bottom-left point
-            ctx.lineTo(x + size / 2, y + h / 2); // Bottom-right point
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-            if (artParams.lineWidth > 0) {
-                ctx.strokeStyle = `rgba(0, 0, 0, ${artParams.opacity * 1.5})`;
-                ctx.lineWidth = artParams.lineWidth;
-                ctx.stroke();
-            }
-        }
-
-        // Main drawing function
-        function drawArt() {
-            // Clear canvas with background color
-            ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-            ctx.fillStyle = artParams.bgColor;
-            ctx.fillRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-
-            for (let i = 0; i < artParams.numShapes; i++) {
-                const x = Math.random() * (canvas.width / (window.devicePixelRatio || 1));
-                const y = Math.random() * (canvas.height / (window.devicePixelRatio || 1));
-                const size = Math.random() * artParams.shapeSize + 5; // Random size within range
-                const color = getRandomColor(artParams.baseColor);
-
-                switch (artParams.shapeType) {
-                    case 'circle':
-                        drawCircle(x, y, size / 2, color);
-                        break;
-                    case 'square':
-                        drawSquare(x, y, size, color);
-                        break;
-                    case 'line':
-                        const x2 = x + (Math.random() - 0.5) * size * 2;
-                        const y2 = y + (Math.random() - 0.5) * size * 2;
-                        drawLine(x, y, x2, y2, color, artParams.lineWidth || 1);
-                        break;
-                    case 'triangle':
-                        drawTriangle(x, y, size, color);
-                        break;
-                }
-            }
-        }
-
-        // Animation loop for dynamic art (e.g., shapes moving) - currently not implemented for simple generation
-        // But the structure is here if needed for future enhancements.
-        function animate() {
-            // For now, drawing is static. If animation is added, this function will be called repeatedly.
-            // A simple animation could be to redraw slightly different shapes or move existing ones.
-            // For example:
-            // ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // artParams.numShapes++; // Example: increase shapes over time
-            // drawArt();
-            // artParams.animationFrameId = requestAnimationFrame(animate);
-            // This example is for illustration; actual animation would involve managing shape states.
-            if (artParams.animationFrameId) {
-                cancelAnimationFrame(artParams.animationFrameId);
-            }
-            drawArt(); // Just redraw on generation for now, no continuous animation
-        }
-
-
-        // Event Listeners for controls
-        numShapesSlider.addEventListener('input', (e) => {
-            artParams.numShapes = parseInt(e.target.value);
-            numShapesValueSpan.textContent = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        shapeTypeSelect.addEventListener('change', (e) => {
-            artParams.shapeType = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        shapeSizeSlider.addEventListener('input', (e) => {
-            artParams.shapeSize = parseInt(e.target.value);
-            shapeSizeValueSpan.textContent = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        opacitySlider.addEventListener('input', (e) => {
-            artParams.opacity = parseFloat(e.target.value);
-            opacityValueSpan.textContent = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        baseColorInput.addEventListener('input', (e) => {
-            artParams.baseColor = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        bgColorInput.addEventListener('input', (e) => {
-            artParams.bgColor = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        lineWidthSlider.addEventListener('input', (e) => {
-            artParams.lineWidth = parseInt(e.target.value);
-            lineWidthValueSpan.textContent = e.target.value;
-            animate(); // Redraw on change
-        });
-
-        animationSpeedSlider.addEventListener('input', (e) => {
-            artParams.animationSpeed = parseInt(e.target.value);
-            animationSpeedValueSpan.textContent = e.target.value;
-            // If implementing continuous animation, this would affect its speed
-        });
-
-        generateArtBtn.addEventListener('click', () => {
-            animate(); // Generate new art based on current parameters
-        });
-
-        clearCanvasBtn.addEventListener('click', () => {
-            // Clear canvas and reset background
-            ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-            ctx.fillStyle = artParams.bgColor;
-            ctx.fillRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-            if (artParams.animationFrameId) {
-                cancelAnimationFrame(artParams.animationFrameId);
-                artParams.animationFrameId = null;
-            }
-        });
-
-        // Initialize canvas and draw initial art when the window loads
-        window.onload = function() {
-            // Set up resize listener
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas(); // Initial resize
-            animate(); // Initial drawing
-        };
-    </script>
 </body>
 </html>
-
-<!-- Load Feather icons and replace placeholders -->
-<script src="https://unpkg.com/feather-icons"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.feather) {
-            try { feather.replace(); } catch (e) { console.warn('feather.replace() failed', e); }
-        }
-    });
-</script>

@@ -231,138 +231,117 @@
     </div>
 
     <script>
-        // Get references to DOM elements
-        const recipeForm = document.getElementById('recipeForm'); // The form inside the modal
-        const recipesDisplay = document.getElementById('recipesDisplay');
-        const noRecipesMessage = document.getElementById('noRecipesMessage');
-        const addRecipeFab = document.getElementById('addRecipeFab'); // The floating action button
-        const recipeModal = document.getElementById('recipeModal'); // The modal overlay
-        const closeModalButton = document.getElementById('closeModalButton'); // The close button inside the modal
-        const imageUploadInput = document.getElementById('imageUpload'); // The new file input
+  const qs = id => document.getElementById(id);
 
-        // Array to store recipes (in-memory for now)
-        let recipes = [];
+  const recipeForm = qs('recipeForm');
+  const recipesDisplay = qs('recipesDisplay');
+  const noRecipesMessage = qs('noRecipesMessage');
+  const addRecipeFab = qs('addRecipeFab');
+  const recipeModal = qs('recipeModal');
+  const closeModalButton = qs('closeModalButton');
+  const imageUploadInput = qs('imageUpload');
 
-        /**
-         * Shows the recipe submission modal.
-         */
-        function showModal() {
-            recipeModal.classList.add('show');
-        }
+  let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
 
-        /**
-         * Hides the recipe submission modal.
-         */
-        function hideModal() {
-            recipeModal.classList.remove('show');
-            recipeForm.reset(); // Clear form fields when closing
-            imageUploadInput.value = ''; // Clear the file input explicitly
-        }
+  function saveRecipes() {
+    try {
+      localStorage.setItem('recipes', JSON.stringify(recipes));
+    } catch {
+      alert('Storage limit reached. Try smaller images.');
+    }
+  }
 
-        /**
-         * Renders a single recipe as a card and appends it to the display area.
-         * @param {object} recipe - The recipe object to render.
-         */
-        function renderRecipe(recipe) {
-            // Create a new div element for the recipe card
-            const recipeCard = document.createElement('div');
-            recipeCard.classList.add('recipe-card'); // Apply custom CSS class
+  function showModal() {
+    recipeModal.classList.add('show');
+  }
 
-            // Determine image source: check if it's a base64 string or a URL
-            let imageSrc = '';
-            if (recipe.imageData) {
-                imageSrc = recipe.imageData; // Base64 string
-            } else if (recipe.imageUrl) {
-                imageSrc = recipe.imageUrl; // External URL
-            } else {
-                imageSrc = 'https://placehold.co/600x400/E0E0E0/666666?text=No+Image'; // Placeholder
-            }
+  function hideModal() {
+    recipeModal.classList.remove('show');
+    recipeForm.reset();
+    imageUploadInput.value = '';
+  }
 
-            // Add image if source is available
-            let imageHtml = `<img src="${imageSrc}" alt="${recipe.name}" class="w-full h-48 object-cover rounded-lg mb-4" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E0E0E0/666666?text=No+Image';">`;
+  function renderRecipe(recipe, index) {
+    const card = document.createElement('div');
+    card.className = 'recipe-card';
 
+    const imageSrc =
+      recipe.imageData ||
+      recipe.imageUrl ||
+      'https://placehold.co/600x400/E0E0E0/666666?text=No+Image';
 
-            // Populate the recipe card with content
-            recipeCard.innerHTML = `
-                ${imageHtml}
-                <h3 class="text-2xl font-bold text-gray-900 mb-3">${recipe.name}</h3>
-                <h4 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Ingredients:</h4>
-                <ul class="list-disc list-inside text-gray-700 mb-4">
-                    ${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                </ul>
-                <h4 class="text-lg font-semibold text-gray-800 mt-4 mb-2">Instructions:</h4>
-                <p class="text-gray-700 whitespace-pre-wrap">${recipe.instructions}</p>
-            `;
+    card.innerHTML = `
+      <img src="${imageSrc}" class="w-full h-48 object-cover rounded-lg mb-4" />
+      <h3 class="text-2xl font-bold mb-3">${recipe.name}</h3>
 
-            // Prepend the new recipe card to the display area so the newest is at the top
-            recipesDisplay.prepend(recipeCard);
-        }
+      <h4 class="font-semibold mb-2">Ingredients:</h4>
+      <ul class="list-disc list-inside mb-4">
+        ${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}
+      </ul>
 
-        /**
-         * Handles the submission of the recipe form.
-         * @param {Event} event - The form submission event.
-         */
-        recipeForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
+      <h4 class="font-semibold mb-2">Instructions:</h4>
+      <p class="whitespace-pre-wrap mb-4">${recipe.instructions}</p>
 
-            // Get values from the form fields
-            const recipeName = document.getElementById('recipeName').value.trim();
-            const ingredients = document.getElementById('ingredients').value.split('\n').map(item => item.trim()).filter(item => item !== '');
-            const instructions = document.getElementById('instructions').value.trim();
-            const imageFile = imageUploadInput.files[0]; // Get the selected file
+      <button class="delete-recipe text-red-600 font-semibold">Delete</button>
+    `;
 
-            let imageData = null; // To store base64 image data
+    card.querySelector('.delete-recipe').addEventListener('click', () => {
+      if (!confirm('Delete this recipe?')) return;
+      recipes.splice(index, 1);
+      saveRecipes();
+      renderAll();
+    });
 
-            if (imageFile) {
-                // Read the image file as a Data URL (base64 string)
-                imageData = await new Promise((resolve) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = () => resolve(null); // Resolve with null on error
-                    reader.readAsDataURL(imageFile);
-                });
-            }
+    recipesDisplay.prepend(card);
+  }
 
-            // Create a new recipe object
-            const newRecipe = {
-                name: recipeName,
-                ingredients: ingredients,
-                instructions: instructions,
-                imageData: imageData // Store the base64 image data
-            };
+  function renderAll() {
+    recipesDisplay.innerHTML = '';
+    if (!recipes.length) {
+      noRecipesMessage.classList.remove('hidden');
+      return;
+    }
 
-            // Add the new recipe to the recipes array
-            recipes.push(newRecipe);
+    noRecipesMessage.classList.add('hidden');
+    recipes.forEach(renderRecipe);
+  }
 
-            // Render the new recipe on the page
-            renderRecipe(newRecipe);
+  recipeForm.addEventListener('submit', async e => {
+    e.preventDefault();
 
-            // Hide the "No recipes added yet" message if it's visible
-            if (noRecipesMessage && recipes.length > 0) {
-                noRecipesMessage.classList.add('hidden');
-            }
+    const recipeName = qs('recipeName').value.trim();
+    const ingredients = qs('ingredients')
+      .value.split('\n')
+      .map(i => i.trim())
+      .filter(Boolean);
+    const instructions = qs('instructions').value.trim();
+    const imageFile = imageUploadInput.files[0];
 
-            // Clear the form fields and hide the modal
-            hideModal();
-        });
+    let imageData = null;
+    if (imageFile) {
+      imageData = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(imageFile);
+      });
+    }
 
-        // Event listeners for the FAB and modal close button
-        addRecipeFab.addEventListener('click', showModal);
-        closeModalButton.addEventListener('click', hideModal);
+    recipes.unshift({ name: recipeName, ingredients, instructions, imageData });
+    saveRecipes();
+    renderAll();
+    hideModal();
+  });
 
-        // Close modal if clicking outside the content area
-        recipeModal.addEventListener('click', function(event) {
-            if (event.target === recipeModal) {
-                hideModal();
-            }
-        });
+  addRecipeFab.addEventListener('click', showModal);
+  closeModalButton.addEventListener('click', hideModal);
 
-        // Initial check: if there are no recipes, show the message
-        if (recipes.length === 0) {
-            noRecipesMessage.classList.remove('hidden');
-        } else {
-            noRecipesMessage.classList.add('hidden');
-        }
-    </script>
+  recipeModal.addEventListener('click', e => {
+    if (e.target === recipeModal) hideModal();
+  });
+
+  renderAll();
+</script>
+
 </body>
 </html>

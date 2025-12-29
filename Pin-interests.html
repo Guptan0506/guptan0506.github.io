@@ -523,233 +523,162 @@
     </div>
 
     <script>
-        let pins = [];
-        let currentUser = null;
+  let pins = [];
+  let currentUser = null;
 
-        // Check if user is logged in on page load
-        function checkAuth() {
-            const stored = localStorage.getItem('indie-pins-user');
-            if (stored) {
-                currentUser = JSON.parse(stored);
-                showMainContent();
-                loadPins();
-            } else {
-                showLogin();
-            }
-        }
+  const qs = id => document.getElementById(id);
 
-        function showLogin() {
-            document.getElementById('login-container').style.display = 'block';
-            document.getElementById('main-content').classList.remove('active');
-        }
+  function getUserKey() {
+    return `indie-pins-${currentUser.name.toLowerCase().replace(/\s+/g, '-')}`;
+  }
 
-        function showMainContent() {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('main-content').classList.add('active');
-            document.getElementById('welcome-msg').textContent = `hey ${currentUser.name}!`;
-        }
+  function checkAuth() {
+    const stored = localStorage.getItem('indie-pins-user');
+    if (!stored) return showLogin();
 
-        function login(name) {
-            currentUser = {
-                name: name.trim(),
-                loginDate: new Date().toISOString()
-            };
-            localStorage.setItem('indie-pins-user', JSON.stringify(currentUser));
-            showMainContent();
-            loadPins();
-            updateStats();
-        }
+    currentUser = JSON.parse(stored);
+    showMainContent();
+    loadPins();
+  }
 
-        function logout() {
-            if (confirm('logout and return to login?')) {
-                localStorage.removeItem('indie-pins-user');
-                currentUser = null;
-                showLogin();
-                // Clear the pins grid
-                document.getElementById('pins-grid').innerHTML = '';
-                pins = [];
-            }
-        }
+  function showLogin() {
+    qs('login-container').style.display = 'block';
+    qs('main-content').classList.remove('active');
+  }
 
-        // Load pins from memory on page load
-        function loadPins() {
-            if (!currentUser) return;
-            
-            const stored = localStorage.getItem(`indie-pins-${currentUser.name}`);
-            if (stored) {
-                pins = JSON.parse(stored);
-                renderPins();
-                updateStats();
-            }
-        }
+  function showMainContent() {
+    qs('login-container').style.display = 'none';
+    qs('main-content').classList.add('active');
+    qs('welcome-msg').textContent = `hey ${currentUser.name}!`;
+  }
 
-        // Save pins to memory (user-specific)
-        function savePins() {
-            if (!currentUser) return;
-            localStorage.setItem(`indie-pins-${currentUser.name}`, JSON.stringify(pins));
-        }
+  function login(name) {
+    currentUser = { name: name.trim(), loginDate: new Date().toISOString() };
+    localStorage.setItem('indie-pins-user', JSON.stringify(currentUser));
+    showMainContent();
+    loadPins();
+  }
 
-        function openModal() {
-            document.getElementById('modal').classList.add('active');
-            document.getElementById('pin-title').focus();
-        }
+  function logout() {
+    if (!confirm('logout and return to login?')) return;
+    localStorage.removeItem('indie-pins-user');
+    currentUser = null;
+    pins = [];
+    qs('pins-grid').innerHTML = '';
+    showLogin();
+  }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.getElementById('pin-form').reset();
-            toggleFields(); // Reset field visibility
-        }
+  function loadPins() {
+    const stored = localStorage.getItem(getUserKey());
+    pins = stored ? JSON.parse(stored) : [];
+    renderPins();
+    updateStats();
+  }
 
-        function toggleFields() {
-            const type = document.getElementById('pin-type').value;
-            const urlGroup = document.getElementById('url-group');
-            const urlInput = document.getElementById('pin-url');
-            
-            if (type === 'text') {
-                urlGroup.style.display = 'none';
-                urlInput.required = false;
-            } else {
-                urlGroup.style.display = 'block';
-                urlInput.required = type === 'link';
-            }
-        }
+  function savePins() {
+    localStorage.setItem(getUserKey(), JSON.stringify(pins));
+  }
 
-        function createPin(type, title, url, description) {
-            const pin = {
-                id: Date.now(),
-                type,
-                title,
-                url: url || '',
-                description: description || '',
-                createdAt: new Date().toISOString()
-            };
+  function createPin(type, title, url, description) {
+    pins.unshift({
+      id: Date.now(),
+      type,
+      title,
+      url: url || '',
+      description: description || '',
+      createdAt: new Date().toISOString()
+    });
+    savePins();
+    renderPins();
+    updateStats();
+  }
 
-            pins.unshift(pin); // Add to beginning
-            savePins();
-            renderPins();
-            updateStats();
-        }
+  function deletePin(id) {
+    if (!confirm('bye bye pin?')) return;
+    pins = pins.filter(p => p.id !== id);
+    savePins();
+    renderPins();
+    updateStats();
+  }
 
-        function deletePin(id) {
-            if (confirm('bye bye pin?')) {
-                pins = pins.filter(pin => pin.id !== id);
-                savePins();
-                renderPins();
-                updateStats();
-            }
-        }
+  function renderPins() {
+    const grid = qs('pins-grid');
 
-        function renderPins() {
-            const grid = document.getElementById('pins-grid');
-            
-            if (pins.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <h3>your board is empty</h3>
-                        <p>start collecting things that inspire you — images, links, thoughts, anything that catches your eye</p>
-                    </div>
-                `;
-                return;
-            }
+    if (!pins.length) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <h3>your board is empty</h3>
+          <p>start collecting things that inspire you</p>
+        </div>`;
+      return;
+    }
 
-            grid.innerHTML = pins.map(pin => {
-                const date = new Date(pin.createdAt).toLocaleDateString();
-                let content = '';
+    grid.innerHTML = pins.map(pin => {
+      const date = new Date(pin.createdAt).toLocaleDateString();
+      const image =
+        pin.type === 'image' && pin.url
+          ? `<img src="${pin.url}" class="pin-image" alt="" />`
+          : '';
 
-                if (pin.type === 'image' && pin.url) {
-                    content = `<img src="${pin.url}" alt="${pin.title}" class="pin-image" onerror="this.style.display='none'">`;
-                }
+      return `
+        <div class="pin" data-id="${pin.id}" data-url="${pin.url}" data-type="${pin.type}">
+          <button class="delete-pin" title="delete pin">×</button>
+          ${image}
+          <div class="pin-content">
+            <div class="pin-title">${pin.title}</div>
+            ${pin.description ? `<div class="pin-description">${pin.description}</div>` : ''}
+            ${pin.url ? `<a href="${pin.url}" target="_blank">${pin.url}</a>` : ''}
+            <div class="pin-meta">
+              <span>${pin.type}</span>
+              <span>${date}</span>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
 
-                return `
-                    <div class="pin" onclick="handlePinClick('${pin.url}', '${pin.type}')">
-                        <button class="delete-pin" onclick="event.stopPropagation(); deletePin(${pin.id})" title="delete pin">×</button>
-                        ${content}
-                        <div class="pin-content">
-                            <div class="pin-title">${pin.title}</div>
-                            ${pin.description ? `<div class="pin-description">${pin.description}</div>` : ''}
-                            ${pin.url ? `<a href="${pin.url}" class="pin-url" target="_blank" onclick="event.stopPropagation()">${pin.url}</a>` : ''}
-                            <div class="pin-meta">
-                                <span class="pin-type">${pin.type}</span>
-                                <span>${date}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+  qs('pins-grid').addEventListener('click', e => {
+    const pinEl = e.target.closest('.pin');
+    if (!pinEl) return;
 
-        function handlePinClick(url, type) {
-            if (url && type !== 'text') {
-                window.open(url, '_blank');
-            }
-        }
+    if (e.target.classList.contains('delete-pin')) {
+      deletePin(Number(pinEl.dataset.id));
+      return;
+    }
 
-        function updateStats() {
-            document.getElementById('pin-count').textContent = `${pins.length} pin${pins.length !== 1 ? 's' : ''}`;
-            
-            if (pins.length > 0) {
-                const lastPin = pins[0];
-                const lastDate = new Date(lastPin.createdAt);
-                const now = new Date();
-                const diff = now - lastDate;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                
-                let timeAgo;
-                if (days === 0) {
-                    timeAgo = 'today';
-                } else if (days === 1) {
-                    timeAgo = 'yesterday';
-                } else if (days < 7) {
-                    timeAgo = `${days} days ago`;
-                } else {
-                    timeAgo = lastDate.toLocaleDateString();
-                }
-                
-                document.getElementById('last-added').textContent = timeAgo;
-            } else {
-                document.getElementById('last-added').textContent = 'never';
-            }
-        }
+    if (pinEl.dataset.url && pinEl.dataset.type !== 'text') {
+      window.location.href = pinEl.dataset.url;
+    }
+  });
 
-        // Login form submission
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('username').value;
-            if (name.trim()) {
-                login(name);
-            }
-        });
+  function updateStats() {
+    qs('pin-count').textContent = `${pins.length} pin${pins.length !== 1 ? 's' : ''}`;
+    qs('last-added').textContent = pins.length
+      ? new Date(pins[0].createdAt).toLocaleDateString()
+      : 'never';
+  }
 
-        // Form submission
-        document.getElementById('pin-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const type = document.getElementById('pin-type').value;
-            const title = document.getElementById('pin-title').value;
-            const url = document.getElementById('pin-url').value;
-            const description = document.getElementById('pin-description').value;
+  qs('login-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = qs('username').value.trim();
+    if (name) login(name);
+  });
 
-            createPin(type, title, url, description);
-            closeModal();
-        });
+  qs('pin-form').addEventListener('submit', e => {
+    e.preventDefault();
+    createPin(
+      qs('pin-type').value,
+      qs('pin-title').value,
+      qs('pin-url').value,
+      qs('pin-description').value
+    );
+    closeModal();
+  });
 
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+  document.addEventListener('keydown', e => e.key === 'Escape' && closeModal());
 
-        // Close modal on outside click
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+  checkAuth();
+</script>
 
-        // Initialize
-        checkAuth();
-        toggleFields();
-    </script>
 </body>
 </html>

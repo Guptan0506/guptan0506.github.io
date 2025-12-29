@@ -153,62 +153,73 @@ button a {
 <button><a href="index.html">Go back to my portfolio</a></button>
 
 <script>
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
-}
+  const list = document.getElementById("myUL");
+  const input = document.getElementById("myInput");
 
-// Click on a close button to hide the current list item
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var div = this.parentElement;
-    div.style.display = "none";
-  }
-}
+  // Load saved tasks
+  const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  savedTasks.forEach(task => addTask(task.text, task.checked));
 
-// Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('ul');
-list.addEventListener('click', function(ev) {
-  if (ev.target.tagName === 'LI') {
-    ev.target.classList.toggle('checked');
-  }
-}, false);
-
-// Create a new list item when clicking on the "Add" button
-function newElement() {
-  var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
-  var t = document.createTextNode(inputValue);
-  li.appendChild(t);
-  if (inputValue === '') {
-    alert("You must write something!");
-  } else {
-    document.getElementById("myUL").appendChild(li);
-  }
-  document.getElementById("myInput").value = "";
-
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  li.appendChild(span);
-
-  for (i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var div = this.parentElement;
-      div.style.display = "none";
+  // Add task (button or Enter)
+  function newElement() {
+    const text = input.value.trim();
+    if (!text) {
+      alert("You must write something!");
+      return;
     }
+
+    addTask(text, false);
+    savedTasks.push({ text, checked: false });
+    saveTasks();
+    input.value = "";
   }
-}
+
+  input.addEventListener("keypress", e => {
+    if (e.key === "Enter") newElement();
+  });
+
+  function addTask(text, checked) {
+    const li = document.createElement("li");
+    li.textContent = text;
+    if (checked) li.classList.add("checked");
+
+    const span = document.createElement("span");
+    span.textContent = "×";
+    span.className = "close";
+
+    li.appendChild(span);
+    list.appendChild(li);
+  }
+
+  // Event delegation
+  list.addEventListener("click", e => {
+    if (e.target.tagName === "LI") {
+      e.target.classList.toggle("checked");
+      updateStorage();
+    }
+
+    if (e.target.classList.contains("close")) {
+      e.target.parentElement.remove();
+      updateStorage();
+    }
+  });
+
+  function updateStorage() {
+    const tasks = [];
+    document.querySelectorAll("#myUL li").forEach(li => {
+      tasks.push({
+        text: li.firstChild.textContent,
+        checked: li.classList.contains("checked")
+      });
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(savedTasks));
+  }
 </script>
+
 
 </body>
 </html>

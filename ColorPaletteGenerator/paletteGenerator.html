@@ -57,169 +57,116 @@
     </footer>
 
   <script>
-        // Get references to DOM elements
-        const generatePaletteBtn = document.getElementById('generatePaletteBtn');
-        const paletteContainer = document.getElementById('paletteContainer');
-        const messageBox = document.getElementById('messageBox');
-        const messageBoxTitle = document.getElementById('messageBoxTitle');
-        const messageBoxContent = document.getElementById('messageBoxContent');
+  const generatePaletteBtn = document.getElementById('generatePaletteBtn');
+  const paletteContainer = document.getElementById('paletteContainer');
+  const messageBox = document.getElementById('messageBox');
+  const messageBoxTitle = document.getElementById('messageBoxTitle');
+  const messageBoxContent = document.getElementById('messageBoxContent');
 
-        /**
-         * Displays a message in the message box, then hides it after a delay.
-         * @param {string} type - 'success', 'info', or 'error'.
-         * @param {string} title - The title of the message.
-         * @param {string} content - The content of the message.
-         */
-        function showMessageBox(type, title, content) {
-            // Reset classes
-            messageBox.classList.remove('hidden', 'bg-green-100', 'border-green-400', 'text-green-700', 'bg-blue-100', 'border-blue-400', 'text-blue-700', 'bg-red-100', 'border-red-400', 'text-red-700');
-            messageBoxTitle.textContent = title;
-            messageBoxContent.textContent = content;
+  let messageTimeout;
 
-            // Apply specific classes based on type
-            if (type === 'success') {
-                messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
-            } else if (type === 'info') {
-                messageBox.classList.add('bg-blue-100', 'border-blue-400', 'text-blue-700');
-            } else if (type === 'error') {
-                messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
-            }
-            messageBox.classList.remove('hidden');
+  function showMessageBox(type, title, content) {
+    clearTimeout(messageTimeout);
 
-            // Hide after 3 seconds
-            setTimeout(() => {
-                messageBox.classList.add('hidden');
-            }, 3000);
-        }
+    messageBox.className = 'border rounded-lg p-4';
+    messageBoxTitle.textContent = title;
+    messageBoxContent.textContent = content;
 
-        /**
-         * Generates a random hexadecimal color code (e.g., #RRGGBB).
-         * @returns {string} The generated hex color string.
-         */
-        function generateRandomHexColor() {
-            // Generate a random number between 0 and 16777215 (FFFFFF in hex)
-            // Convert it to a hex string and pad with leading zeros if necessary
-            let color = Math.floor(Math.random() * 16777215).toString(16);
-            return '#' + ('000000' + color).slice(-6); // Ensure 6 characters with '#' prefix
-        }
+    const styles = {
+      success: ['bg-green-100', 'border-green-400', 'text-green-700'],
+      info: ['bg-blue-100', 'border-blue-400', 'text-blue-700'],
+      error: ['bg-red-100', 'border-red-400', 'text-red-700']
+    };
 
-        /**
-         * Determines if a given hex color is light or dark for text contrast.
-         * @param {string} hexColor - The hex color string (e.g., #RRGGBB).
-         * @returns {string} 'dark' if the color is light, 'light' if the color is dark.
-         */
-        function getContrastYIQ(hexColor) {
-            // Convert hex to RGB
-            const r = parseInt(hexColor.substring(1, 3), 16);
-            const g = parseInt(hexColor.substring(3, 5), 16);
-            const b = parseInt(hexColor.substring(5, 7), 16);
+    messageBox.classList.add(...styles[type]);
+    messageBox.classList.remove('hidden');
 
-            // Calculate YIQ value (luminance)
-            // A common formula for perceived brightness
-            const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    messageTimeout = setTimeout(() => {
+      messageBox.classList.add('hidden');
+    }, 2500);
+  }
 
-            // Return 'dark' for light colors (so text is black), 'light' for dark colors (so text is white)
-            return (yiq >= 128) ? 'dark' : 'light';
-        }
+  function generateRandomHexColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+  }
 
-        /**
-         * Copies text to the clipboard.
-         * Note: document.execCommand('copy') is deprecated but works reliably in iframes.
-         * @param {string} text - The text to copy.
-         */
-        function copyToClipboard(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            // Make the textarea invisible and append it to the body
-            textarea.style.position = 'absolute';
-            textarea.style.left = '-9999px';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    showMessageBox('success', 'Copied!', `Hex code "${text}" copied to clipboard.`);
-                } else {
-                    showMessageBox('error', 'Copy Failed', 'Could not copy text to clipboard. Please try manually.');
-                }
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
-                showMessageBox('error', 'Copy Failed', 'Error copying text to clipboard. Please try manually.');
-            } finally {
-                document.body.removeChild(textarea); // Clean up the temporary textarea
-            }
-        }
+  function getContrastYIQ(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? 'dark' : 'light';
+  }
 
-        /**
-         * Generates and displays a new color palette.
-         * @param {number} numberOfColors - The number of colors in the palette.
-         */
-        function generatePalette(numberOfColors = 6) { // Changed default to 6 colors
-            paletteContainer.innerHTML = ''; // Clear previous palette
+  async function copyToClipboard(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      showMessageBox('success', 'Copied!', `${text} copied to clipboard`);
+    } catch {
+      fallbackCopy(text);
+    }
+  }
 
-            for (let i = 0; i < numberOfColors; i++) {
-                const hexColor = generateRandomHexColor();
-                const contrastColor = getContrastYIQ(hexColor) === 'dark' ? 'text-gray-900' : 'text-white'; // Tailwind class for text color
+  function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'absolute';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    showMessageBox('success', 'Copied!', `${text} copied to clipboard`);
+  }
 
-                const colorSwatch = document.createElement('div');
-                colorSwatch.classList.add(
-                    'color-swatch',
-                    'flex', 'flex-col', 'items-center', 'justify-between',
-                    'p-4', 'rounded-xl', 'shadow-md',
-                    'transition-all', 'duration-200', 'ease-in-out',
-                    'transform', 'hover:scale-105', 'cursor-pointer',
-                    'min-h-[150px]' // Ensure a minimum height for visibility
-                );
-                colorSwatch.style.backgroundColor = hexColor;
+  function generatePalette(count = 6) {
+    paletteContainer.innerHTML = '';
+    const palette = [];
 
-                // Create hex code display
-                const hexText = document.createElement('span');
-                hexText.classList.add('font-semibold', 'text-lg', contrastColor, 'select-all', 'text-center', 'break-all');
-                hexText.textContent = hexColor.toUpperCase(); // Display in uppercase
+    for (let i = 0; i < count; i++) {
+      const hex = generateRandomHexColor();
+      palette.push(hex);
 
-                // Create copy button
-                const copyButton = document.createElement('button');
-                copyButton.classList.add(
-                    'mt-4', 'px-3', 'py-1', 'rounded-md',
-                    'bg-white', 'bg-opacity-20', 'backdrop-filter', 'backdrop-blur-sm',
-                    'text-sm', 'font-medium', contrastColor,
-                    'hover:bg-opacity-30', 'focus:outline-none', 'focus:ring-2', 'focus:ring-white', 'focus:ring-opacity-50'
-                );
-                copyButton.textContent = 'Copy';
-                copyButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Prevent parent swatch click event
-                    copyToClipboard(hexColor.toUpperCase());
-                });
+      const contrast = getContrastYIQ(hex) === 'dark' ? 'text-gray-900' : 'text-white';
 
-                colorSwatch.appendChild(hexText);
-                colorSwatch.appendChild(copyButton);
+      const swatch = document.createElement('div');
+      swatch.className =
+        'flex flex-col items-center justify-between p-4 rounded-xl shadow-md cursor-pointer min-h-[150px] transition transform hover:scale-105';
+      swatch.style.backgroundColor = hex;
 
-                paletteContainer.appendChild(colorSwatch);
-            }
-        }
+      const hexText = document.createElement('span');
+      hexText.className = `font-semibold text-lg ${contrast}`;
+      hexText.textContent = hex;
 
-        // --- Event Listeners ---
+      const btn = document.createElement('button');
+      btn.className = `mt-4 px-3 py-1 rounded-md bg-white bg-opacity-20 text-sm ${contrast}`;
+      btn.textContent = 'Copy';
+      btn.onclick = e => {
+        e.stopPropagation();
+        copyToClipboard(hex);
+      };
 
-        // Generate palette button click
-        generatePaletteBtn.addEventListener('click', () => {
-            generatePalette();
-        });
+      swatch.append(hexText, btn);
+      paletteContainer.appendChild(swatch);
+    }
 
-        // Initial palette generation when the page loads
-        window.onload = () => {
-            generatePalette();
-        };</script>
-</body>
-</html>
+    localStorage.setItem('palette', JSON.stringify(palette));
+  }
 
-<!-- Load Feather icons and replace placeholders -->
-<script src="https://unpkg.com/feather-icons"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.feather) {
-            try { feather.replace(); } catch (e) { console.warn('feather.replace() failed', e); }
-        }
-    });
+  generatePaletteBtn.addEventListener('click', () => generatePalette());
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = JSON.parse(localStorage.getItem('palette'));
+    if (saved) {
+      paletteContainer.innerHTML = '';
+      saved.forEach(hex => {
+        generatePalette(0);
+      });
+      generatePalette();
+    } else {
+      generatePalette();
+    }
+  });
 </script>
+
 </body>
 </html>
