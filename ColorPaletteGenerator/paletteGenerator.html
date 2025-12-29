@@ -3,169 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Palette Generator</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Palette Generator</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #CB1E7D, #F4CEA4); /* Warm gradient background */
+
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #f0f2f5;
             min-height: 100vh;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
+            padding: 20px;
         }
-  </style>
+
+        .palette-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .palette-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .color-block {
+            height: 90px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            padding-bottom: 8px;
+            font-size: 0.9rem;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111827;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body class="antialiased">
-    <div class="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 flex flex-col items-center">
-        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Color Palette Generator</h1>
 
-        <button
-            id="generatePaletteBtn"
-            class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition duration-300 ease-in-out transform hover:scale-105 shadow-lg flex items-center justify-center mb-8"
-            aria-label="Generate New Palette"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.5l4.5-4.5M14.049 9.333L16.5 6.883m-6.42 2.766L20.25 14.75m-2.936-2.936L20.25 14.75M16.5 10.75V16a2 2 0 002 2h2.5M12.5 7V13M7.5 12H13" />
-            </svg>
-            Generate New Palette
-        </button>
+<body>
 
-        <!-- Color Palette Display Container -->
-        <!-- Updated grid layout to accommodate 6 colors better, now max-w-3xl and grid-cols-2/3 for smaller/larger screens -->
-        <div id="paletteContainer" class="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Color swatches will be dynamically added here by JavaScript -->
-        </div>
+<div class="max-w-6xl mx-auto">
 
-        <!-- Message Box for copy status -->
-        <div id="messageBox" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-6" role="alert">
-            <strong class="font-bold" id="messageBoxTitle"></strong>
-            <span class="block sm:inline" id="messageBoxContent"></span>
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Color Palette Generator
+        </h1>
+
+        <div class="flex gap-3">
+            <button id="generateBtn"
+                class="px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
+                Generate Palette
+            </button>
+
+            <a href="index.html"
+                class="px-6 py-3 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition">
+                Back
+            </a>
         </div>
     </div>
 
-    <footer class="bg-slate-100 dark:bg-slate-900/50">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-950">
-             <div class="flex justify-center space-x-4 mb-4">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="github" class="w-6 h-6" aria-hidden="true"></i><span class="sr-only">GitHub</span></a>
-                <a href="https://linkedin.com" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400"><i data-feather="twitter" class="w-6 h-6" aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
-            </div>
-            <p>&copy; <span id="year"></span> Navya Gupta. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <!-- Palette Grid -->
+    <div id="paletteGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
 
-  <script>
-  const generatePaletteBtn = document.getElementById('generatePaletteBtn');
-  const paletteContainer = document.getElementById('paletteContainer');
-  const messageBox = document.getElementById('messageBox');
-  const messageBoxTitle = document.getElementById('messageBoxTitle');
-  const messageBoxContent = document.getElementById('messageBoxContent');
+</div>
 
-  let messageTimeout;
+<!-- Toast -->
+<div id="toast" class="toast">
+    Copied to clipboard
+</div>
 
-  function showMessageBox(type, title, content) {
-    clearTimeout(messageTimeout);
+<script>
+    const paletteGrid = document.getElementById("paletteGrid");
+    const generateBtn = document.getElementById("generateBtn");
+    const toast = document.getElementById("toast");
 
-    messageBox.className = 'border rounded-lg p-4';
-    messageBoxTitle.textContent = title;
-    messageBoxContent.textContent = content;
-
-    const styles = {
-      success: ['bg-green-100', 'border-green-400', 'text-green-700'],
-      info: ['bg-blue-100', 'border-blue-400', 'text-blue-700'],
-      error: ['bg-red-100', 'border-red-400', 'text-red-700']
-    };
-
-    messageBox.classList.add(...styles[type]);
-    messageBox.classList.remove('hidden');
-
-    messageTimeout = setTimeout(() => {
-      messageBox.classList.add('hidden');
-    }, 2500);
-  }
-
-  function generateRandomHexColor() {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
-  }
-
-  function getContrastYIQ(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return (r * 299 + g * 587 + b * 114) / 1000 >= 128 ? 'dark' : 'light';
-  }
-
-  async function copyToClipboard(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      showMessageBox('success', 'Copied!', `${text} copied to clipboard`);
-    } catch {
-      fallbackCopy(text);
-    }
-  }
-
-  function fallbackCopy(text) {
-    const textarea = document.createElement('textarea');
-    textarea.value = text;
-    textarea.style.position = 'absolute';
-    textarea.style.left = '-9999px';
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textarea);
-    showMessageBox('success', 'Copied!', `${text} copied to clipboard`);
-  }
-
-  function generatePalette(count = 6) {
-    paletteContainer.innerHTML = '';
-    const palette = [];
-
-    for (let i = 0; i < count; i++) {
-      const hex = generateRandomHexColor();
-      palette.push(hex);
-
-      const contrast = getContrastYIQ(hex) === 'dark' ? 'text-gray-900' : 'text-white';
-
-      const swatch = document.createElement('div');
-      swatch.className =
-        'flex flex-col items-center justify-between p-4 rounded-xl shadow-md cursor-pointer min-h-[150px] transition transform hover:scale-105';
-      swatch.style.backgroundColor = hex;
-
-      const hexText = document.createElement('span');
-      hexText.className = `font-semibold text-lg ${contrast}`;
-      hexText.textContent = hex;
-
-      const btn = document.createElement('button');
-      btn.className = `mt-4 px-3 py-1 rounded-md bg-white bg-opacity-20 text-sm ${contrast}`;
-      btn.textContent = 'Copy';
-      btn.onclick = e => {
-        e.stopPropagation();
-        copyToClipboard(hex);
-      };
-
-      swatch.append(hexText, btn);
-      paletteContainer.appendChild(swatch);
+    function randomColor() {
+        return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
     }
 
-    localStorage.setItem('palette', JSON.stringify(palette));
-  }
-
-  generatePaletteBtn.addEventListener('click', () => generatePalette());
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const saved = JSON.parse(localStorage.getItem('palette'));
-    if (saved) {
-      paletteContainer.innerHTML = '';
-      saved.forEach(hex => {
-        generatePalette(0);
-      });
-      generatePalette();
-    } else {
-      generatePalette();
+    function generatePalette(size = 5) {
+        return Array.from({ length: size }, () => randomColor());
     }
-  });
+
+    function showToast(text) {
+        toast.textContent = text;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+
+    function copyColor(color) {
+        navigator.clipboard.writeText(color);
+        showToast(`${color} copied`);
+    }
+
+    function createPaletteCard(colors) {
+        const card = document.createElement("div");
+        card.className = "palette-card bg-white";
+
+        colors.forEach(color => {
+            const block = document.createElement("div");
+            block.className = "color-block";
+            block.style.backgroundColor = color;
+            block.textContent = color.toUpperCase();
+            block.addEventListener("click", () => copyColor(color));
+            card.appendChild(block);
+        });
+
+        return card;
+    }
+
+    function renderPalettes(count = 6) {
+        paletteGrid.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+            const palette = generatePalette();
+            paletteGrid.appendChild(createPaletteCard(palette));
+        }
+    }
+
+    generateBtn.addEventListener("click", () => renderPalettes());
+
+    // Initial render
+    renderPalettes();
 </script>
 
 </body>

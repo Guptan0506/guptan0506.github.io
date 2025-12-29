@@ -3,42 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dodger Game | Navya</title>
+  <title>Dodger Game | Navya Gupta</title>
 
   <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-      line-height: 1.6;
-      color: #222;
+    :root {
+      --primary: #4f46e5;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --border: #e5e7eb;
     }
 
-    h1, h2 {
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Ubuntu, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero {
       margin-top: 1.5rem;
     }
 
     img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin: 1.5rem 0;
-      border: 1px solid #ddd;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin: 1.75rem 0;
     }
 
     ul {
-      margin-left: 1.5rem;
+      padding-left: 1.25rem;
+      margin-top: 0.75rem;
     }
 
-    .tech {
-      background: #f5f5f5;
-      padding: 1rem;
-      border-radius: 8px;
-      display: inline-block;
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .tag {
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
 
     a {
-      color: #0066cc;
+      color: var(--primary);
+      font-weight: 600;
       text-decoration: none;
     }
 
@@ -46,66 +103,119 @@
       text-decoration: underline;
     }
 
-    .back {
-      margin-top: 3rem;
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
     }
 
-    img {
-      max-width:100%;
-      height: auto
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: white;
+      font-weight: 600;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
   </style>
 </head>
+
 <body>
+  <main>
+    <section class="card hero">
+      <h1>Dodger Game</h1>
+      <p>
+        <strong>Dodger Game</strong> is a fast-paced 2D arcade-style desktop game
+        built with <strong>Java Swing</strong>. The goal is simple: survive as
+        long as possible by dodging falling enemies while your score increases
+        over time.
+      </p>
 
-  <h1>Dodger Game (Java)</h1>
+      <img src="./DodgerGame.gif" alt="Gameplay preview of Dodger Game" />
+    </section>
 
-  <p>
-    <strong>Dodger Game</strong> is a 2D arcade-style desktop game built using
-    <strong>Java Swing</strong>. The player controls a character and must dodge
-    falling enemies for as long as possible while earning points over time.
-  </p>
+    <section class="card">
+      <h2>How the Game Works</h2>
+      <ul>
+        <li>Move left and right using keyboard controls</li>
+        <li>Enemies continuously fall from the top of the screen</li>
+        <li>Your score increases the longer you survive</li>
+        <li>Colliding with an enemy triggers game over</li>
+        <li>The game can be restarted without restarting the program</li>
+      </ul>
+    </section>
 
-  <img src= "./DodgerGame.gif" alt="DodgerGame.gif">
+    <section class="card">
+      <h2>Tech Stack</h2>
+      <div class="tags">
+        <span class="tag">Java</span>
+        <span class="tag">Java Swing</span>
+        <span class="tag">OOP</span>
+        <span class="tag">Game Loop</span>
+        <span class="tag">Collision Detection</span>
+        <span class="tag">Event Handling</span>
+      </div>
+    </section>
 
-  <h2>How the Game Works</h2>
-  <ul>
-    <li>The player moves left and right using keyboard controls</li>
-    <li>Enemies continuously fall from the top of the screen</li>
-    <li>The score increases the longer the player survives</li>
-    <li>Collision with an enemy triggers a game-over state</li>
-    <li>The game can be restarted without restarting the program</li>
-  </ul>
+    <section class="card">
+      <h2>What I Learned</h2>
+      <ul>
+        <li>Building a real-time game loop in Java</li>
+        <li>Handling keyboard input and focus in Swing</li>
+        <li>Collision detection using bounding boxes</li>
+        <li>Structuring projects using object-oriented design</li>
+        <li>Debugging and iterating on graphical applications</li>
+      </ul>
+    </section>
 
-  <h2>Tech Stack</h2>
-  <div class="tech">
-    <p><strong>Language:</strong> Java</p>
-    <p><strong>Graphics:</strong> Java Swing</p>
-    <p><strong>Concepts:</strong> Object-Oriented Programming, Game Loop, Collision Detection, Event Handling</p>
-  </div>
+    <section class="card">
+      <h2>Source Code</h2>
+      <p>
+        View the full source code on GitHub:
+        <br />
+        <a
+          href="https://github.com/guptan0506/DodgerGame"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          github.com/guptan0506/DodgerGame
+        </a>
+      </p>
 
-  <h2>What I Learned</h2>
-  <ul>
-    <li>How to build a real-time game loop in Java</li>
-    <li>Handling keyboard input and focus in Swing</li>
-    <li>Implementing collision detection using bounding boxes</li>
-    <li>Structuring a project using object-oriented design</li>
-    <li>Debugging and iterating on a graphical application</li>
-  </ul>
+      <div class="actions">
+        <a class="btn primary" href="https://github.com/guptan0506/DodgerGame" target="_blank">
+          View on GitHub
+        </a>
+        <a class="btn" href="../index.html">← Back to Portfolio</a>
+      </div>
+    </section>
 
-  <h2>Source Code</h2>
-  <p>
-    You can view the full source code on GitHub:
-    <br>
-    <a href="https://github.com/guptan0506/DodgerGame" target="_blank">
-      https://github.com/guptan0506/DodgerGame
-    </a>
-  </p>
+    <footer>
+      © <span id="year"></span> Navya Gupta
+    </footer>
+  </main>
 
-  <div class="back">
-    <a href="../index.html">← Back to Portfolio</a>
-  </div>
-
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
-
