@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generative Art Creator</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<div class="container grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <h2 class="text-2xl font-bold text-center">Art Controls</h2>
+
+        <label>
+            Number of Shapes
+            <input id="numShapes" type="range" min="10" max="500" value="100">
+        </label>
+
+        <label>
+            Shape Type
+            <select id="shapeType" class="w-full p-2 rounded">
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+                <option value="line">Line</option>
+                <option value="triangle">Triangle</option>
+            </select>
+        </label>
+
+        <label>
+            Shape Size
+            <input id="shapeSize" type="range" min="5" max="100" value="20">
+        </label>
+
+        <label>
+            Opacity
+            <input id="opacity" type="range" min="0.1" max="1" step="0.05" value="0.5">
+        </label>
+
+        <label>
+            Base Color
+            <input id="baseColor" type="color" value="#4f46e5">
+        </label>
+
+        <label>
+            Background Color
+            <input id="bgColor" type="color" value="#ffffff">
+        </label>
+
+        <div class="flex gap-3 mt-4">
+            <button id="generateArt" class="btn-primary flex-1">
+                Reimagine
+            </button>
+            <button id="clearCanvas" class="btn-secondary flex-1">
+                Clear
+            </button>
+        </div>
+    </div>
+
+    <!-- Canvas -->
+    <div class="canvas-container lg:col-span-2">
+        <canvas id="artCanvas"></canvas>
+        <p class="mt-3 text-sm text-gray-500 italic text-center">
+            Each generation is unique and cannot be recreated.
+        </p>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="script.js"></script>
+</body>
+</html>
