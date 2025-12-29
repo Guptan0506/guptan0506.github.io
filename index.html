@@ -321,55 +321,49 @@
 </footer>
 
 <script>
-  const themeToggle = document.getElementById("theme-toggle");
-  const themeIcon = document.getElementById("theme-icon");
-  const html = document.documentElement;
+  const typewriterEl = document.getElementById("typewriter");
 
-  // Load saved preference
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    html.classList.add("dark");
-    themeIcon.textContent = "☀️";
+  const words = [
+    "Web Developer.",
+    "Creative Coder.",
+    "Problem Solver.",
+    "Tech Enthusiast."
+  ];
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function typewriter() {
+    const currentWord = words[wordIndex];
+
+    if (!isDeleting) {
+      // Typing
+      typewriterEl.textContent = currentWord.slice(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentWord.length) {
+        setTimeout(() => (isDeleting = true), 1200);
+      }
+    } else {
+      // Deleting
+      typewriterEl.textContent = currentWord.slice(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+      }
+    }
+
+    const speed = isDeleting ? 80 : 140;
+    setTimeout(typewriter, speed);
   }
 
-  themeToggle.addEventListener("click", () => {
-    html.classList.toggle("dark");
-
-    const isDark = html.classList.contains("dark");
-    themeIcon.textContent = isDark ? "☀️" : "🌙";
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
-
-  feather.replace();
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  document.getElementById('menu-btn').onclick = () =>
-    document.getElementById('mobile-menu').classList.toggle('hidden');
-
-  const html = document.documentElement;
-  const toggle = document.getElementById('theme-toggle');
-  if (localStorage.theme === 'dark' || (!localStorage.theme && matchMedia('(prefers-color-scheme: dark)').matches))
-    html.classList.add('dark');
-
-  toggle.onclick = () => {
-    html.classList.toggle('dark');
-    localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-  };
-
-  const words = ['Web Developer.', 'Student.', 'Creative Coder.'];
-  let i=0,j=0,d=false;
-  (function type(){
-    document.getElementById('typewriter').textContent = words[i].slice(0,j);
-    if(!d && j++===words[i].length)d=true;
-    if(d && j--===0){d=false;i=(i+1)%words.length;}
-    setTimeout(type,d?80:120);
-  })();
-
-  document.querySelectorAll('.project-card').forEach(card=>{
-    card.classList.add(
-      'bg-white','dark:bg-slate-900','rounded-xl','shadow',
-      'overflow-hidden','transition','hover:-translate-y-2'
-    );
+  document.addEventListener("DOMContentLoaded", () => {
+    if (typewriterEl) {
+      setTimeout(typewriter, 800);
+    }
   });
 </script>
 
