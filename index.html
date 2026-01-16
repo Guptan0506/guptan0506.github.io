@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Navya Gupta | Portfolio</title>
+  <title>Navya G | Portfolio</title>
 
   <meta name="description" content="Navya Gupta — Web Developer, Student, Creative Coder" />
 
@@ -52,6 +52,7 @@
     <div class="hidden md:flex gap-8 text-lg font-bold">
       <a href="#home">Home</a>
       <a href="#about">About</a>
+      <a href="#education">Education</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
@@ -60,6 +61,7 @@
   <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 border-t">
     <a href="#home" class="block px-6 py-3">Home</a>
     <a href="#about" class="block px-6 py-3">About</a>
+    <a href="#education" class="block px-6 py-3">Education</a>
     <a href="#projects" class="block px-6 py-3">Projects</a>
     <a href="#experience" class="block px-6 py-3">Experience</a>
     <a href="#contact" class="block px-6 py-3">Contact</a>
@@ -69,11 +71,11 @@
 <main class="pt-24">
 
 <!-- HERO -->
-<section id="home" class="min-h-screen flex items-center">
+<section id="home" class="min-h-screen mx-auto flex items-center">
   <div class="max-w-5xl mx-auto px-6 text-center">
     <img src="favicon.webp" loading="lazy"
       class="mx-auto w-40 md:w-56 rounded-full shadow-xl mb-6"
-      alt="Navya Gupta">
+      alt="Navya">
 
     <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I’m Navya</h1>
     <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-8">
@@ -91,15 +93,15 @@
   </div>
 </section>
 
-<div class="marquee py-2">
+<div class="marquee py-2 text-base">
   <span>
     | Student | Web Developer | Cincinnati, OH | Too many tabs open | Deployed on vibes | Git hates me | <a href="#projects">Explore my work</a> | <a href="#contact">Reach out for collaborations</a>
   </span>
 </div>
 
 <!-- ABOUT -->
-<section id="about" class="py-20">
-  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+<section id="about" class="min-h-screen container max-w-7xl mx-auto flex items-center">
+  <div class="px-6 grid md:grid-cols-2 gap-12 items-center">
     <img src="HIII!!.webp" loading="lazy" class="rounded-xl shadow-xl mx-auto" alt="About Navya">
     <div>
       <h2 class="text-3xl font-bold mb-6">About Me</h2>
@@ -129,8 +131,37 @@
   </div>
 </section>
 
+<!--EDUCATION-->
+<section id="education" class="container mx-auto px-6 py-16 bg-slate-800 rounded-xl">
+    <h2 class="text-center text-3xl font-bold mb-6">
+      Education
+    </h2>
+    <div>
+      <h3 class="font-bold">Bachelor of Science in Information Technology</h3>
+      <h3>
+        University of Cincinnati 
+        <span class="float-right">August 2024 - Present</span>
+      </h3>
+      <h2>
+        Cincinnati, OH
+      </h2>
+      <p>GPA: <span class="font-bold">3.969</span></p>
+      <p>Relevant Coursework:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Database Management</li>
+        <li>Computer Networking</li>
+        <li>Computer Programming II</li>
+        <li>Information Security and Assurance</li>
+        <li>Computer Networking</li>
+        <li>Implications of IT</li>
+        <li>Data Tech Essentials</li>
+      </ul>
+    </div>
+</section>
+
+
 <!-- PROJECTS -->
-<section id="projects" class="container mx-auto px-6 py-16">
+<section id="projects" class="container mx-auto px-6 py-16 min-h-screen">
   <h2 class="text-center text-3xl font-bold mb-6">
     Projects
   </h2>
@@ -205,7 +236,7 @@
             Live Demo
             </a>
           <a href="https://github.com/Guptan0506/DodgerGame" target="_blank"
-             class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+             class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
             GitHub
           </a>
         </div>
@@ -253,7 +284,7 @@
             Live Demo
             </a>
           <a href="https://github.com/Guptan0506/Guptan0509.github.io/" target="_blank"
-             class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+             class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
             GitHub
           </a>
         </div>
@@ -276,7 +307,7 @@
             Live Demo
           </a>
           <a href="https://github.com/yourusername/recipe-keeper" target="_blank"
-             class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+             class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
             GitHub
           </a>
         </div>
@@ -288,8 +319,9 @@
 
 
 <!-- EXPERIENCE -->
-<section id="experience" class="py-20">
-  <div class="max-w-7xl mx-auto px-6">
+<section id="experience" class="container mx-auto px-6 py-16 bg-slate-800 rounded-xl">
+  <!-- <div class="max-w-7xl mx-auto px-6"> -->
+  <div>
     <h2 class="text-3xl font-bold text-center mb-10">Experience</h2>
     <div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
       <h2 class="font-semibold text-xl">IT Co-op</h2>
@@ -307,7 +339,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="py-20 bg-slate-100 dark:bg-slate-800">
+<section id="contact" class="py-20">
   <div class="max-w-3xl mx-auto px-6 text-center">
     <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
     <iframe class="w-full h-[70vh] rounded-xl"
