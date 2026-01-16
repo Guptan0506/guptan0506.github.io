@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pin-interests - indie web inspiration board</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="IMG_0017.jpeg">
 
 <style>
@@ -233,27 +235,29 @@ body{
 </div>
 
 <div class="main-content" id="main-content">
-
-<div class="header">
-  <div class="logo">Pin-Interests</div>
-  <div class="stats">
-    <span id="pin-count">0 pins</span>
-    <span id="last-added">never</span>
+  <div class="header">
+    <div class="logo">Pin-Interests</div>
+    <div class="stats">
+      <span id="pin-count">0 pins</span>
+      <span id="last-added">never</span>
+    </div>
+    <div class="header-actions">
+      <span id="welcome-msg"></span>
+      <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
+      <button class="logout-btn" onclick="logout()">logout</button>
+    </div>
   </div>
-  <div class="header-actions">
-    <span id="welcome-msg"></span>
-    <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
-    <button class="logout-btn" onclick="logout()">logout</button>
+  <div class="pins-grid" id="pins-grid">
+    <div class="empty-state">
+      <h3>Your board is empty.</h3>
+      <p>Start collecting things that inspire you.</p>
+    </div>
   </div>
-</div>
-
-<div class="pins-grid" id="pins-grid">
-  <div class="empty-state">
-    <h3>Your board is empty.</h3>
-    <p>Start collecting things that inspire you.</p>
+  <div class="max-w-7xl mx-auto px-4 my-8 text-center">
+    <a href="index.html" class="inline-block bg-pink-400 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition">
+      ← Back to Portfolio
+    </a>
   </div>
-</div>
-
 </div>
 
 <div class="modal" id="modal">
