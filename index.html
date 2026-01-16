@@ -49,27 +49,14 @@
 <header id="header" class="fixed top-0 inset-x-0 z-50 transition-all">
   <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
     <a href="#" class="font-bold text-2xl">NG.</a>
-
-    <div class="hidden md:flex gap-8 text-sm font-medium">
+    <div class="hidden md:flex gap-8 text-lg font-bold">
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
-
-    <button
-        id="theme-toggle"
-        class="ml-4 p-2 rounded-full bg-slate-200 dark:bg-slate-700
-                text-slate-800 dark:text-slate-200
-                hover:scale-105 transition"
-        aria-label="Toggle dark mode"
-    >
-    <span id="theme-icon">🌙</span>
-</button>
-
   </nav>
-
   <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 border-t">
     <a href="#home" class="block px-6 py-3">Home</a>
     <a href="#about" class="block px-6 py-3">About</a>
@@ -90,7 +77,7 @@
 
     <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I’m Navya</h1>
     <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-8">
-      I’m a <span id="typewriter" class="text-indigo-600 font-semibold"></span>
+      I’m a <span id="typewriter" class="text-slate-300 font-semibold"></span>
     </p>
 
     <div class="flex justify-center gap-6 mb-10">
@@ -98,7 +85,7 @@
       <a href="https://linkedin.com/in/navyagupta0509" target="_blank"><i data-feather="linkedin"></i></a>
     </div>
 
-    <a href="#projects" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-full hover:bg-indigo-700">
+    <a href="#projects" class="inline-block bg-indigo-600 text-white text-xl px-8 py-3 rounded-full hover:bg-indigo-700">
       View My Work
     </a>
   </div>
@@ -117,16 +104,14 @@
     <div>
       <h2 class="text-3xl font-bold mb-6">About Me</h2>
       <p class="text-slate-600 dark:text-slate-300 mb-4">
-        I’m a sophomore at the University of Cincinnati majoring in Software Application Development and Data Technologies. I love taking my ideas and applying them in the form of intuitive websites.
+        I’m a sophomore at the University of Cincinnati studying Software Application Development and Data Technologies, with a strong interest in building visually clean, intuitive web experiences. I enjoy turning ideas into interactive designs and learning through hands-on projects.
       </p>
       <p class="text-slate-600 dark:text-slate-300 mb-4">
-        I have worked with languages like HTML, CSS, JavaScript, Java, React, Python. I'm currently learning objected-oriented programming in Java, and PowerBI, MongoDB, and SCSS to learn more about databases, data manipulation and data analysis. I'm focusing on building real-life skills by building projects.
-      </p>
+        I’ve worked with HTML, CSS, JavaScript, Java, React, and Python, and I enjoy blending development with design to create interfaces that feel both functional and thoughtful. I’m currently exploring tools like Tailwind, SCSS, MongoDB, and Power BI while continuing to strengthen my foundation in object-oriented programming.      </p>
       <p class="text-slate-600 dark:text-slate-300 mb-4">
-        I am open to and actively looking for co-op opportunities for Summer 2026, if you have an opportunity for me, please don't hesitate to reach out - email me, call me, whatever works for you, really.
-      </p>
+        I’m actively seeking Summer 2026 co-op opportunities where I can contribute creatively, learn from others, and help build meaningful products.      </p>
       <p class="text-slate-600 dark:text-slate-300 mb-4"> 
-        Outside of coding and just IT, I enjoy picking up new skills. My latest hobby is digital drawing, although I'm still just a newbie, I very much enjoy it. 
+        Outside of coding, I love picking up creative skills — lately, that’s been digital drawing.      
       </p>
 
       <div class="flex flex-wrap gap-3">
@@ -135,6 +120,10 @@
         <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">JavaScript</span>
         <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Java</span>
         <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Git</span>
+        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">React</span>
+        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">Python</span>
+        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">MongoDB</span>
+        <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">PowerBI</span>
       </div>
     </div>
   </div>
@@ -156,8 +145,7 @@
         <p class="text-gray-600 mb-4 flex-grow">
           A fully responsive e-commerce web application featuring product listings,
           shopping cart functionality, persistent state using localStorage, and a
-          simulated checkout flow. Designed with a focus on clean UI, usability,
-          and real-world shopping behavior.
+          simulated checkout flow.
         </p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, Tailwind CSS, JavaScript
@@ -182,7 +170,7 @@
         <p class="text-gray-600 mb-4 flex-grow">
           An interactive creative coding project that generates unique visual art
           using randomized algorithms and user-controlled parameters. Each render
-          produces a different result, encouraging exploration and experimentation.
+          produces a different result.
         </p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript, Canvas
@@ -230,9 +218,8 @@
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Color Palette Generator</h3>
         <p class="text-gray-600 mb-4 flex-grow">
-          A simple yet practical web tool that generates visually pleasing color
-          palettes. Designed with usability in mind, allowing users to explore,
-          refresh, and reuse color combinations.
+          A simple yet practical web tool that generates color
+          palettes. 
         </p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
@@ -256,7 +243,7 @@
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Pin-interests</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A lightweight idea-saving web app that allows users to pin and organize
-          interests in one place. Focused on DOM manipulation and clean layout.
+          ideas in one place.
         </p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
@@ -279,8 +266,7 @@
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Recipe Keeper</h3>
         <p class="text-gray-600 mb-4 flex-grow">
-          A beginner-friendly CRUD application for saving and managing recipes.
-          Built to practice JavaScript fundamentals and user input handling.
+          A web application for saving and managing recipes.
         </p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
@@ -333,7 +319,7 @@
 </main>
 
 <footer class="py-8 text-center text-sm">
-  © <span id="year"></span> Navya Gupta 2025
+  © Navya Gupta 2025
 </footer>
 
 <script>
