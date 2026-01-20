@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Zombie Survival Game</title>
-    </head>
-    <body>
-        <h1>Zombie Survival</h1>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zombie Survival Game</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50 text-gray-800">
+    <main class="max-w-5xl mx-auto px-4 py-12 text-center">
+      <!-- Title -->
+      <h1 class="text-4xl font-bold mb-8">
+        Zombie Survival
+      </h1>
+
+      <!-- Image -->
+      <img
+        src="ZombieSurvival.gif"
+        alt="Zombie Survival Game Gameplay"
+        class="w-[600px] max-w-full mx-auto rounded-xl shadow-lg mb-6"
+      />
+
+      <!-- Description -->
+      <p class="text-lg leading-relaxed max-w-3xl mx-auto mb-10">
+        Zombie Survival is an engaging game where players must survive waves of
+        zombies by strategically using resources and defenses. The goal is to
+        last a minute while managing limited supplies and upgrading defenses.
+      </p>
+
+      <!-- Section Title -->
+      <h3 class="text-2xl font-bold mb-4 max-w-3xl mx-auto">
+        Key Features & Technical Work
+      </h3>
+
+      <!-- Feature List -->
+      <ul class="text-lg leading-relaxed max-w-3xl mx-auto mb-12 list-disc list-inside text-left">
+        <li>Real-time game loop using Java Swing timers.</li>
+        <li>Dynamic zombie spawning with increasing difficulty.</li>
+        <li>Resource management system for upgrades and defenses.</li>
+        <li>Collision detection for player-zombie interactions.</li>
+        <li>Graphical user interface designed with Java Swing components.</li>
+      </ul>
+
+      <!-- Back Button -->
+      <a
+        href="../index.html"
+        class="inline-block bg-pink-400 hover:bg-pink-500 text-white font-bold px-6 py-3 rounded-xl transition"
+      >
+        ← Back to Portfolio
+      </a>
+    </main>
+  </body>
 </html>
