@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower Defense Game</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-inter bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-gray-900 text-white py-10 text-center">
+        <h1 class="text-4xl font-bold mb-2">Tower Defense Game</h1>
+        <h3 class="text-lg font-medium opacity-90">
+            Technologies: Java, Java Swing
+        </h3>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-12 text-center">
+
+        <!-- Game GIF -->
+        <img 
+            src="TowerDefense.gif" 
+            alt="Tower Defense Game Gameplay"
+            class="w-full rounded-xl shadow-lg mb-8"
+        />
+
+        <!-- Description -->
+        <p class="text-lg leading-relaxed mb-10">
+            Tower Defense is a strategic game where players build towers to defend against waves of enemies.
+            The objective is to prevent enemies from reaching the end of a predefined path by strategically
+            placing towers with unique attack abilities.
+        </p>
+
+        <!-- Features -->
+        <h3 class="text-2xl font-semibold mb-4">
+            Key Features & Technical Work
+        </h3>
+
+        <ul class="max-w-2xl mx-auto text-left list-disc list-inside space-y-3 mb-10">
+            <li>Real-time game loop implemented using Java Swing timers.</li>
+            <li>Collision detection, targeting logic, and range calculations.</li>
+            <li>User input handling, UI state transitions, and rendering with Java Swing.</li>
+        </ul>
+
+        <!-- Links -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+                href="https://github.com/Guptan0506/TowerDefense"
+                target="_blank"
+                class="inline-block bg-gray-900 text-white font-semibold px-6 py-3 rounded-full hover:bg-black transition"
+            >
+                View on GitHub
+            </a>
+
+            <a 
+                href="../index.html"
+                class="inline-block bg-pink-400 text-white font-semibold px-6 py-3 rounded-full hover:bg-pink-500 transition"
+            >
+                ← Back to Portfolio
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
