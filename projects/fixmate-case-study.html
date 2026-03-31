@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FixMate | Flagship Case Study</title>
+  <meta name="description" content="Flagship case study for FixMate, a React-based home-services platform frontend." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <main class="max-w-5xl mx-auto px-6 py-12">
+    <a href="../index.html#projects" class="inline-block mb-6 text-indigo-700 hover:underline">Back to Projects</a>
+    <section class="bg-white rounded-2xl border border-slate-200 shadow p-8 md:p-10">
+      <p class="inline-block text-xs uppercase tracking-widest font-semibold text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full mb-4">Flagship Project</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-3">FixMate</h1>
+      <p class="text-slate-600 mb-6">A home-solutions platform frontend designed to help users discover and connect with services for repair, maintenance, and household tasks.</p>
+
+      <div class="flex flex-wrap gap-3 mb-8">
+        <a href="https://home-solutions-rev-uc-2026.vercel.app" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Live Demo</a>
+        <a href="https://github.com/Guptan0506/HomeSolutionsRevUC2026" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg border border-indigo-600 text-indigo-600 hover:bg-indigo-50">GitHub Repo</a>
+      </div>
+
+      <h2 class="text-xl font-bold mb-2">Product Goal</h2>
+      <p class="text-slate-700 mb-6">Make it easier for users to browse home services quickly, trust the options they see, and take the next action with less friction.</p>
+
+      <h2 class="text-xl font-bold mb-2">Architecture Overview</h2>
+      <div class="bg-slate-900 text-slate-100 rounded-xl p-4 mb-6 overflow-x-auto">
+<pre class="text-sm">React UI Components
+      |
+      v
+Routing + View State (Vite app)
+      |
+      v
+Service Listing Modules -> Filtering Logic -> Service Detail Views
+      |
+      v
+CTA Components -> User Action (book/request/contact)</pre>
+      </div>
+
+      <h2 class="text-xl font-bold mb-2">Technical Decisions</h2>
+      <ul class="list-disc list-inside text-slate-700 space-y-1 mb-6">
+        <li>Used React component composition for reusable service cards and sections.</li>
+        <li>Used Vite for quick local development feedback and production builds.</li>
+        <li>Kept the frontend architecture modular to support future backend integration.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold mb-2">Outcomes</h2>
+      <ul class="list-disc list-inside text-slate-700 space-y-1 mb-6">
+        <li>Published as a live Vercel deployment for recruiter-friendly sharing.</li>
+        <li>Delivered a complete responsive frontend MVP using modern React tooling.</li>
+        <li>Created a strong foundation for adding authentication, booking, and provider workflows.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold mb-2">What I Would Improve Next</h2>
+      <ul class="list-disc list-inside text-slate-700 space-y-1">
+        <li>Add backend APIs and persistent booking state.</li>
+        <li>Introduce authenticated customer and provider dashboards.</li>
+        <li>Add event tracking and funnel analytics for conversion optimization.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

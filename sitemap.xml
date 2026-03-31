@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.navya.space/</loc>
+    <loc>https://guptan0506.github.io/</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/e-commerceWebsite.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/e-commerce/e-commerceWebsite.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/generativeArtCreator.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/portable-linux-workstation/PortableLinuxWorkstation.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/ColorPaletteGenerator/paletteGenerator.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/zombie-survival/ZombieSurvival.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/query-performance-dashboard/</loc>
+    <loc>https://guptan0506.github.io/projects/apps/tower-defense/TowerDefense.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/recipeKeeper.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/dodger-game/DodgerGame.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/ToDoList.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/generative-art-creator/generativeArtCreator.html</loc>
   </url>
   <url>
-    <loc>https://www.navya.space/Pin-interests.html</loc>
+    <loc>https://guptan0506.github.io/projects/apps/color-palette-generator/paletteGenerator.html</loc>
+  </url>
+  <url>
+    <loc>https://guptan0506.github.io/projects/apps/recipe-keeper/recipeKeeper.html</loc>
+  </url>
+  <url>
+    <loc>https://guptan0506.github.io/projects/apps/pin-interests/Pin-interests.html</loc>
+  </url>
+  <url>
+    <loc>https://guptan0506.github.io/resume.html</loc>
+  </url>
+  <url>
+    <loc>https://guptan0506.github.io/projects/password-analyzer-case-study.html</loc>
+  </url>
+  <url>
+    <loc>https://guptan0506.github.io/projects/fixmate-case-study.html</loc>
   </url>
 </urlset>

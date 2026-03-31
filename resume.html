@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navya Gupta | Resume</title>
+  <meta name="description" content="Resume for Navya Gupta, software and web developer based in Cincinnati, OH." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #fff; }
+      .paper { box-shadow: none !important; border: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 py-10 px-4">
+  <main class="paper max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-8 md:p-12">
+    <div class="no-print flex flex-wrap gap-3 justify-end mb-6">
+      <a href="index.html" class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50">Back to Portfolio</a>
+      <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">Download / Print PDF</button>
+    </div>
+
+    <header class="border-b border-slate-200 pb-5 mb-6">
+      <h1 class="text-3xl md:text-4xl font-extrabold">Navya Gupta</h1>
+      <p class="text-slate-600 mt-2">Web Developer | Software Application Development and Data Technologies Student</p>
+      <p class="text-slate-600">Cincinnati, OH | <a class="text-indigo-700" href="https://www.linkedin.com/in/navyagupta0509" target="_blank" rel="noopener noreferrer">LinkedIn</a> | <a class="text-indigo-700" href="https://github.com/Guptan0506" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+    </header>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Summary</h2>
+      <p class="text-slate-700">Sophomore at the University of Cincinnati focused on web development, UI implementation, and practical software engineering. Built and deployed portfolio projects using HTML, CSS, JavaScript, Java, React, and Python. Seeking Summer 2026 co-op opportunities.</p>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Education</h2>
+      <p class="font-semibold">University of Cincinnati</p>
+      <p class="text-slate-700">Bachelor of Science in Information Technology, Software Application Development and Data Technologies</p>
+      <p class="text-slate-600">August 2024 - Present | GPA: 3.969</p>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Experience</h2>
+      <div>
+        <p class="font-semibold">IT Co-op, Public School District</p>
+        <p class="text-slate-600 mb-2">September 2025 - December 2025</p>
+        <ul class="list-disc list-inside space-y-1 text-slate-700">
+          <li>Provided technical support for hardware, software, and network issues.</li>
+          <li>Installed and configured Windows devices and classroom technology.</li>
+          <li>Documented issue patterns and solutions to improve response efficiency.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl font-bold mb-2">Projects</h2>
+      <ul class="list-disc list-inside space-y-1 text-slate-700">
+        <li>FixMate: Home-services frontend app built with React and Vite.</li>
+        <li>Password Analyzer: Password strength feedback tool built with React.</li>
+        <li>ShopSphere E-commerce Platform: Responsive cart and checkout simulation.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-xl font-bold mb-2">Skills</h2>
+      <p class="text-slate-700"><strong>Languages:</strong> JavaScript, Java, Python, HTML, CSS</p>
+      <p class="text-slate-700"><strong>Frameworks and Tools:</strong> React, Tailwind CSS, Vite, Git, MongoDB, Power BI</p>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("download") === "1") {
+      window.addEventListener("load", () => {
+        setTimeout(() => window.print(), 250);
+      });
+    }
+  </script>
+</body>
+</html>

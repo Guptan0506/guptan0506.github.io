@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">FixMate</title>
+  <desc id="desc">FixMate project banner with home services motif.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#134e4a"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#99f6e4" opacity="0.22">
+    <circle cx="220" cy="170" r="90"/>
+    <circle cx="980" cy="500" r="110"/>
+  </g>
+  <g transform="translate(500 220)">
+    <path d="M100 0 L220 90 V260 H160 V170 H40 V260 H-20 V90 Z" fill="#ccfbf1"/>
+    <rect x="150" y="35" width="34" height="55" fill="#5eead4"/>
+    <rect x="65" y="190" width="70" height="70" rx="10" fill="#14b8a6"/>
+  </g>
+  <g transform="translate(840 210)" stroke="#ccfbf1" stroke-width="18" stroke-linecap="round" fill="none">
+    <path d="M0 0 L70 70"/>
+    <path d="M95 95 L165 165"/>
+    <path d="M0 165 L165 0"/>
+  </g>
+  <text x="110" y="520" fill="#f0fdfa" font-family="Segoe UI, Arial, sans-serif" font-size="74" font-weight="700">FixMate</text>
+  <text x="114" y="570" fill="#99f6e4" font-family="Segoe UI, Arial, sans-serif" font-size="28">React • Vite • Home services platform</text>
+</svg>

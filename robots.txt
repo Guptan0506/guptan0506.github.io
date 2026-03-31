@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.navya.space/sitemap.xml
+Sitemap: https://guptan0506.github.io/sitemap.xml

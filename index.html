@@ -6,11 +6,41 @@
   <title>Navya G | Portfolio</title>
 
   <meta name="description" content="Navya Gupta — Web Developer, Student, Creative Coder" />
+  <meta name="keywords" content="Navya Gupta, web developer, software developer, React portfolio, student developer, Cincinnati" />
+  <meta name="author" content="Navya Gupta" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://guptan0506.github.io/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Navya G | Portfolio" />
+  <meta property="og:description" content="Portfolio of Navya Gupta featuring web apps, Java projects, and case studies." />
+  <meta property="og:url" content="https://guptan0506.github.io/" />
+  <meta property="og:image" content="https://guptan0506.github.io/favicon.webp" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Navya G | Portfolio" />
+  <meta name="twitter:description" content="Portfolio of Navya Gupta featuring web apps, Java projects, and case studies." />
+  <meta name="twitter:image" content="https://guptan0506.github.io/favicon.webp" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
-  <link rel="icon" href="IMG_0017.jpeg">
+  <link rel="icon" href="favicon.webp">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Navya Gupta",
+      "url": "https://guptan0506.github.io/",
+      "sameAs": [
+        "https://github.com/Guptan0506",
+        "https://www.linkedin.com/in/navyagupta0509"
+      ],
+      "jobTitle": "Web Developer",
+      "alumniOf": "University of Cincinnati"
+    }
+  </script>
 
   <style>
     body { 
@@ -40,6 +70,17 @@
       from { transform: translateX(0); }
       to { transform: translateX(-100%); }
     }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -52,17 +93,24 @@
     <div class="hidden md:flex gap-8 text-lg font-bold">
       <a href="#home">Home</a>
       <a href="#about">About</a>
+      <a href="#skills">Skills</a>
       <a href="#education">Education</a>
       <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
+    <button id="menu-toggle" class="md:hidden p-2 rounded-lg border border-slate-300" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+      <i id="menu-icon" data-feather="menu"></i>
+    </button>
   </nav>
   <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-800 border-t">
     <a href="#home" class="block px-6 py-3">Home</a>
     <a href="#about" class="block px-6 py-3">About</a>
+    <a href="#skills" class="block px-6 py-3">Skills</a>
     <a href="#education" class="block px-6 py-3">Education</a>
     <a href="#projects" class="block px-6 py-3">Projects</a>
+    <a href="#resume" class="block px-6 py-3">Resume</a>
     <a href="#experience" class="block px-6 py-3">Experience</a>
     <a href="#contact" class="block px-6 py-3">Contact</a>
   </div>
@@ -75,7 +123,7 @@
   <div class="max-w-5xl mx-auto px-6 text-center">
     <img src="favicon.webp" loading="lazy"
       class="mx-auto w-40 md:w-56 rounded-full shadow-xl mb-6"
-      alt="Navya">
+      alt="Portrait of Navya Gupta">
 
     <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I’m Navya</h1>
     <p class="text-lg md:text-2xl text-slate-600 dark:text-slate-400 mb-8">
@@ -83,8 +131,8 @@
     </p>
 
     <div class="flex justify-center gap-6 mb-10">
-      <a href="https://github.com/Guptan0506" target="_blank"><i data-feather="github"></i></a>
-      <a href="https://linkedin.com/in/navyagupta0509" target="_blank"><i data-feather="linkedin"></i></a>
+      <a href="https://github.com/Guptan0506" target="_blank" rel="noopener noreferrer" aria-label="Open Navya's GitHub profile"><i data-feather="github"></i></a>
+      <a href="https://linkedin.com/in/navyagupta0509" target="_blank" rel="noopener noreferrer" aria-label="Open Navya's LinkedIn profile"><i data-feather="linkedin"></i></a>
     </div>
 
     <a href="#projects" class="inline-block bg-indigo-600 text-white text-xl px-8 py-3 rounded-full hover:bg-indigo-700">
@@ -100,9 +148,9 @@
 </div>
 
 <!-- ABOUT -->
-<section id="about" class="min-h-screen container max-w-7xl mx-auto flex items-center">
+<section id="about" class="reveal min-h-screen container max-w-7xl mx-auto flex items-center">
   <div class="px-6 grid md:grid-cols-2 gap-12 items-center">
-    <img src="HIII!!.webp" loading="lazy" class="rounded-xl shadow-xl mx-auto" alt="About Navya">
+    <img src="HIII!!.webp" loading="lazy" class="rounded-xl shadow-xl mx-auto" alt="Navya Gupta smiling outdoors">
     <div>
       <h2 class="text-3xl font-bold mb-6">About Me</h2>
       <p class="text-slate-600 dark:text-slate-300 mb-4">
@@ -131,9 +179,40 @@
   </div>
 </section>
 
+<!-- SKILLS -->
+<section id="skills" class="reveal container mx-auto px-6 py-16">
+  <h2 class="text-center text-3xl font-bold mb-10">Skills</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <article class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-bold mb-3 text-indigo-700">Core</h3>
+      <ul class="space-y-2 text-slate-700">
+        <li>HTML, CSS, JavaScript</li>
+        <li>React, Tailwind CSS</li>
+        <li>Java, Git, Responsive UI</li>
+      </ul>
+    </article>
+    <article class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-bold mb-3 text-indigo-700">Working Knowledge</h3>
+      <ul class="space-y-2 text-slate-700">
+        <li>Python</li>
+        <li>Vite Tooling and Deployment</li>
+        <li>Component-Based Frontend Architecture</li>
+      </ul>
+    </article>
+    <article class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-bold mb-3 text-indigo-700">Learning</h3>
+      <ul class="space-y-2 text-slate-700">
+        <li>MongoDB</li>
+        <li>Power BI</li>
+        <li>SCSS and Performance Optimization</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
 <!-- PROJECTS -->
-<section id="projects" class="container mx-auto px-6 py-16 min-h-screen bg-slate-800 rounded-xl">
-  <h2 class="text-center text-3xl font-bold mb-6">
+<section id="projects" class="reveal container mx-auto px-6 py-16 min-h-screen bg-slate-800 rounded-xl">
+  <h2 class="text-center text-3xl font-bold mb-6 text-white">
     Projects
   </h2>
 
@@ -141,20 +220,21 @@
 
     <!-- Portable Linux Workstation-->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="IMG_0034.jpeg" alt="Portable Linux Workstation" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/portable-linux-workstation/IMG_0034.jpeg" alt="Portable Linux Workstation" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Portable Linux Workstation</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A custom-built portable Linux workstation designed for on-the-go development and productivity.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Delivered a complete portable dev setup in one build.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, Tailwind CSS, JavaScript
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="PortableLinuxWorkstation/PortableLinuxWorkstation.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/portable-linux-workstation/PortableLinuxWorkstation.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/guptan0506/Portable-Linux-Workstation" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/portable-linux-workstation" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -164,20 +244,21 @@
 
     <!-- Zombie Survival -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="IMG_0033.jpeg" alt="Zombie Survival" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/zombie-survival/IMG_0033.jpeg" alt="Zombie Survival" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Zombie Survival</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A Java-based game where players survive waves of zombies. Features include multiple levels, power-ups, and a high score system.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Implemented 3 core gameplay systems: levels, power-ups, and scoring.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> Java, Java Swing
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="ZombieSurvival/ZombieSurvival.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/zombie-survival/ZombieSurvival.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/guptan0506/ZombieSurvival" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/zombie-survival" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -187,20 +268,21 @@
 
     <!-- Tower Defense -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="IMG_0036.jpeg" alt="Tower Defense" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/tower-defense/IMG_0036.jpeg" alt="Tower Defense" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Tower Defense</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A strategic tower defense game built with Java. Players place towers to defend against waves of enemies, with various tower types and upgrade paths.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Shipped 2 strategic systems: tower variety and upgrade paths.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> Java, Java Swing
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="TowerDefense/TowerDefense.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/tower-defense/TowerDefense.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/Guptan0506/TowerDefense" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/tower-defense" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -210,7 +292,7 @@
 
     <!-- E-commerce Platform -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="shop-sphere-high-resolution-logo.webp" alt="E-commerce Platform" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/e-commerce/shop-sphere-high-resolution-logo.webp" alt="E-commerce Platform" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">E-commerce Platform</h3>
         <p class="text-gray-600 mb-4 flex-grow">
@@ -218,14 +300,15 @@
           shopping cart functionality, persistent state using localStorage, and a
           simulated checkout flow.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Delivered 4 production-like flows: browse, cart, persistence, checkout.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, Tailwind CSS, JavaScript
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="e-commerceWebsite.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/e-commerce/e-commerceWebsite.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/guptan0506/guptan0506.github.io/" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/e-commerce" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -235,7 +318,7 @@
 
     <!-- Generative Art Creator -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="GenerativeArtCreator/generative-art-creator-high-resolution-logo.webp" alt="Generative Art Creator" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/generative-art-creator/generative-art-creator-high-resolution-logo.webp" alt="Generative Art Creator" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Generative Art Creator</h3>
         <p class="text-gray-600 mb-4 flex-grow">
@@ -243,14 +326,15 @@
           using randomized algorithms and user-controlled parameters. Each render
           produces a different result.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Built an infinite-output generator with randomized visual variations.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript, Canvas
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="GenerativeArtCreator/generativeArtCreator.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/generative-art-creator/generativeArtCreator.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/yourusername/generative-art" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/generative-art-creator" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -260,7 +344,7 @@
 
     <!-- Dodger Game -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="DodgerGame/IMG_0019.jpeg" alt="Dodger Game" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/dodger-game/IMG_0019.jpeg" alt="Dodger Game" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Dodger Game</h3>
         <p class="text-gray-600 mb-4 flex-grow">
@@ -268,14 +352,15 @@
           Built with object-oriented design principles, collision detection,
           and a real-time game loop.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Implemented collision logic with continuous real-time gameplay updates.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> Java
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="DodgerGame/DodgerGame.html" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/dodger-game/DodgerGame.html" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
             </a>
-          <a href="https://github.com/Guptan0506/DodgerGame" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/dodger-game" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
             GitHub
           </a>
@@ -285,21 +370,22 @@
 
     <!-- Color Palette Generator -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="ColorPaletteGenerator/color-palette-generator-high-resolution-logo-grayscale.webp" alt="Color Palette Generator" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/color-palette-generator/color-palette-generator-high-resolution-logo-grayscale.webp" alt="Color Palette Generator" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Color Palette Generator</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A simple yet practical web tool that generates color
           palettes. 
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Enabled one-click generation of multi-color palette combinations.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
         </p>
         <div class="mt-auto flex gap-3">
-          <a href="ColorPaletteGenerator/paletteGenerator.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <a href="projects/apps/color-palette-generator/paletteGenerator.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/yourusername/palette-generator" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/color-palette-generator" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
@@ -309,21 +395,22 @@
 
     <!-- Pin-interests -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="pin-interests-high-resolution-logo.webp" alt="Pin-interests" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/pin-interests/pin-interests-high-resolution-logo.webp" alt="Pin-interests" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Pin-interests</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A lightweight idea-saving web app that allows users to pin and organize
           ideas in one place.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Delivered a lightweight productivity workflow for organizing ideas.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
         </p>
         <div class="mt-auto flex gap-3">
-            <a href="Pin-interests.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <a href="projects/apps/pin-interests/Pin-interests.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
             </a>
-          <a href="https://github.com/Guptan0506/Guptan0509.github.io/" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/pin-interests" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
             GitHub
           </a>
@@ -333,21 +420,76 @@
 
     <!-- Recipe Keeper -->
     <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
-      <img src="recipe-keeper-high-resolution-logo.webp" alt="Recipe Keeper" class="rounded-t-xl h-48 w-full object-cover">
+      <img src="projects/apps/recipe-keeper/recipe-keeper-high-resolution-logo.webp" alt="Recipe Keeper" class="rounded-t-xl h-48 w-full object-cover">
       <div class="p-6 flex flex-col flex-grow">
         <h3 class="text-2xl font-bold mb-2 text-gray-900">Recipe Keeper</h3>
         <p class="text-gray-600 mb-4 flex-grow">
           A web application for saving and managing recipes.
         </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Created a single-place recipe management interface for quick retrieval.</p>
         <p class="text-sm text-gray-500 mb-4">
           <strong>Tech:</strong> HTML, CSS, JavaScript
         </p>
         <div class="mt-auto flex gap-3">
-            <a href="recipeKeeper.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            <a href="projects/apps/recipe-keeper/recipeKeeper.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Live Demo
           </a>
-          <a href="https://github.com/yourusername/recipe-keeper" target="_blank"
+          <a href="https://github.com/Guptan0506/guptan0506.github.io/tree/main/projects/apps/recipe-keeper" target="_blank"
              class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Analyzer -->
+    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+      <img src="projects/assets/password-analyzer-card.svg" alt="Password Analyzer" class="rounded-t-xl h-48 w-full object-cover">
+      <div class="p-6 flex flex-col flex-grow">
+        <h3 class="text-2xl font-bold mb-2 text-gray-900">Password Analyzer</h3>
+        <p class="text-gray-600 mb-4 flex-grow">
+          A React app that evaluates password strength and gives instant feedback to help users create safer, stronger passwords.
+        </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Added instant strength feedback with live scoring states.</p>
+        <p class="text-sm text-gray-500 mb-4">
+          <strong>Tech:</strong> React, Vite, JavaScript
+        </p>
+        <div class="mt-auto flex gap-3">
+          <a href="https://password-strength-analyzer-beryl.vercel.app" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            Live Demo
+          </a>
+          <a href="projects/password-analyzer-case-study.html" class="border border-indigo-600 text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
+            Case Study
+          </a>
+          <a href="https://github.com/Guptan0506/PasswordStrengthAnalyzer" target="_blank"
+             class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FixMate (HomeSolutions) -->
+    <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col">
+      <img src="projects/assets/fixmate-card.svg" alt="FixMate" class="rounded-t-xl h-48 w-full object-cover">
+      <div class="p-6 flex flex-col flex-grow">
+        <h3 class="text-2xl font-bold mb-2 text-gray-900">FixMate</h3>
+        <p class="text-gray-600 mb-4 flex-grow">
+          A home-services platform frontend focused on helping users discover and connect with trusted solutions for household needs.
+        </p>
+        <p class="text-xs text-emerald-700 mb-3">Outcome: Shipped a deployable React MVP for home-services discovery.</p>
+        <p class="text-sm text-gray-500 mb-4">
+          <strong>Tech:</strong> React, Vite, JavaScript
+        </p>
+        <div class="mt-auto flex gap-3">
+          <a href="https://home-solutions-rev-uc-2026.vercel.app" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            Live Demo
+          </a>
+          <a href="projects/fixmate-case-study.html" class="border border-indigo-600 text-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-50">
+            Case Study
+          </a>
+          <a href="https://github.com/Guptan0506/HomeSolutionsRevUC2026" target="_blank"
+             class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
             GitHub
           </a>
         </div>
@@ -357,8 +499,32 @@
   </div>
 </section>
 
+<!-- FLAGSHIP CASE STUDY -->
+<section class="reveal container mx-auto px-6 py-16">
+  <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 border border-slate-200">
+    <p class="inline-block text-xs uppercase tracking-widest font-semibold text-indigo-700 bg-indigo-100 px-3 py-1 rounded-full mb-4">Flagship Project</p>
+    <h2 class="text-3xl font-bold mb-3">FixMate Case Study</h2>
+    <p class="text-slate-700 mb-6">A deeper look at product goals, architecture choices, and scaling plans for a modern home-services platform frontend.</p>
+    <div class="grid md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-slate-100 rounded-xl p-4">
+        <p class="text-sm text-slate-500">Deployment</p>
+        <p class="font-semibold">Vercel Production</p>
+      </div>
+      <div class="bg-slate-100 rounded-xl p-4">
+        <p class="text-sm text-slate-500">Frontend Stack</p>
+        <p class="font-semibold">React + Vite</p>
+      </div>
+      <div class="bg-slate-100 rounded-xl p-4">
+        <p class="text-sm text-slate-500">Direction</p>
+        <p class="font-semibold">MVP to Full Platform</p>
+      </div>
+    </div>
+    <a href="projects/fixmate-case-study.html" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700">Read Full FixMate Case Study</a>
+  </div>
+</section>
+
 <!--EDUCATION-->
-<section id="education" class="container mx-auto px-6 py-16">
+<section id="education" class="reveal container mx-auto px-6 py-16">
     <h2 class="text-center text-3xl font-bold mb-6">
       Education
     </h2>
@@ -378,18 +544,34 @@
         <li>Computer Networking</li>
         <li>Computer Programming II</li>
         <li>Information Security and Assurance</li>
-        <li>Computer Networking</li>
         <li>Implications of IT</li>
         <li>Data Tech Essentials</li>
       </ul>
     </div>
 </section>
 
+<!-- RESUME -->
+<section id="resume" class="reveal container mx-auto px-6 py-16">
+  <div class="bg-slate-800 text-slate-100 rounded-2xl p-8 md:p-10">
+    <h2 class="text-3xl font-bold mb-4">Resume</h2>
+    <p class="text-slate-300 mb-6">Quick highlights for internship and co-op applications.</p>
+    <ul class="list-disc list-inside text-slate-200 space-y-2 mb-8">
+      <li>Target role: Software Development and Web Development Co-op</li>
+      <li>Availability: Summer 2026</li>
+      <li>Location: Cincinnati, OH</li>
+    </ul>
+    <div class="flex flex-wrap gap-3">
+      <a href="resume.html" class="bg-white text-slate-900 px-5 py-3 rounded-lg hover:bg-slate-200">View Resume</a>
+      <a href="resume.html?download=1" target="_blank" class="border border-white px-5 py-3 rounded-lg hover:bg-slate-700">Download Resume</a>
+    </div>
+  </div>
+</section>
+
 <!-- EXPERIENCE -->
-<section id="experience" class="container mx-auto px-6 py-16 bg-slate-800 rounded-xl">
+<section id="experience" class="reveal container mx-auto px-6 py-16 bg-slate-800 rounded-xl">
   <!-- <div class="max-w-7xl mx-auto px-6"> -->
   <div>
-    <h2 class="text-3xl font-bold text-center mb-10">Experience</h2>
+    <h2 class="text-3xl font-bold text-center mb-10 text-white">Experience</h2>
     <div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
       <h2 class="font-semibold text-xl">IT Co-op</h2>
       <p class="text-slate-600 dark:text-slate-400 mb-4">Public School District <span class="float-right">September 2025-December 2025</span></p>
@@ -406,7 +588,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="container mx-auto px-12 py-20">
+<section id="contact" class="reveal container mx-auto px-12 py-20">
   <div class="max-w-3xl mx-auto px-6 text-center">
     <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
     <iframe class="w-full h-[70vh] rounded-xl"
@@ -418,7 +600,7 @@
 </main>
 
 <footer class="py-8 text-center text-sm">
-  © Navya Gupta 2025
+  © Navya Gupta 2026
 </footer>
 
 <script>
@@ -470,10 +652,62 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     feather.replace();
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuIcon = document.getElementById("menu-icon");
+
+    if (menuToggle && mobileMenu && menuIcon) {
+      menuToggle.addEventListener("click", () => {
+        const isHidden = mobileMenu.classList.contains("hidden");
+        mobileMenu.classList.toggle("hidden");
+        menuToggle.setAttribute("aria-expanded", isHidden ? "true" : "false");
+        menuIcon.setAttribute("data-feather", isHidden ? "x" : "menu");
+        feather.replace();
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuIcon.setAttribute("data-feather", "menu");
+          feather.replace();
+        });
+      });
+    }
   });
 </script>
 
-<script src="https://unpkg.com/feather-icons"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    revealEls.forEach((el) => observer.observe(el));
+  });
+</script>
+
+<script>
+  // Set domain only after analytics provider setup.
+  window.PORTFOLIO_ANALYTICS_DOMAIN = "";
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.PORTFOLIO_ANALYTICS_DOMAIN) return;
+
+    const analyticsScript = document.createElement("script");
+    analyticsScript.defer = true;
+    analyticsScript.setAttribute("data-domain", window.PORTFOLIO_ANALYTICS_DOMAIN);
+    analyticsScript.src = "https://plausible.io/js/script.js";
+    document.head.appendChild(analyticsScript);
+  });
+</script>
 
 </body>
 </html>
