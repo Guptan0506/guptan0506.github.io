@@ -639,53 +639,50 @@
 </footer>
 
 <script>
-  const typewriterEl = document.getElementById("typewriter");
-
-  const words = [
-    "Web Developer.",
-    "Creative Coder.",
-    "Problem Solver.",
-    "Tech Enthusiast."
-  ];
-
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-
-  function typewriter() {
-    const currentWord = words[wordIndex];
-
-    if (!isDeleting) {
-      // Typing
-      typewriterEl.textContent = currentWord.slice(0, charIndex + 1);
-      charIndex++;
-
-      if (charIndex === currentWord.length) {
-        setTimeout(() => (isDeleting = true), 1200);
-      }
-        </div>
-      // Deleting
-      typewriterEl.textContent = currentWord.slice(0, charIndex - 1);
-      charIndex--;
-
-      if (charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-      }
-    }
-
-    const speed = isDeleting ? 80 : 140;
-    setTimeout(typewriter, speed);
-  }
+  // Set domain only after analytics provider setup.
+  window.PORTFOLIO_ANALYTICS_DOMAIN = "";
 
   document.addEventListener("DOMContentLoaded", () => {
+    const typewriterEl = document.getElementById("typewriter");
+    const words = [
+      "Web Developer.",
+      "Creative Coder.",
+      "Problem Solver.",
+      "Tech Enthusiast."
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typewriter() {
+      const currentWord = words[wordIndex];
+
+      if (!isDeleting) {
+        typewriterEl.textContent = currentWord.slice(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+          setTimeout(() => (isDeleting = true), 1200);
+        }
+      } else {
+        typewriterEl.textContent = currentWord.slice(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+
+      const speed = isDeleting ? 80 : 140;
+      setTimeout(typewriter, speed);
+    }
+
     if (typewriterEl) {
       setTimeout(typewriter, 800);
     }
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+
     feather.replace();
 
     const menuToggle = document.getElementById("menu-toggle");
@@ -726,14 +723,7 @@
     }, { threshold: 0.18 });
 
     revealEls.forEach((el) => observer.observe(el));
-  });
-</script>
 
-<script>
-  // Set domain only after analytics provider setup.
-  window.PORTFOLIO_ANALYTICS_DOMAIN = "";
-
-  document.addEventListener("DOMContentLoaded", () => {
     if (!window.PORTFOLIO_ANALYTICS_DOMAIN) return;
 
     const analyticsScript = document.createElement("script");
