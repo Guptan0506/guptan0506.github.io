@@ -43,6 +43,30 @@
   </script>
 
   <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      z-index: 100;
+      background: #1d4ed8;
+      color: #ffffff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0 0 0.5rem 0;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    iframe:focus-visible {
+      outline: 3px solid #2563eb;
+      outline-offset: 3px;
+      border-radius: 0.5rem;
+    }
+
     body { 
         font-family: 'Inter', sans-serif;
         background-color: #f8fafc; 
@@ -81,10 +105,29 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .marquee span,
+      .reveal,
+      .reveal.show {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+    }
   </style>
 </head>
 
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- HEADER -->
 <header id="header" class="fixed top-0 inset-x-0 z-50 transition-all bg-black-900 bg-transparent glass shadow-md">
@@ -116,7 +159,7 @@
   </div>
 </header>
 
-<main class="pt-24">
+<main id="main-content" class="pt-24" tabindex="-1">
 
 <!-- HERO -->
 <section id="home" class="min-h-screen mx-auto flex items-center">
@@ -563,9 +606,9 @@
         University of Cincinnati 
         <span class="float-right">August 2024 - Present</span>
       </h3>
-      <h2>
+      <p>
         Cincinnati, OH
-      </h2>
+      </p>
       <p>GPA: <span class="font-bold">3.969</span></p>
       <p>Relevant Coursework:</p>
       <ul class="list-disc list-inside space-y-2">
@@ -605,7 +648,7 @@
     <div>
     <h2 class="text-3xl font-bold text-center mb-10 text-white">Experience</h2>
     <div class="bg-white dark:bg-slate-800 p-8 rounded-xl shadow">
-      <h2 class="font-semibold text-xl">IT Co-op</h2>
+      <h3 class="font-semibold text-xl">IT Co-op</h3>
       <p class="text-slate-600 dark:text-slate-400 mb-4">Public School District <span class="float-right">September 2025-December 2025</span></p>
       <ul class="list-disc list-inside space-y-2">
         <li>  Provided technical support to staff and students, assisting with hardware, software, and connectivity issues in an educational environment.</li>
@@ -672,6 +715,40 @@
   window.PORTFOLIO_ANALYTICS_DOMAIN = "";
 
   document.addEventListener("DOMContentLoaded", () => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      document.documentElement.classList.remove("scroll-smooth");
+    }
+
+    function addAccessibleActionLabels() {
+      const projectCards = document.querySelectorAll("#projects .bg-white.dark\\:bg-slate-800");
+
+      projectCards.forEach((card) => {
+        const projectName = card.querySelector("h3")?.textContent?.trim();
+        if (!projectName) return;
+
+        card.querySelectorAll("a").forEach((link) => {
+          if (link.getAttribute("aria-label")) return;
+          const action = link.textContent.trim();
+          if (!action) return;
+
+          const opensNewTab = link.getAttribute("target") === "_blank";
+          const suffix = opensNewTab ? " (opens in new tab)" : "";
+          link.setAttribute("aria-label", `${action} for ${projectName}${suffix}`);
+        });
+      });
+
+      document.querySelectorAll("a[target=\"_blank\"]").forEach((link) => {
+        const current = link.getAttribute("aria-label") || link.textContent.trim();
+        if (!current) return;
+        if (!current.includes("opens in new tab")) {
+          link.setAttribute("aria-label", `${current} (opens in new tab)`);
+        }
+      });
+    }
+
+    addAccessibleActionLabels();
+
     const typewriterEl = document.getElementById("typewriter");
     const words = [
       "Web Developer.",
@@ -708,8 +785,10 @@
       setTimeout(typewriter, speed);
     }
 
-    if (typewriterEl) {
+    if (typewriterEl && !prefersReducedMotion) {
       setTimeout(typewriter, 800);
+    } else if (typewriterEl && prefersReducedMotion) {
+      typewriterEl.textContent = words[0];
     }
 
     feather.replace();
@@ -741,7 +820,12 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealEls = document.querySelectorAll(".reveal");
+
+    if (prefersReducedMotion) {
+      revealEls.forEach((el) => el.classList.add("show"));
+    } else {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -752,6 +836,7 @@
     }, { threshold: 0.18 });
 
     revealEls.forEach((el) => observer.observe(el));
+    }
 
     if (!window.PORTFOLIO_ANALYTICS_DOMAIN) return;
 
