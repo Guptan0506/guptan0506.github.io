@@ -1,0 +1,10 @@
+[33m94e5338[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Improve accessibility: skip link, focus styles, reduced motion, and labels
+[33m8080212[m Enhance contact section with direct links, guidance, and responsive form
+[33m414ab0e[m Consolidate homepage scripts into single DOMContentLoaded block
+[33m9b6fa83[m Add max-w-7xl container wrapper and standardize section spacing
+[33m4e8a707[m Standardize section spacing: py-16 and px-6 across all major sections
+[33m61585ca[m Add dark mode styling to projects section, cards, and case study
+[33m299f145[m Update FixMate Vercel link to fixmate-revuc26 subdomain
+[33m60bd13e[m Update Password Analyzer Vercel link to orcin subdomain
+[33m5132541[m Standardize e-commerce project naming to ShopSphere across portfolio
+[33med08a30[m Replace resume summary with FixMate flagship project showcase
