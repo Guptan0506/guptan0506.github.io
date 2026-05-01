@@ -7,10 +7,10 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="icon" href="../../../favicon.webp">
-
+ 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
+ 
 :root {
   --bg:#fefefe;
   --card-bg:rgba(255,255,255,.95);
@@ -22,16 +22,16 @@
   --shadow:0 2px 8px rgba(0,0,0,.05);
   --shadow-hover:0 6px 20px rgba(0,0,0,.12);
 }
-
+ 
 *{box-sizing:border-box;margin:0;padding:0}
-
+ 
 body{
   font-family:'Inter',sans-serif;
   background:var(--bg);
   color:var(--text);
   padding:20px;
 }
-
+ 
 /* HEADER */
 .header{
   max-width:1200px;
@@ -41,13 +41,13 @@ body{
   gap:20px;
   flex-wrap:wrap;
 }
-
+ 
 .logo{
   font-family:'JetBrains Mono',monospace;
   font-size:24px;
   color:var(--accent);
 }
-
+ 
 .stats{
   margin-left:auto;
   display:flex;
@@ -56,20 +56,14 @@ body{
   font-size:14px;
   color:var(--text-light);
 }
-
+ 
 .header-actions{
   display:flex;
   gap:12px;
   align-items:center;
   flex-wrap:wrap;
 }
-
-.welcome-msg{
-  font-family:'JetBrains Mono',monospace;
-  font-size:14px;
-  color:var(--text-light);
-}
-
+ 
 /* BUTTONS */
 .add-pin-btn{
   background:var(--accent);
@@ -79,12 +73,13 @@ body{
   border-radius:8px;
   cursor:pointer;
   transition:.2s;
+  font-size:14px;
 }
 .add-pin-btn:hover{
   background:var(--accent-hover);
   transform:translateY(-1px);
 }
-
+ 
 .logout-btn{
   background:transparent;
   border:1px solid var(--border);
@@ -92,11 +87,10 @@ body{
   border-radius:8px;
   cursor:pointer;
   transition:.2s;
+  font-size:14px;
 }
-.logout-btn:hover{
-  background:var(--border);
-}
-
+.logout-btn:hover{background:var(--border)}
+ 
 /* GRID */
 .pins-grid{
   max-width:1200px;
@@ -107,7 +101,7 @@ body{
 @media(max-width:1024px){.pins-grid{columns:3}}
 @media(max-width:768px){.pins-grid{columns:2}}
 @media(max-width:480px){.pins-grid{columns:1}}
-
+ 
 .pin{
   background:var(--card-bg);
   border-radius:14px;
@@ -122,148 +116,295 @@ body{
   box-shadow:var(--shadow-hover);
   transform:translateY(-2px);
 }
-
-.pin img{
-  width:100%;
-  display:block;
-}
-
+.pin img{width:100%;display:block}
 .pin-content{padding:16px}
-
-.pin-title{
-  font-weight:600;
-  margin-bottom:6px;
-}
-
-.pin-description{
-  font-size:14px;
-  color:var(--text-light);
-  margin-bottom:10px;
-}
-
-.pin-meta{
-  font-size:12px;
-  color:var(--text-light);
-  display:flex;
-  justify-content:space-between;
-}
-
-/* DELETE */
-.delete-pin{
+.pin-title{font-weight:600;margin-bottom:6px}
+.pin-description{font-size:14px;color:var(--text-light);margin-bottom:10px}
+.pin-meta{font-size:12px;color:var(--text-light);display:flex;justify-content:space-between}
+ 
+/* DELETE & EDIT */
+.pin-actions{
   position:absolute;
-  top:8px;
-  right:8px;
-  background:rgba(255,255,255,.9);
-  border:none;
-  border-radius:50%;
-  width:30px;
-  height:30px;
-  cursor:pointer;
-  color:#ef4444;
-  font-size:18px;
-  opacity:0;
-  transition:.2s;
+  top:8px;right:8px;
+  display:flex;gap:6px;
+  opacity:0;transition:.2s;
 }
-.pin:hover .delete-pin{opacity:1}
-
+.pin:hover .pin-actions{opacity:1}
+ 
+.delete-pin, .edit-pin{
+  background:rgba(255,255,255,.9);
+  border:none;border-radius:50%;
+  width:30px;height:30px;
+  cursor:pointer;
+  font-size:15px;transition:.2s;
+  display:flex;align-items:center;justify-content:center;
+}
+.delete-pin{color:#ef4444;}
+.delete-pin:hover{background:#fef2f2;}
+.edit-pin{color:#6366f1;}
+.edit-pin:hover{background:#eef2ff;}
+ 
 /* EMPTY */
 .empty-state{
   text-align:center;
   padding:80px 20px;
   color:var(--text-light);
 }
-
+ 
 /* MODAL */
 .modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.5);
+  display:none;position:fixed;
+  inset:0;background:rgba(0,0,0,.5);
   backdrop-filter:blur(4px);
-  align-items:center;
-  justify-content:center;
+  align-items:center;justify-content:center;
   z-index:1000;
 }
 .modal.active{display:flex}
-
 .modal-content{
   background:var(--card-bg);
-  border-radius:16px;
-  padding:32px;
-  max-width:500px;
-  width:100%;
+  border-radius:16px;padding:32px;
+  max-width:500px;width:100%;
   box-shadow:var(--shadow-hover);
 }
-
+ 
 .form-group{margin-bottom:16px}
 .form-group input,
 .form-group textarea,
 .form-group select{
-  width:100%;
-  padding:12px;
+  width:100%;padding:12px;
   border:2px solid var(--border);
-  border-radius:8px;
+  border-radius:8px;font-size:14px;
+  outline:none;transition:.2s;
+  font-family:'Inter',sans-serif;
 }
-.form-group textarea{min-height:100px}
-
-/* LOGIN */
-.login-container{
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+  border-color:var(--accent);
+}
+.form-group textarea{min-height:100px;resize:vertical}
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  margin-bottom:6px;
+  color:var(--text-light);
+}
+ 
+/* AUTH SCREEN */
+.auth-container{
   max-width:420px;
-  margin:120px auto;
+  margin:80px auto;
   background:var(--card-bg);
   padding:40px;
   border-radius:16px;
   box-shadow:var(--shadow-hover);
-  text-align:center;
 }
-
+ 
+.auth-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:28px;
+  color:var(--accent);
+  text-align:center;
+  margin-bottom:8px;
+}
+ 
+.auth-tagline{
+  text-align:center;
+  color:var(--text-light);
+  font-size:14px;
+  margin-bottom:32px;
+}
+ 
+.auth-tabs{
+  display:flex;
+  border-bottom:2px solid var(--border);
+  margin-bottom:24px;
+}
+ 
+.auth-tab{
+  flex:1;
+  padding:10px;
+  text-align:center;
+  cursor:pointer;
+  font-weight:500;
+  font-size:14px;
+  color:var(--text-light);
+  border:none;
+  background:none;
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  transition:.2s;
+}
+ 
+.auth-tab.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+}
+ 
+.auth-error{
+  background:#fef2f2;
+  color:#dc2626;
+  border:1px solid #fecaca;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:13px;
+  margin-bottom:16px;
+  display:none;
+}
+ 
+.auth-success{
+  background:#f0fdf4;
+  color:#16a34a;
+  border:1px solid #bbf7d0;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:13px;
+  margin-bottom:16px;
+  display:none;
+}
+ 
+.auth-footer{
+  text-align:center;
+  font-size:12px;
+  color:var(--text-light);
+  margin-top:20px;
+}
+ 
+/* PASSWORD STRENGTH */
+.password-strength{
+  height:4px;
+  border-radius:2px;
+  margin-top:6px;
+  transition:.3s;
+  background:var(--border);
+}
+.strength-weak{background:#ef4444;width:33%}
+.strength-medium{background:#f59e0b;width:66%}
+.strength-strong{background:#22c55e;width:100%}
+ 
+.strength-label{
+  font-size:11px;
+  margin-top:4px;
+  color:var(--text-light);
+}
+ 
+/* MAIN CONTENT */
 .main-content{display:none}
 .main-content.active{display:block}
+ 
+/* USER BADGE */
+.user-badge{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;
+  color:var(--text-light);
+  background:var(--border);
+  padding:6px 12px;
+  border-radius:20px;
+}
+ 
+.user-avatar{
+  width:24px;height:24px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;
+}
 </style>
 </head>
-
+ 
 <body>
-
-<div class="login-container" id="login-container">
-  <h1>pin-interests</h1>
-  <p>your personal inspiration board</p>
-  <form id="login-form">
-    <input id="username" placeholder="your name..." required>
-    <br><br>
-    <button class="add-pin-btn" style="width:100%">enter my board</button>
-  </form>
+ 
+<!-- AUTH SCREEN -->
+<div class="auth-container" id="auth-container">
+  <div class="auth-logo">pin-interests</div>
+  <div class="auth-tagline">your personal inspiration board</div>
+ 
+  <div class="auth-tabs">
+    <button class="auth-tab active" onclick="switchTab('login')">sign in</button>
+    <button class="auth-tab" onclick="switchTab('register')">create account</button>
+  </div>
+ 
+  <div id="auth-error" class="auth-error"></div>
+  <div id="auth-success" class="auth-success"></div>
+ 
+  <!-- LOGIN FORM -->
+  <div id="login-panel">
+    <div class="form-group">
+      <label>username</label>
+      <input id="login-username" placeholder="your username" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>password</label>
+      <input id="login-password" type="password" placeholder="your password" autocomplete="current-password">
+    </div>
+    <button class="add-pin-btn" style="width:100%" onclick="handleLogin()">sign in →</button>
+    <div class="auth-footer">don't have an account? <a href="#" onclick="switchTab('register')" style="color:var(--accent)">create one</a></div>
+  </div>
+ 
+  <!-- REGISTER FORM -->
+  <div id="register-panel" style="display:none">
+    <div class="form-group">
+      <label>username</label>
+      <input id="reg-username" placeholder="choose a username" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>password</label>
+      <input id="reg-password" type="password" placeholder="choose a password" autocomplete="new-password" oninput="checkStrength()">
+      <div class="password-strength" id="strength-bar"></div>
+      <div class="strength-label" id="strength-label"></div>
+    </div>
+    <div class="form-group">
+      <label>confirm password</label>
+      <input id="reg-confirm" type="password" placeholder="confirm your password" autocomplete="new-password">
+    </div>
+    <button class="add-pin-btn" style="width:100%" onclick="handleRegister()">create account →</button>
+    <div class="auth-footer">already have an account? <a href="#" onclick="switchTab('login')" style="color:var(--accent)">sign in</a></div>
+  </div>
 </div>
-
+ 
+<!-- MAIN BOARD -->
 <div class="main-content" id="main-content">
   <div class="header">
     <div class="logo">Pin-Interests</div>
     <div class="stats">
       <span id="pin-count">0 pins</span>
-      <span id="last-added">never</span>
     </div>
     <div class="header-actions">
-      <span id="welcome-msg"></span>
+      <div class="user-badge">
+        <div class="user-avatar" id="user-avatar"></div>
+        <span id="welcome-msg"></span>
+      </div>
       <button class="add-pin-btn" onclick="openModal()">+ Add pin</button>
       <button class="logout-btn" onclick="logout()">logout</button>
     </div>
   </div>
+ 
   <div class="pins-grid" id="pins-grid">
     <div class="empty-state">
       <h3>Your board is empty.</h3>
       <p>Start collecting things that inspire you.</p>
     </div>
   </div>
+ 
   <div class="max-w-7xl mx-auto px-4 my-8 text-center">
     <a href="../../../index.html" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl transition">
       ← Back to Portfolio
     </a>
   </div>
 </div>
-
+ 
+<!-- ADD PIN MODAL -->
 <div class="modal" id="modal">
   <div class="modal-content">
+    <h3 style="margin-bottom:20px;font-size:18px">add a pin</h3>
     <form id="pin-form">
       <div class="form-group">
+        <label>type</label>
         <select id="pin-type" onchange="toggleFields()">
           <option value="image">image</option>
           <option value="link">link</option>
@@ -271,108 +412,322 @@ body{
         </select>
       </div>
       <div class="form-group">
-        <input id="pin-title" placeholder="title" required>
+        <label>title</label>
+        <input id="pin-title" placeholder="give it a name" required>
       </div>
       <div class="form-group" id="url-group">
-        <input id="pin-url" placeholder="url">
+        <label>url</label>
+        <input id="pin-url" placeholder="https://...">
       </div>
       <div class="form-group">
-        <textarea id="pin-description" placeholder="description"></textarea>
+        <label>description</label>
+        <textarea id="pin-description" placeholder="add some notes..."></textarea>
       </div>
-      <button type="button" class="logout-btn" onclick="closeModal()">cancel</button>
-      <button class="add-pin-btn">add pin</button>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button type="button" class="logout-btn" onclick="closeModal()">cancel</button>
+        <button class="add-pin-btn">add pin</button>
+      </div>
     </form>
   </div>
 </div>
-
-<script>
-let pins=[];
-let currentUser=null;
-const qs=id=>document.getElementById(id);
-
-function openModal(){qs('modal').classList.add('active')}
-function closeModal(){qs('modal').classList.remove('active')}
-function toggleFields(){
-  qs('url-group').style.display=
-    qs('pin-type').value==='text'?'none':'block';
+ 
+<!-- EDIT PIN MODAL -->
+<div class="modal" id="edit-modal">
+  <div class="modal-content">
+    <h3 style="margin-bottom:20px;font-size:18px">edit pin</h3>
+    <form id="edit-form">
+      <div class="form-group">
+        <label>type</label>
+        <select id="edit-pin-type" onchange="toggleEditFields()">
+          <option value="image">image</option>
+          <option value="link">link</option>
+          <option value="text">text note</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>title</label>
+        <input id="edit-pin-title" placeholder="give it a name" required>
+      </div>
+      <div class="form-group" id="edit-url-group">
+        <label>url</label>
+        <input id="edit-pin-url" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>description</label>
+        <textarea id="edit-pin-description" placeholder="add some notes..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button type="button" class="logout-btn" onclick="closeEditModal()">cancel</button>
+        <button class="add-pin-btn">save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+// ─── HELPERS ───────────────────────────────────────────────
+const qs = id => document.getElementById(id);
+ 
+function getUsers() {
+  return JSON.parse(localStorage.getItem('pi-users') || '{}');
 }
-
-function login(name){
-  currentUser={name};
-  localStorage.setItem('pins-user',JSON.stringify(currentUser));
-  qs('login-container').style.display='none';
-  qs('main-content').classList.add('active');
-  qs('welcome-msg').textContent=`hey ${name}!`;
-  loadPins();
+ 
+function saveUsers(users) {
+  localStorage.setItem('pi-users', JSON.stringify(users));
 }
-
-function logout(){
-  localStorage.removeItem('pins-user');
+ 
+function pinsKey(username) {
+  return `pi-pins-${username}`;
+}
+ 
+function sessionKey() {
+  return 'pi-session';
+}
+ 
+// ─── AUTH TABS ─────────────────────────────────────────────
+function switchTab(tab) {
+  clearMessages();
+  const tabs = document.querySelectorAll('.auth-tab');
+  tabs[0].classList.toggle('active', tab === 'login');
+  tabs[1].classList.toggle('active', tab === 'register');
+  qs('login-panel').style.display = tab === 'login' ? 'block' : 'none';
+  qs('register-panel').style.display = tab === 'register' ? 'block' : 'none';
+}
+ 
+function showError(msg) {
+  const el = qs('auth-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+  qs('auth-success').style.display = 'none';
+}
+ 
+function showSuccess(msg) {
+  const el = qs('auth-success');
+  el.textContent = msg;
+  el.style.display = 'block';
+  qs('auth-error').style.display = 'none';
+}
+ 
+function clearMessages() {
+  qs('auth-error').style.display = 'none';
+  qs('auth-success').style.display = 'none';
+}
+ 
+// ─── PASSWORD STRENGTH ─────────────────────────────────────
+function checkStrength() {
+  const pw = qs('reg-password').value;
+  const bar = qs('strength-bar');
+  const label = qs('strength-label');
+  if (!pw) { bar.className = 'password-strength'; label.textContent = ''; return; }
+  let score = 0;
+  if (pw.length >= 8) score++;
+  if (/[A-Z]/.test(pw)) score++;
+  if (/[0-9]/.test(pw)) score++;
+  if (/[^A-Za-z0-9]/.test(pw)) score++;
+  if (score <= 1) { bar.className = 'password-strength strength-weak'; label.textContent = 'weak'; }
+  else if (score <= 2) { bar.className = 'password-strength strength-medium'; label.textContent = 'medium'; }
+  else { bar.className = 'password-strength strength-strong'; label.textContent = 'strong'; }
+}
+ 
+// ─── REGISTER ──────────────────────────────────────────────
+function handleRegister() {
+  clearMessages();
+  const username = qs('reg-username').value.trim().toLowerCase();
+  const password = qs('reg-password').value;
+  const confirm = qs('reg-confirm').value;
+ 
+  if (!username) return showError('please enter a username');
+  if (username.length < 3) return showError('username must be at least 3 characters');
+  if (!password) return showError('please enter a password');
+  if (password.length < 6) return showError('password must be at least 6 characters');
+  if (password !== confirm) return showError('passwords do not match');
+ 
+  const users = getUsers();
+  if (users[username]) return showError('that username is already taken');
+ 
+  // Store hashed password (simple hash for demo — not cryptographic)
+  users[username] = { password: simpleHash(password), created: Date.now() };
+  saveUsers(users);
+ 
+  showSuccess('account created! signing you in...');
+  setTimeout(() => loginUser(username), 800);
+}
+ 
+// ─── LOGIN ─────────────────────────────────────────────────
+function handleLogin() {
+  clearMessages();
+  const username = qs('login-username').value.trim().toLowerCase();
+  const password = qs('login-password').value;
+ 
+  if (!username) return showError('please enter your username');
+  if (!password) return showError('please enter your password');
+ 
+  const users = getUsers();
+  if (!users[username]) return showError('no account found with that username');
+  if (users[username].password !== simpleHash(password)) return showError('incorrect password');
+ 
+  loginUser(username);
+}
+ 
+function loginUser(username) {
+  localStorage.setItem(sessionKey(), username);
+  showBoard(username);
+}
+ 
+function logout() {
+  localStorage.removeItem(sessionKey());
   location.reload();
 }
-
-function key(){return `pins-${currentUser.name}`}
-
-function loadPins(){
-  pins=JSON.parse(localStorage.getItem(key()))||[];
+ 
+// ─── SIMPLE HASH (not cryptographic, just obfuscation) ─────
+function simpleHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return hash.toString(36);
+}
+ 
+// ─── BOARD ─────────────────────────────────────────────────
+let pins = [];
+let currentUser = null;
+ 
+function showBoard(username) {
+  currentUser = username;
+  qs('auth-container').style.display = 'none';
+  qs('main-content').classList.add('active');
+  qs('welcome-msg').textContent = username;
+  qs('user-avatar').textContent = username[0].toUpperCase();
+  loadPins();
+}
+ 
+function loadPins() {
+  pins = JSON.parse(localStorage.getItem(pinsKey(currentUser)) || '[]');
   renderPins();
 }
-
-function savePins(){
-  localStorage.setItem(key(),JSON.stringify(pins));
+ 
+function savePins() {
+  localStorage.setItem(pinsKey(currentUser), JSON.stringify(pins));
 }
-
-function renderPins(){
-  const g=qs('pins-grid');
-  if(!pins.length){
-    g.innerHTML=`<div class="empty-state"><h3>Your board is empty.</h3></div>`;
+ 
+function renderPins() {
+  const g = qs('pins-grid');
+  qs('pin-count').textContent = `${pins.length} pin${pins.length !== 1 ? 's' : ''}`;
+ 
+  if (!pins.length) {
+    g.innerHTML = `<div class="empty-state"><h3>Your board is empty.</h3><p>Start collecting things that inspire you.</p></div>`;
     return;
   }
-  g.innerHTML=pins.map(p=>`
+ 
+  g.innerHTML = pins.map(p => `
     <div class="pin" data-id="${p.id}">
-      <button class="delete-pin">×</button>
-      ${p.type==='image'?`<img src="${p.url}">`:''}
+      <div class="pin-actions">
+        <button class="edit-pin" title="edit pin">✎</button>
+        <button class="delete-pin" title="delete pin">×</button>
+      </div>
+      ${p.type === 'image' && p.url ? `<img src="${p.url}" alt="${p.title}" onerror="this.style.display='none'">` : ''}
       <div class="pin-content">
         <div class="pin-title">${p.title}</div>
-        ${p.description?`<div class="pin-description">${p.description}</div>`:''}
-        ${p.url?`<a href="${p.url}" target="_blank">${p.url}</a>`:''}
-        <div class="pin-meta"><span>${p.type}</span></div>
+        ${p.description ? `<div class="pin-description">${p.description}</div>` : ''}
+        ${p.url && p.type !== 'image' ? `<a href="${p.url}" target="_blank" rel="noopener" style="font-size:12px;color:var(--accent);word-break:break-all">${p.url}</a>` : ''}
+        <div class="pin-meta" style="margin-top:8px">
+          <span>${p.type}</span>
+          <span>${new Date(p.id).toLocaleDateString()}</span>
+        </div>
       </div>
     </div>`).join('');
 }
-
-qs('login-form').onsubmit=e=>{
-  e.preventDefault();
-  login(qs('username').value.trim());
-};
-
-qs('pin-form').onsubmit=e=>{
+ 
+// ─── PIN MODAL ─────────────────────────────────────────────
+let editingId = null;
+ 
+function openModal() { qs('modal').classList.add('active') }
+function closeModal() { qs('modal').classList.remove('active') }
+function toggleFields() {
+  qs('url-group').style.display = qs('pin-type').value === 'text' ? 'none' : 'block';
+}
+ 
+function openEditModal(id) {
+  const pin = pins.find(p => p.id === id);
+  if (!pin) return;
+  editingId = id;
+  qs('edit-pin-type').value = pin.type;
+  qs('edit-pin-title').value = pin.title;
+  qs('edit-pin-url').value = pin.url || '';
+  qs('edit-pin-description').value = pin.description || '';
+  toggleEditFields();
+  qs('edit-modal').classList.add('active');
+}
+ 
+function closeEditModal() {
+  qs('edit-modal').classList.remove('active');
+  editingId = null;
+}
+ 
+function toggleEditFields() {
+  qs('edit-url-group').style.display = qs('edit-pin-type').value === 'text' ? 'none' : 'block';
+}
+ 
+qs('pin-form').onsubmit = e => {
   e.preventDefault();
   pins.unshift({
-    id:Date.now(),
-    type:qs('pin-type').value,
-    title:qs('pin-title').value,
-    url:qs('pin-url').value,
-    description:qs('pin-description').value
+    id: Date.now(),
+    type: qs('pin-type').value,
+    title: qs('pin-title').value,
+    url: qs('pin-url').value,
+    description: qs('pin-description').value
   });
   savePins();
   renderPins();
   closeModal();
   e.target.reset();
 };
-
-qs('pins-grid').onclick=e=>{
-  if(e.target.classList.contains('delete-pin')){
-    const id=+e.target.closest('.pin').dataset.id;
-    pins=pins.filter(p=>p.id!==id);
+ 
+qs('edit-form').onsubmit = e => {
+  e.preventDefault();
+  const idx = pins.findIndex(p => p.id === editingId);
+  if (idx === -1) return;
+  pins[idx] = {
+    ...pins[idx],
+    type: qs('edit-pin-type').value,
+    title: qs('edit-pin-title').value,
+    url: qs('edit-pin-url').value,
+    description: qs('edit-pin-description').value
+  };
+  savePins();
+  renderPins();
+  closeEditModal();
+};
+ 
+qs('pins-grid').onclick = e => {
+  const pin = e.target.closest('.pin');
+  if (!pin) return;
+  const id = +pin.dataset.id;
+  if (e.target.classList.contains('delete-pin')) {
+    pins = pins.filter(p => p.id !== id);
     savePins();
     renderPins();
   }
+  if (e.target.classList.contains('edit-pin')) {
+    openEditModal(id);
+  }
 };
-
-const stored=localStorage.getItem('pins-user');
-if(stored) login(JSON.parse(stored).name);
+ 
+// Allow pressing Enter on login fields
+qs('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleLogin();
+});
+qs('login-username').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleLogin();
+});
+ 
+// ─── AUTO LOGIN ────────────────────────────────────────────
+const session = localStorage.getItem(sessionKey());
+if (session) {
+  const users = getUsers();
+  if (users[session]) showBoard(session);
+}
 </script>
-
 </body>
 </html>
+ 
