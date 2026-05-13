@@ -93,14 +93,24 @@
 
     document.addEventListener("DOMContentLoaded", () => {
 
+      const imageFallback = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Image unavailable">
+          <rect width="800" height="500" fill="#e2e8f0"/>
+          <rect x="130" y="110" width="540" height="280" rx="28" fill="#cbd5e1"/>
+          <circle cx="320" cy="215" r="42" fill="#94a3b8"/>
+          <path d="M200 350 330 250l78 60 58-42 134 82H200z" fill="#94a3b8"/>
+          <text x="400" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#475569">Image unavailable</text>
+        </svg>
+      `);
+
       /* ---------------- DATA ---------------- */
       const productsData = [
-        { id: 1, name: 'Vintage Camera', description: 'Capture timeless moments with this classic film camera.', price: 299.99, imageUrl: 'https://placehold.co/400x300/FEE2E2/DC2626?text=Camera' },
-        { id: 2, name: 'Noise-Cancelling Headphones', description: 'Immerse yourself in pure audio with superior noise cancellation.', price: 199.99, imageUrl: 'https://placehold.co/400x300/DBEAFE/2563EB?text=Headphones' },
-        { id: 3, name: 'Smartwatch Pro', description: 'Stay connected and track your fitness.', price: 249.99, imageUrl: 'https://placehold.co/400x300/D1FAE5/059669?text=Smartwatch' },
-        { id: 4, name: 'Ergonomic Office Chair', description: 'Comfort and style for long work sessions.', price: 450.00, imageUrl: 'https://placehold.co/400x300/E9D5FF/8B5CF6?text=Chair' },
-        { id: 5, name: 'Portable Bluetooth Speaker', description: 'Crisp sound on the go.', price: 89.99, imageUrl: 'https://placehold.co/400x300/FFEDD5/F97316?text=Speaker' },
-        { id: 6, name: '4K Ultra HD Monitor', description: 'Sharp visuals with vibrant colors.', price: 349.99, imageUrl: 'https://placehold.co/400x300/ECFDF5/0F766E?text=Monitor' },
+        { id: 1, name: 'Vintage Camera', description: 'Capture timeless moments with this classic film camera.', price: 299.99, imageUrl: 'images/vintage-camera.webp' },
+        { id: 2, name: 'Noise-Cancelling Headphones', description: 'Immerse yourself in pure audio with superior noise cancellation.', price: 199.99, imageUrl: 'images/headphones.webp' },
+        { id: 3, name: 'Smartwatch Pro', description: 'Stay connected and track your fitness.', price: 249.99, imageUrl: 'images/smartwatch.webp' },
+        { id: 4, name: 'Ergonomic Office Chair', description: 'Comfort and style for long work sessions.', price: 450.00, imageUrl: 'images/office-chair.webp' },
+        { id: 5, name: 'Portable Bluetooth Speaker', description: 'Crisp sound on the go.', price: 89.99, imageUrl: 'images/speaker.webp' },
+        { id: 6, name: '4K Ultra HD Monitor', description: 'Sharp visuals with vibrant colors.', price: 349.99, imageUrl: 'images/monitor.webp' },
       ];
 
       let currentPage = "products";
@@ -181,7 +191,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             ${productsData.map(p => `
               <div class="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden flex flex-col">
-                <img src="${p.imageUrl}" class="h-48 w-full object-cover">
+                <img src="${p.imageUrl}" alt="${p.name}" class="h-48 w-full object-cover" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${imageFallback}';this.classList.add('bg-slate-100')">
                 <div class="p-5 flex flex-col flex-grow">
                   <h3 class="font-bold text-lg mb-2">${p.name}</h3>
                   <p class="text-sm text-slate-600 mb-4 flex-grow">${p.description}</p>
@@ -216,7 +226,7 @@
             <h2 class="text-3xl font-extrabold mb-8 text-center">Your Cart</h2>
             ${cartItems.map(i => `
               <div class="bg-white rounded-lg shadow p-4 mb-4 flex flex-col sm:flex-row sm:items-center gap-4">
-                <img src="${i.imageUrl}" class="w-full sm:w-24 h-24 object-cover rounded">
+                <img src="${i.imageUrl}" alt="${i.name}" class="w-full sm:w-24 h-24 object-cover rounded" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${imageFallback}';this.classList.add('bg-slate-100')">
                 <div class="flex-grow">
                   <h3 class="font-bold">${i.name}</h3>
                   <p class="text-slate-600">$${i.price.toFixed(2)}</p>
