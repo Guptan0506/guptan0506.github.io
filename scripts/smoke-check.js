@@ -13,7 +13,6 @@ const root = process.cwd();
 const indexPath = path.join(root, 'index.html');
 const sitemapPath = path.join(root, 'sitemap.xml');
 const robotsPath = path.join(root, 'robots.txt');
-const resumePath = path.join(root, 'resume.html');
 
 const failures = [];
 const notes = [];
@@ -21,7 +20,6 @@ const notes = [];
 if (!exists(indexPath)) failures.push('Missing index.html');
 if (!exists(sitemapPath)) failures.push('Missing sitemap.xml');
 if (!exists(robotsPath)) failures.push('Missing robots.txt');
-if (!exists(resumePath)) failures.push('Missing resume.html');
 
 if (failures.length) {
   console.log('SMOKE CHECK FAILED');
@@ -60,14 +58,6 @@ for (const appRel of appPages) {
   }
 }
 
-const resumeText = read(resumePath);
-if (!/window\.print\(\)/.test(resumeText)) {
-  failures.push('resume.html is missing print trigger logic');
-}
-if (!/params\.get\(["']download["']\)/.test(resumeText)) {
-  failures.push('resume.html is missing query handling for download parameter');
-}
-
 const sitemapText = read(sitemapPath);
 for (const appRel of appPages) {
   const url = `https://guptan0506.github.io/${appRel}`;
@@ -78,7 +68,6 @@ for (const appRel of appPages) {
 
 const requiredStandalone = [
   'https://guptan0506.github.io/',
-  'https://guptan0506.github.io/resume.html',
   'https://guptan0506.github.io/projects/password-analyzer-case-study.html',
   'https://guptan0506.github.io/projects/fixmate-case-study.html',
 ];
@@ -101,7 +90,6 @@ if (failures.length) {
 
 notes.push(`Checked ${uniqueLocal.length} unique local href values in index.html`);
 notes.push(`Validated ${appPages.length} app page routes + back-link hints`);
-notes.push('Validated resume download/print behavior markers');
 notes.push('Validated sitemap and robots consistency');
 
 console.log('SMOKE CHECK PASSED');

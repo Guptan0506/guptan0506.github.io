@@ -5,7 +5,6 @@ This repository contains Navya Gupta's personal portfolio site and project showc
 ## Main Entry Points
 
 - `index.html` — Portfolio homepage
-- `resume.html` — Resume page with print/download behavior
 - `projects/password-analyzer-case-study.html` — Password Analyzer case study
 - `projects/fixmate-case-study.html` — FixMate case study
 
